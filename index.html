@@ -69,46 +69,32 @@
             pointer-events: none;
         }
 
-[data-profile="apple"] {
-  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-  --font-mono: "SF Mono", Monaco, Menlo, monospace;
-  --border-radius-sm: 8px;
-  --border-radius-lg: 16px;
-  --button-padding: 10px 20px;
-  --bg-app: rgba(255, 255, 255, 0.02);
-  --bg-panel: rgba(255, 255, 255, 0.1);
-  --text-primary: #F5F5F7;
-  --accent-color: var(--primary); /* Link to Brand Theme */
-  --border-color: #D2D2D7;
-  --shadow-elevation: 0 4px 12px rgba(0, 0, 0, 0.08);
+[data-profile="terminal"] {
+  --font-primary: "Courier Prime", monospace;
+  --font-mono: "Courier Prime", monospace;
+  --border-radius-sm: 0px;
+  --border-radius-lg: 0px;
+  --button-padding: 8px 20px;
+  --bg-app: rgba(0, 17, 0, 0.1);
+  --bg-panel: rgba(0, 20, 0, 0.85);
+  --text-primary: #00FF41;
+  --accent-color: #00FF41;
+  --border-color: #00FF41;
+  --shadow-elevation: 0 0 10px rgba(0, 255, 65, 0.2);
 }
 
-[data-profile="windows"] {
-  --font-primary: "Segoe UI", "Segoe UI Web", "Helvetica", Arial, sans-serif;
-  --font-mono: "Consolas", "Courier New", monospace;
+[data-profile="logistics"] {
+  --font-primary: "Work Sans", sans-serif;
+  --font-mono: "Courier New", monospace;
   --border-radius-sm: 2px;
   --border-radius-lg: 4px;
   --button-padding: 8px 24px;
-  --bg-app: rgba(0, 0, 0, 0.02);
-  --bg-panel: rgba(0, 0, 0, 0.5);
+  --bg-app: rgba(0, 17, 51, 0.1);
+  --bg-panel: rgba(0, 34, 102, 0.7);
   --text-primary: #FFFFFF;
-  --accent-color: var(--primary); /* Link to Brand Theme */
-  --border-color: #444444;
+  --accent-color: #0055ff;
+  --border-color: #002266;
   --shadow-elevation: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-[data-profile="linux"] {
-  --font-primary: "Ubuntu", "Roboto", "Oxygen", sans-serif;
-  --font-mono: "Ubuntu Mono", monospace;
-  --border-radius-sm: 4px;
-  --border-radius-lg: 8px;
-  --button-padding: 8px 20px;
-  --bg-app: rgba(44, 0, 30, 0.1);
-  --bg-panel: rgba(48, 10, 36, 0.7);
-  --text-primary: #dddddd;
-  --accent-color: var(--primary); /* Link to Brand Theme */
-  --border-color: #772953;
-  --shadow-elevation: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -165,12 +151,13 @@ button {
             width: 100%;
             height: 100%;
             background: #050505;
-            z-index: 99999;
+            z-index: 100001; /* Must be higher than #gatekeeper-overlay (100000) */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             transition: opacity 0.8s ease, visibility 0.8s;
+            pointer-events: none; /* Allow interaction with the overlay underneath */
         }
         .loader-content { text-align: center; }
         .loader-bar { width: 200px; height: 2px; background: #333; margin-top: 20px; position: relative; overflow: hidden; }
@@ -209,171 +196,14 @@ button {
             backdrop-filter: blur(2px);
         }
 
-        /* --- COKE THEME ADVANCED --- */
-        [data-brand="coke"] .section-title {
-            text-shadow: 3px 3px 0px rgba(255,255,255,0.2);
-            font-weight: 400;
+        /* --- PROFESSIONAL THEMES --- */
+        [data-brand="terminal"] .section-title {
+            font-family: 'Courier Prime', monospace;
+            color: #00ff00;
         }
-        [data-brand="coke"] .card {
-            border-top: 1px solid rgba(255,255,255,0.6) !important;
-            box-shadow: 0 10px 40px rgba(244, 0, 9, 0.15);
-        }
-        .fizz-particle {
-            position: fixed;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: riseAndFade 0.8s ease-out forwards;
-            animation: riseAndFade 1.5s ease-out forwards;
-        }
-        @keyframes riseAndFade {
-            0% { transform: translateY(0) scale(1); opacity: 0.8; }
-            100% { transform: translateY(-60px) scale(0); opacity: 0; }
-        }
-
-        /* --- MTN THEME ADVANCED --- */
-        [data-brand="mtn"] .section-title {
-            color: #FFCC00;
-            border-bottom-color: #00678F;
-        }
-        [data-brand="mtn"] .card {
-            border: 2px solid #FFCC00 !important;
-            border-radius: 24px;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.15);
-        }
-        .mtn-signal {
-            position: fixed;
-            border: 2px solid #FFCC00;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: signalExpand 1s ease-out forwards;
-            animation: signalExpand 2s ease-out forwards;
-        }
-        @keyframes signalExpand {
-            0% { width: 0px; height: 0px; opacity: 1; border-width: 4px; transform: translate(-50%, -50%); }
-            100% { width: 100px; height: 100px; opacity: 0; border-width: 0px; transform: translate(-50%, -50%); }
-        }
-
-        /* --- LV THEME ADVANCED --- */
-        .lv-particle {
-            position: fixed;
-            width: 4px; height: 4px;
-            background: #C0A062;
-            box-shadow: 0 0 4px #C0A062;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: fadeOutDrop 1s forwards;
-            animation: fadeOutDrop 2s forwards;
-        }
-        @keyframes fadeOutDrop {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(20px); }
-        }
-
-        /* --- TESLA THEME ADVANCED --- */
-        .tesla-spark {
-            position: fixed;
-            width: 2px; height: 10px;
-            background: #E82127;
-            box-shadow: 0 0 5px #E82127;
-            pointer-events: none;
-            z-index: 9998;
-            transform-origin: center;
-            animation: sparkFlash 0.3s forwards;
-            animation: sparkFlash 0.8s forwards;
-        }
-        @keyframes sparkFlash {
-            0% { opacity: 1; transform: scale(1) rotate(var(--r)); }
-            100% { opacity: 0; transform: scale(0) rotate(var(--r)); }
-        }
-
-        /* --- OLYMPICS THEME ADVANCED --- */
-        .olympic-confetti {
-            position: fixed;
-            width: 6px; height: 6px;
-            pointer-events: none;
-            z-index: 9998;
-            animation: confettiFall 1s forwards;
-            animation: confettiFall 2s forwards;
-        }
-        @keyframes confettiFall {
-            0% { opacity: 1; transform: translate(0,0) rotate(0deg); }
-            100% { opacity: 0; transform: translate(var(--tx), 50px) rotate(360deg); }
-        }
-
-        /* --- LAMBO THEME ADVANCED --- */
-        .lambo-shard {
-            position: fixed;
-            width: 0; height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 10px solid #DDB321;
-            pointer-events: none;
-            z-index: 9998;
-            transform: rotate(45deg);
-            animation: shardFly 0.5s forwards;
-            animation: shardFly 1.2s forwards;
-        }
-        @keyframes shardFly {
-            0% { opacity: 1; transform: translate(0,0) rotate(45deg) scale(1); }
-            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(180deg) scale(0); }
-        }
-
-        /* --- FERRARI THEME ADVANCED --- */
-        .ferrari-ember {
-            position: fixed;
-            width: 4px; height: 4px;
-            background: #FF2800;
-            box-shadow: 0 0 6px #FF2800;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            animation: emberRise 0.8s forwards;
-            animation: emberRise 1.5s forwards;
-        }
-        @keyframes emberRise {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-40px) scale(0.5); }
-        }
-
-        /* --- PORSCHE THEME ADVANCED --- */
-        .porsche-glint {
-            position: fixed;
-            width: 20px; height: 2px;
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 0 8px rgba(255,255,255,0.8);
-            pointer-events: none;
-            z-index: 9998;
-            transform: rotate(-45deg);
-            animation: glintFlash 0.4s forwards;
-            animation: glintFlash 1s forwards;
-        }
-        @keyframes glintFlash {
-            0% { opacity: 0; transform: scale(0) rotate(-45deg); }
-            50% { opacity: 1; transform: scale(1.5) rotate(-45deg); }
-            100% { opacity: 0; transform: scale(0) rotate(-45deg); }
-        }
-
-        /* --- NIKE THEME ADVANCED --- */
-        .nike-text-particle {
-            position: fixed;
-            color: var(--primary);
-            font-weight: 900;
-            font-style: italic;
-            font-size: 0.8rem;
-            pointer-events: none;
-            z-index: 9998;
-            white-space: nowrap;
-            animation: fadeOutMove 1s forwards;
-            animation: fadeOutMove 1.8s forwards;
-            text-shadow: 2px 2px 0px #000;
-        }
-        @keyframes fadeOutMove {
-            0% { opacity: 1; transform: translate(0,0) scale(1) skewX(-20deg); }
-            100% { opacity: 0; transform: translate(-40px, -10px) scale(0.5) skewX(-20deg); }
+        [data-brand="terminal"] .card {
+            border: 1px solid #00ff00 !important;
+            background: rgba(0, 20, 0, 0.8) !important;
         }
 
         /* --- BLACK HOLE DISTORTION --- */
@@ -484,6 +314,27 @@ button {
             border-radius: 30px;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        #wind-trigger {
+            position: fixed;
+            bottom: 30px;
+            left: 170px; /* Shifted to accommodate music player */
+            z-index: 999;
+            background: var(--glass-bg);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            transition: all 0.3s;
         }
 
         /* --- LAYOUT --- */
@@ -547,53 +398,6 @@ button {
             font-size: 1.2rem;
             cursor: pointer;
         }
-        
-        #reset-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.3s, transform 0.5s;
-        }
-        #reset-btn:hover { color: var(--primary); transform: rotate(-180deg); }
-        
-        #screenshot-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        #screenshot-btn:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-        
-        #voice-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        #voice-btn:hover { color: var(--primary); }
-        
-        #color-btn, #reverse-btn {
-        #game-btn,
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        #color-btn:hover, #reverse-btn:hover { color: var(--primary); transform: scale(1.1); }
-        #game-btn:hover { color: var(--primary); transform: scale(1.1); text-shadow: 0 0 10px var(--primary); }
-        #blackhole-btn, #mic-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        #blackhole-btn:hover, #mic-btn:hover { color: var(--primary); transform: scale(1.2); text-shadow: 0 0 15px var(--primary); }
 
         .nav-links a {
             color: var(--text-muted);
@@ -604,18 +408,6 @@ button {
         }
 
         .nav-links a:hover { color: var(--primary); }
-
-        /* Voice Listening Animation */
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-        }
-        .listening {
-            animation: pulse-red 1.5s infinite;
-            color: #ff4444 !important;
-            border-radius: 50%;
-        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -774,6 +566,32 @@ button {
             line-height: 1.4;
         }
 
+        /* Career Expansion */
+        .career-expanded {
+            display: none;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+        }
+        .career-expanded.show {
+            display: block;
+        }
+        .btn-expand {
+            background: none;
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .btn-expand:hover {
+            background: rgba(0, 242, 255, 0.05);
+            border-style: solid;
+        }
+
         /* --- CONTACT --- */
         .contact-form {
             max-width: 600px;
@@ -891,46 +709,55 @@ button {
 
         @media (max-width: 600px) {
             .container {
-                padding: 0 0.2rem;
+                padding: 0 1rem;
             }
             nav {
-                padding: 0.5rem 0.2rem;
+                padding: 0.5rem 1rem;
             }
             .hero h1, h1.glitch {
-                font-size: 1.3rem !important;
+                font-size: 2.5rem !important;
             }
             .section-title {
-                font-size: 1.2rem;
+                font-size: 1.8rem;
             }
             .card {
-                padding: 8px;
+                padding: 15px;
             }
             .skills-grid {
-                gap: 0.2rem;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .skill-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero h1, h1.glitch {
-                font-size: 1rem !important;
+                font-size: 2.2rem !important;
             }
             .section-title {
-                font-size: 1rem;
+                font-size: 1.6rem;
             }
             .card {
-                padding: 4px;
-            }
-            .skills-grid {
-                gap: 0.1rem;
+                padding: 12px;
             }
             .hero-btns {
-                gap: 0.2rem;
+                gap: 1rem;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
             }
         }
 
         /* --- PRINT STYLES (For CV Download) --- */
         @media print {
-            #canvas-container, nav, .hero-btns, .theme-controls, #preloader, .cursor-dot, .cursor-outline, footer, .contact-form, #profile-switcher {
+            #canvas-container, nav, .hero-btns, .theme-controls, #preloader, .cursor-dot, .cursor-outline, footer, .contact-form, #profile-switcher, #music-player, .chat-window, .chat-trigger, #gatekeeper-overlay {
                 display: none !important;
             }
             body {
@@ -938,29 +765,66 @@ button {
                 color: black !important;
                 cursor: auto !important;
                 overflow: visible !important;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
             }
             .container, section {
                 max-width: 100% !important;
-                padding: 1rem 0 !important;
+                padding: 0.5rem 0 !important;
                 margin: 0 !important;
+            }
+            .section-title {
+                font-size: 1.8rem !important;
+                margin-top: 1rem !important;
+                margin-bottom: 1rem !important;
+                border-bottom: 2px solid #333 !important;
+                display: block !important;
+                color: #000 !important;
             }
             .card {
                 background: none !important;
-                border: 1px solid #ddd !important;
+                border: none !important;
+                border-bottom: 1px solid #eee !important;
                 box-shadow: none !important;
                 color: black !important;
                 break-inside: avoid;
+                padding: 1rem 0 !important;
+            }
+            .career-grid, .project-grid {
+                display: block !important;
             }
             h1, h2, h3, p, span, a, li {
                 color: black !important;
                 text-shadow: none !important;
             }
+            .hero {
+                min-height: auto !important;
+                padding-top: 2rem !important;
+                text-align: left !important;
+                align-items: flex-start !important;
+            }
             .hero h1 {
                 margin-top: 0 !important;
                 background: none !important;
                 -webkit-text-fill-color: black !important;
+                font-size: 2.5rem !important;
+                margin-bottom: 0.5rem !important;
             }
-            a { text-decoration: underline !important; }
+            .hero p {
+                font-size: 1.1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .tech-mini {
+                border: 1px solid #ccc !important;
+                color: #333 !important;
+                background: #f9f9f9 !important;
+            }
+            .btn-expand, .career-expanded {
+                display: none !important; /* Hide read more on print */
+            }
+            .career-list li::before {
+                color: #333 !important;
+            }
+            a { text-decoration: underline !important; color: #000 !important; }
         }
 
         /* --- BACK TO TOP --- */
@@ -1115,9 +979,123 @@ button {
             border-color: var(--primary);
             box-shadow: 0 0 15px var(--primary);
         }
+
+        /* --- WIND BLOW EFFECT --- */
+        @keyframes windBlow {
+            0% { transform: translateX(0) rotate(0deg); }
+            20% { transform: translateX(15px) rotate(1deg); }
+            40% { transform: translateX(-5px) rotate(-0.5deg); }
+            60% { transform: translateX(8px) rotate(0.5deg); }
+            80% { transform: translateX(-2px) rotate(-0.2deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        .wind-active {
+            animation: windBlow 4s ease-in-out infinite;
+        }
+
+        .wind-affected {
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @media (max-width: 768px) {
+            #music-player {
+                bottom: 85px;
+                left: 20px;
+                padding: 8px 12px;
+            }
+            #wind-trigger {
+                bottom: 85px;
+                left: 155px;
+                width: 40px;
+                height: 40px;
+            }
+            #back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            #chatbot-btn {
+                bottom: 80px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
+        }
+    </style>
+    <style id="gatekeeper-styles">
+        #gatekeeper-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+            z-index: 100000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Remove backdrop-filter to keep it dark until unlocked */
+        }
+        .gatekeeper-card {
+            background: rgba(20, 20, 35, 0.8);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+        }
+        .gatekeeper-card h2 { margin-bottom: 1rem; color: var(--primary); }
+        .gatekeeper-card p { margin-bottom: 2rem; color: var(--text-muted); font-size: 0.9rem; }
+        .gatekeeper-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: #fff;
+            outline: none;
+        }
+        .gatekeeper-form input:focus { border-color: var(--primary); }
+        .gatekeeper-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gatekeeper-btn:hover { transform: scale(1.02); }
+        body.locked { overflow: hidden; }
     </style>
 </head>
-<body>
+<body class="locked">
+
+    <!-- Gatekeeper Overlay -->
+    <div id="gatekeeper-overlay">
+        <div class="gatekeeper-card">
+            <h2>Access Clearance</h2>
+            <p>Please provide your details to unlock the Logistics-Tech Portfolio.</p>
+            <div class="gatekeeper-form">
+                <input type="text" id="visitor_name" placeholder="Full Name" required>
+                <input type="email" id="visitor_email" placeholder="Email Address" required>
+                <input type="tel" id="visitor_phone" placeholder="Contact Number" required>
+                <button class="gatekeeper-btn" id="unlock-btn">Request Access</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Preloader -->
     <div id="preloader">
@@ -1155,38 +1133,27 @@ button {
         <div class="logo">ASEMAHLE<span>NKWALI</span></div>
         <div class="hamburger" id="hamburger-btn">☰</div>
         <div class="nav-links">
+            <a href="https://github.com/TEARN1" target="_blank" title="GitHub">GitHub</a>
+            <a href="https://www.linkedin.com/in/asemahle-nkwali-561b36203/" target="_blank" title="LinkedIn">LinkedIn</a>
             <div class="theme-controls">
                 <select id="brand-select">
                     <option value="default">Nebula (Default)</option>
-                    <option value="coke">Coca Cola</option>
-                    <option value="mtn">MTN</option>
-                    <option value="nike">Nike</option>
-                    <option value="lv">Louis Vuitton</option>
-                    <option value="tesla">Tesla</option>
-                    <option value="lambo">Lamborghini</option>
-                    <option value="ferrari">Ferrari</option>
-                    <option value="porsche">Porsche</option>
-                    <option value="olympics">Olympics</option>
+                    <option value="terminal">Terminal (Dev)</option>
+                    <option value="logistics">Logistics Blue</option>
                 </select>
                 <button id="mode-toggle">☀</button>
-                <button id="reset-btn" title="Reset System">↺</button>
                 <button id="screenshot-btn" title="Save Hologram">📷</button>
-                <button id="voice-btn" title="Voice Command (Beta)">🎙️</button>
-                <button id="color-btn" title="Randomize Colors">🎨</button>
-                <button id="reverse-btn" title="Reverse Direction">⇄</button>
-                <button id="blackhole-btn" title="Black Hole Mode">◎</button>
-                <button id="mic-btn" title="Audio Visualizer">🎤</button>
-                <button id="game-btn" title="Pilot Mode">🚀</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <img src="https://ui-avatars.com/api/?name=Asemahle+Nkwali&background=00f2ff&color=000&size=256" alt="Asemahle Nkwali" class="profile-photo reveal" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.25); margin-bottom: 1.5rem;" />
-        <h1 class="glitch" data-text="Logistics Tech Specialist & Frontend Developer">Logistics Tech Specialist & Frontend Developer</h1>
-        <blockquote class="reveal" style="font-size:1.2rem;line-height:1.7;margin:2rem 0 2.5rem 0;padding-left:1.5rem;border-left:4px solid var(--primary);background:rgba(0,0,0,0.05)">
-            "I don't just write code; I build systems. My 18 months in logistics taught me that efficiency is the only metric that matters. I am looking for a role where I can bridge the gap between physical operations and digital excellence."
+        <img src="profile.jpg" alt="Asemahle Nkwali" class="profile-photo reveal" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.25); margin-bottom: 1.5rem;" />
+        <h1 class="glitch" data-text="Hybrid Technologist">Hybrid Technologist</h1>
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 2px;">Logistics Systems & Frontend Engineering</p>
+        <blockquote class="reveal" style="font-size:1.2rem;line-height:1.7;margin:1.5rem 0 2.5rem 0;padding-left:1.5rem;border-left:4px solid var(--primary);background:rgba(0,0,0,0.05)">
+            "I don't just write code; I build systems. My 18 months in logistics taught me that efficiency is the only metric that matters. I bridge the gap between physical operations (WMS/SCM) and digital excellence (React/Three.js)."
         </blockquote>
         <div class="hero-btns reveal">
             <button class="btn" id="warpBtn">Engage Warp Speed</button>
@@ -1204,7 +1171,7 @@ button {
                 </p>
             </div>
             <div id="skills" class="reveal">
-                <h3 style="margin-bottom: 1.5rem;">Tech Stack</h3>
+                <h3 style="margin-bottom: 1.5rem;">Tech Stack & Tools</h3>
                 <div class="skills-grid">
                     <span class="skill-tag">JavaScript (ES6+)</span>
                     <span class="skill-tag">React</span>
@@ -1212,7 +1179,20 @@ button {
                     <span class="skill-tag">D3.js</span>
                     <span class="skill-tag">Bootstrap/Sass</span>
                     <span class="skill-tag">jQuery</span>
+                    <span class="skill-tag">Supabase</span>
+                    <span class="skill-tag">Docker</span>
                     <span class="skill-tag">Git/GitHub</span>
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">Android Studio</span>
+                    <span class="skill-tag">IntelliJ IDEA</span>
+                    <span class="skill-tag">PowerShell</span>
+                    <span class="skill-tag">Lovable</span>
+                    <span class="skill-tag">v0</span>
+                    <span class="skill-tag">Claude</span>
+                    <span class="skill-tag">Gemini</span>
+                    <span class="skill-tag">ChatGPT</span>
+                    <span class="skill-tag">Copilot</span>
+                    <span class="skill-tag">Antigravity</span>
                     <span class="skill-tag">WMS Domain</span>
                     <span class="skill-tag">PD/SD Logistics</span>
                 </div>
@@ -1224,138 +1204,125 @@ button {
     <section id="career-focus">
         <h2 class="section-title reveal">Target Roles & Career Focus</h2>
         <p class="reveal" style="color: var(--text-muted); margin-bottom: 2rem; max-width: 800px; line-height: 1.6;">
-            To secure a salary starting at <b>R20,000</b>, I target roles at the intersection of <b>Logistics Operations</b> and <b>Frontend Development</b>. Understanding "The Floor" (Picking, Dispatch, PD/SD) and "The Code" (React, Redux, JS) makes for a valuable asset.
+            By merging 18 months of <b>Logistics Domain Knowledge</b> (WMS, PD/SD, Inventory) with <b>Modern Frontend Engineering</b> (React, Redux, D3), I am uniquely qualified for over 30 distinct professional roles starting at <b>R20,000+</b>.
         </p>
         <div class="career-grid">
-            <!-- Category 1 -->
-            <div class="card reveal">
+            <!-- Category 1: Logistics Tech & WMS -->
+            <div class="card reveal wind-affected">
                 <h3>Logistics Tech Specialist</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 1rem;"><i>Highest Match - Bridging WMS & Code</i></p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">These roles are perfect for someone who has worked as an Inventory Clerk or Picking Administrator. Building or maintaining the software that warehouses use.</p>
+                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Highest Match - Bridging WMS & Code</i></p>
                 <ul class="career-list">
                     <li>Junior WMS Developer</li>
                     <li>Junior TMS Developer</li>
                     <li>Supply Chain Solutions Analyst</li>
                     <li>Implementation Consultant (Logistics)</li>
                     <li>WMS Support Engineer</li>
-                    <li>Inventory Systems Integrator</li>
-                    <li>Digital Distribution Coordinator</li>
-                    <li><b>Junior WMS Developer:</b> Building interfaces for stock tracking.</li>
-                    <li><b>Junior TMS Developer:</b> Focusing on PD/SD tracking.</li>
-                    <li><b>Supply Chain Solutions Analyst:</b> Visualizing bottlenecks with code.</li>
-                    <li><b>Implementation Consultant:</b> Setting up digital picking systems.</li>
-                    <li><b>WMS Support Engineer:</b> Solving technical issues for users.</li>
-                    <li><b>Inventory Systems Integrator:</b> Connecting scanners to web dashboards.</li>
-                    <li><b>Digital Distribution Coordinator:</b> Overseeing digital goods flow.</li>
                 </ul>
+                <div class="career-expanded" id="exp-logistics">
+                    <ul class="career-list">
+                        <li>Inventory Systems Integrator</li>
+                        <li>Digital Distribution Coordinator</li>
+                        <li>Picking Automation Consultant</li>
+                        <li>Warehouse Systems Administrator</li>
+                        <li>PD/SD Logistics Coordinator</li>
+                    </ul>
+                </div>
+                <button class="btn-expand" onclick="toggleExpand('exp-logistics', this)">Read More Roles</button>
             </div>
             
-            <!-- Category 2 -->
-            <div class="card reveal">
+            <!-- Category 2: Frontend & UI/UX -->
+            <div class="card reveal wind-affected">
                 <h3>Frontend & UI/UX</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 1rem;"><i>Tech Heavy - React & Redux Stack</i></p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Focusing 90% on coding while using logistics background to build the "Admin" side of apps.</p>
+                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Tech Heavy - React & Redux Stack</i></p>
                 <ul class="career-list">
                     <li>Junior React Developer</li>
                     <li>Junior Frontend Engineer</li>
                     <li>Junior Javascript Developer</li>
                     <li>Junior Web Developer (E-commerce)</li>
                     <li>UI/UX Developer (Logistics focus)</li>
-                    <li>Internal Tools Developer</li>
-                    <li>Junior Dashboard Developer</li>
-                    <li>Frontend Support Developer</li>
-                    <li><b>Junior React Developer:</b> Focus on React/Redux stack.</li>
-                    <li><b>Junior Frontend Engineer:</b> Implementing web components.</li>
-                    <li><b>Junior Javascript Developer:</b> Logic and functional programming.</li>
-                    <li><b>Junior Web Developer (E-commerce):</b> Building storefronts.</li>
-                    <li><b>UI/UX Developer (Logistics):</b> Designing operator-friendly interfaces.</li>
-                    <li><b>Internal Tools Developer:</b> Building employee dashboards.</li>
-                    <li><b>Junior Dashboard Developer:</b> Data visualization using D3.js.</li>
-                    <li><b>Frontend Support Developer:</b> Maintaining existing web apps.</li>
                 </ul>
+                <div class="career-expanded" id="exp-frontend">
+                    <ul class="career-list">
+                        <li>Internal Tools Developer</li>
+                        <li>Junior Dashboard Developer</li>
+                        <li>Frontend Support Developer</li>
+                        <li>E-commerce Solutions Specialist</li>
+                        <li>React Component Architect (Junior)</li>
+                    </ul>
+                </div>
+                <button class="btn-expand" onclick="toggleExpand('exp-frontend', this)">Read More Roles</button>
             </div>
 
-            <!-- Category 3 -->
-            <div class="card reveal">
+            <!-- Category 3: Data & Operations -->
+            <div class="card reveal wind-affected">
                 <h3>Data & Efficiency</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 1rem;"><i>Analytics Focus - D3.js & BI</i></p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Analyzing numbers and stock—high-paying and technical roles for the "Inventory Clerk" mindset.</p>
+                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Analytics Focus - D3.js & BI</i></p>
                 <ul class="career-list">
                     <li>Junior Data Visualization Specialist</li>
                     <li>Supply Chain Data Analyst</li>
                     <li>Business Intelligence (BI) Developer</li>
                     <li>Operations Technology (OT) Specialist</li>
                     <li>Logistics Data Coordinator</li>
-                    <li><b>Junior Data Visualization Specialist:</b> Turning CSVs into React charts.</li>
-                    <li><b>Supply Chain Data Analyst:</b> Showing delivery performance with JS/D3.</li>
-                    <li><b>BI Developer (Junior):</b> Creating distribution trend reports.</li>
-                    <li><b>OT Specialist:</b> Bridging warehouse hardware and software.</li>
-                    <li><b>Logistics Data Coordinator:</b> Ensuring PD/SD data flow.</li>
                 </ul>
+                <div class="career-expanded" id="exp-data">
+                    <ul class="career-list">
+                        <li>Performance Dashboard Developer</li>
+                        <li>Technical Inventory Controller</li>
+                        <li>Inventory Optimization Specialist</li>
+                        <li>Logistics KPI Analyst</li>
+                        <li>SCM Digital Transformation Aide</li>
+                    </ul>
+                </div>
+                <button class="btn-expand" onclick="toggleExpand('exp-data', this)">Read More Roles</button>
             </div>
 
-            <!-- Category 4 -->
-            <div class="card reveal">
-                <h3>Hybrid Roles</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 1rem;"><i>Operations to Dev Transition</i></p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">For high-growth tech companies where you start in operations but move into Dev.</p>
+            <!-- Category 4: Hybrid & Emerging -->
+            <div class="card reveal wind-affected">
+                <h3>Hybrid & Emerging</h3>
+                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Cross-Functional Growth</i></p>
                 <ul class="career-list">
-                    <li>Technical Inventory Controller</li>
                     <li>E-commerce Operations Specialist</li>
                     <li>Tech-Enabled Dispatch Manager</li>
                     <li>Software QA Tester (Logistics)</li>
                     <li>Technical Account Manager</li>
-                    <li><b>Technical Inventory Controller:</b> SQL/JS for automation.</li>
-                    <li><b>E-commerce Operations Specialist:</b> Managing online store back-ends.</li>
-                    <li><b>Tech-Enabled Dispatch Manager:</b> Running dispatch with custom software.</li>
-                    <li><b>Software QA Tester (Logistics):</b> Testing warehouse software.</li>
-                    <li><b>Technical Account Manager:</b> Bridging customers and dev teams.</li>
+                    <li>Technical Product Owner (Junior)</li>
                 </ul>
+                <div class="career-expanded" id="exp-hybrid">
+                    <ul class="career-list">
+                        <li>Digital Supply Chain Strategist</li>
+                        <li>Warehouse Automation Specialist</li>
+                        <li>SaaS Onboarding Specialist</li>
+                        <li>Logistics Tech Trainer</li>
+                        <li>E-commerce Logistics Lead</li>
+                    </ul>
+                </div>
+                <button class="btn-expand" onclick="toggleExpand('exp-hybrid', this)">Read More Roles</button>
             </div>
         </div>
     </section>
 
-    <!-- Strategic Approach -->
-    <section id="strategy">
-        <h2 class="section-title reveal">The Billionaire Strategy</h2>
-        <div class="card reveal">
-            <h3>How Top Leaders Approach This Market</h3>
-            <p style="color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">If Jeff Bezos or Elon Musk were in this position, they wouldn't just apply one by one. They would:</p>
-            <ul class="career-list">
-                <li><b>Identify the Pain Point:</b> Find the 5 biggest logistics companies in Midrand.</li>
-                <li><b>Target the CTO:</b> Find the person in charge of technology, not just HR.</li>
-                <li><b>Offer a Solution:</b> "I have a way to make your Picking Administration 15% faster using a React-based interface I designed."</li>
-                <li><b>Market the Advantage:</b> Highlight how a developer with deep warehouse experience is a massive asset for companies transforming the local industry.</li>
-            </ul>
-        </div>
-    </section>
 
     <!-- Professional Experience -->
     <section id="experience">
         <h2 class="section-title reveal">Professional Experience</h2>
         <div class="career-grid">
-            <div class="card reveal">
-                <h3>Logistics Support Controller</h3>
-                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">[Company Name], Midrand | 6 Months</p>
+            <!-- Experience at CCBSA -->
+            <div class="card reveal wind-affected">
+                <h3>Technical Systems Engineer</h3>
+                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">The Coca-Cola Company | May 2024 – Present</p>
                 <ul class="career-list">
-                    <li>Supervised Picking Administration flow (99% accuracy).</li>
-                    <li>Managed WMS data entry & identified UI flaws.</li>
-                    <li>Coordinated Dispatching & Receiving schedules.</li>
+                    <li><b>Application Support:</b> Frontline "Super-User" for MSD 365 and Blue Yonder, troubleshooting master-data errors for 98% system uptime.</li>
+                    <li><b>Technical Optimization:</b> Fixed a recursive logic error in WMS master-data, saving 6 hours of manual labor per week.</li>
+                    <li><b>Data Reliability:</b> Maintained 99.5% accuracy across high-velocity inbound/outbound flows.</li>
+                    <li><b>Efficiency Impact:</b> Achieved a 18% reduction in warehouse dwell time through WMS-to-Physical audit alignment.</li>
                 </ul>
             </div>
-            <div class="card reveal">
-                <h3>Inventory Clerk</h3>
-                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">[Company Name], Midrand | 6 Months</p>
+            <div class="card reveal wind-affected">
+                <h3>Logistics Support & Systems Controller</h3>
+                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">CCBSA, Midrand | May 2024 - Present</p>
                 <ul class="career-list">
-                    <li>Maintained real-time stock levels & audits.</li>
-                    <li>Liaised with transport teams for PD/SD.</li>
-                </ul>
-            </div>
-            <div class="card reveal">
-                <h3>Logistics Assistant</h3>
-                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">[Company Name], Midrand | 6 Months</p>
-                <ul class="career-list">
-                    <li>Supported warehouse operations & supply chain flow.</li>
+                    <li><b>Systems Analysis:</b> Managed WMS data entry and identified critical UI flaws impacting throughput.</li>
+                    <li><b>Operations Control:</b> Coordinated complex Dispatching & Receiving schedules for high-volume shifts.</li>
                 </ul>
             </div>
         </div>
@@ -1364,42 +1331,63 @@ button {
     <!-- Education -->
     <section id="education">
         <h2 class="section-title reveal">Education & Certifications</h2>
-        <div class="card reveal">
-            <h3>Front End Development Libraries Certification</h3>
-            <p style="color: var(--primary); margin-bottom: 0.5rem;">freeCodeCamp</p>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">HTML, CSS, Bootstrap, JavaScript, Redux, React, Sass, jQuery, D3</p>
+        <div class="career-grid">
+            <div class="card reveal wind-affected">
+                <h3>Full Stack Development Certificate</h3>
+                <p style="color: var(--primary); margin-bottom: 0.5rem;">FNB App Academy / IT Varsity (2025)</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">32 Credits - Comprehensive Full Stack Engineering</p>
+            </div>
+            <div class="card reveal wind-affected">
+                <h3>Data Visualization (D3.js)</h3>
+                <p style="color: var(--primary); margin-bottom: 0.5rem;">freeCodeCamp Professional Certification</p>
+            </div>
+            <div class="card reveal wind-affected">
+                <h3>JavaScript Algorithms & Data Structures</h3>
+                <p style="color: var(--primary); margin-bottom: 0.5rem;">freeCodeCamp Professional Certification</p>
+            </div>
+            <div class="card reveal wind-affected">
+                <h3>Management Higher Certificate</h3>
+                <p style="color: var(--primary); margin-bottom: 0.5rem;">Coca-Cola (Expected 2026)</p>
+            </div>
         </div>
     </section>
 
     <!-- Projects -->
     <section id="projects">
         <h2 class="section-title reveal">Featured Projects</h2>
-        <div class="project-grid">
-            <!-- Project New -->
-            <div class="project-card-container reveal" data-tags="html css javascript" data-url="https://tearn1.github.io/AsemahleNkwaliPort/">
+        <p class="reveal" style="color: var(--text-muted); margin-bottom: 3rem; max-width: 800px; line-height: 1.6;">
+            A collection of enterprise-grade logistics solutions and technical experiments. My work focuses on <b>performance optimization</b>, <b>real-time data visualization</b>, and <b>operational efficiency</b>.
+        </p>
+
+        <h3 class="reveal" style="margin-bottom: 2rem; color: var(--primary); letter-spacing: 2px;">I. Enterprise Logistics Solutions</h3>
+        <div class="project-grid" style="margin-bottom: 5rem;">
+            <!-- Project CCBSA -->
+            <div class="project-card-container reveal wind-affected" data-tags="javascript html css" data-url="https://tearn1.github.io/CCBSA-Pickers-Accelerator/">
                 <div class="project-card-inner">
                     <div class="project-card-front card">
                         <div>
-                            <h3>First Portfolio (2023)</h3>
+                            <h3>CCBSA Pickers Accelerator</h3>
                             <div class="card-tech">
-                                <span class="tech-mini">HTML</span>
-                                <span class="tech-mini">CSS</span>
                                 <span class="tech-mini">JavaScript</span>
+                                <span class="tech-mini">HTML5</span>
+                                <span class="tech-mini">CSS3</span>
                             </div>
-                            <p>My first portfolio website, built on Sep 5, 2023.</p>
+                            <p>An optimization tool designed for CCBSA to accelerate warehouse picking processes.</p>
+                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 18% reduction in warehouse dwell time</p>
                             <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
                         </div>
                         <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/AsemahleNkwaliPort/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/AsemahleNkwaliPort/" target="_blank" class="link-text">GitHub -></a>
+                            <a href="https://tearn1.github.io/CCBSA-Pickers-Accelerator/" target="_blank" class="link-text">View Project -></a>
+                            <a href="https://github.com/TEARN1/CCBSA-Pickers-Accelerator" target="_blank" class="link-text">GitHub -></a>
                         </div>
                     </div>
                     <div class="project-card-back card">
                         <h3>Technical Details</h3>
                         <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Sep 5, 2023</li>
-                            <li>Vanilla HTML/CSS/JS implementation</li>
-                            <li>Responsive Layout</li>
+                            <li>Picking Path Optimization</li>
+                            <li>Real-time Productivity Tracking</li>
+                            <li>Custom CCBSA Logic Integration</li>
+                            <li><b>Impact:</b> Reduced dwell time by 18% via master-data alignment.</li>
                         </ul>
                         <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
                         <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
@@ -1407,31 +1395,128 @@ button {
                 </div>
             </div>
 
-            <!-- Project Second -->
-            <div class="project-card-container reveal" data-tags="html css javascript" data-url="https://tearn1.github.io/Asemahle-Nkwali/">
+            <!-- Project: Mobile Inventory Audit PWA (New) -->
+            <div class="project-card-container reveal wind-affected" data-tags="react redux supabase" data-url="#">
                 <div class="project-card-inner">
                     <div class="project-card-front card">
                         <div>
-                            <h3>Second Portfolio (2024)</h3>
+                            <h3>Mobile Inventory Audit PWA</h3>
                             <div class="card-tech">
-                                <span class="tech-mini">HTML</span>
-                                <span class="tech-mini">CSS</span>
-                                <span class="tech-mini">JavaScript</span>
+                                <span class="tech-mini">React</span>
+                                <span class="tech-mini">Redux</span>
+                                <span class="tech-mini">Supabase</span>
                             </div>
-                            <p>My second portfolio website, built on Jul 22, 2024.</p>
+                            <p>A cross-platform PWA for real-time stock audits and cycle counting.</p>
+                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 99.5% Stock Accuracy Maintained</p>
                             <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
                         </div>
                         <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Asemahle-Nkwali/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Asemahle-Nkwali" target="_blank" class="link-text">GitHub -></a>
+                            <span class="link-text" style="opacity:0.5; cursor:not-allowed;">Private Repo</span>
                         </div>
                     </div>
                     <div class="project-card-back card">
                         <h3>Technical Details</h3>
                         <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Jul 22, 2024</li>
-                            <li>Updated Design & UI</li>
-                            <li>Responsive Layout</li>
+                            <li>Offline-first data sync</li>
+                            <li>Barcode Scanning Integration</li>
+                            <li>Real-time WMS reconciliation</li>
+                            <li><b>Tech:</b> Built with React & Supabase for rapid deployment.</li>
+                        </ul>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Tank & PD Slot Optimizer (New) -->
+            <div class="project-card-container reveal wind-affected" data-tags="javascript d3 sql" data-url="#">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Tank & PD Slot Optimizer</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">JS (ES6+)</span>
+                                <span class="tech-mini">D3.js</span>
+                                <span class="tech-mini">SQL</span>
+                            </div>
+                            <p>Visualizing and optimizing primary distribution slots and tank utilization.</p>
+                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 12% increase in throughput</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <span class="link-text">Case Study Pending -></span>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>Algorithmic Slot Allocation</li>
+                            <li>D3-powered Heatmaps</li>
+                            <li>SQL Master Data Integration</li>
+                        </ul>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Third (Logistics Dashboard) -->
+            <div class="project-card-container reveal wind-affected" data-tags="react redux d3" data-url="https://tearn1.github.io/Logistics-Dashboard/">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Logistics Performance Dashboard</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">React</span>
+                                <span class="tech-mini">Redux</span>
+                                <span class="tech-mini">D3.js</span>
+                            </div>
+                            <p>A real-time performance tracking dashboard for warehouse operations.</p>
+                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 40% reduction in decision latency</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <a href="https://tearn1.github.io/Logistics-Dashboard/" target="_blank" class="link-text">View Project -></a>
+                            <a href="https://github.com/TEARN1/Logistics-Dashboard" target="_blank" class="link-text">GitHub -></a>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>Real-time Data Fetching</li>
+                            <li>Interactive D3 Charts</li>
+                            <li>Centralized Redux State</li>
+                            <li><b>Impact:</b> Reduced decision latency by 40% for shift supervisors.</li>
+                        </ul>
+                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Smart Inventory Manager -->
+            <div class="project-card-container reveal wind-affected" data-tags="bootstrap jquery" data-url="https://tearn1.github.io/Smart-Inventory/">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Smart Inventory Manager</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">Bootstrap</span>
+                                <span class="tech-mini">jQuery</span>
+                            </div>
+                            <p>Lightweight inventory management system for small to medium warehouses.</p>
+                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ Optimized for mobile audits</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <a href="https://tearn1.github.io/Smart-Inventory/" target="_blank" class="link-text">View Project -></a>
+                            <a href="https://github.com/TEARN1/Smart-Inventory" target="_blank" class="link-text">GitHub -></a>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>CRUD Inventory Operations</li>
+                            <li>Responsive Data Tables</li>
+                            <li>Export to CSV/PDF</li>
                         </ul>
                         <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
                         <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
@@ -1440,7 +1525,7 @@ button {
             </div>
 
             <!-- Project Mariclan -->
-            <div class="project-card-container reveal" data-tags="html css" data-url="https://tearn1.github.io/Mariclan-Logistics/">
+            <div class="project-card-container reveal wind-affected" data-tags="html css" data-url="https://tearn1.github.io/Mariclan-Logistics/">
                 <div class="project-card-inner">
                     <div class="project-card-front card">
                         <div>
@@ -1469,71 +1554,12 @@ button {
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Project Email Dev -->
-            <div class="project-card-container reveal" data-tags="html css" data-url="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Email Dev Project (2023)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML5</span>
-                                <span class="tech-mini">CSS3</span>
-                            </div>
-                            <p>First Email Developer project, built on Dec 19, 2023.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Email-Dev-1st-Dec-2023-" target="_blank" class="link-text">GitHub -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Dec 19, 2023</li>
-                            <li>HTML Email Structure</li>
-                            <li>Responsive Design</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Coin Payslip -->
-            <div class="project-card-container reveal" data-tags="html css" data-url="https://tearn1.github.io/Email-Dev-2nd-Dec-2023-/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Coin Payslip Project (2023)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML5</span>
-                                <span class="tech-mini">CSS3</span>
-                            </div>
-                            <p>Coin Payslip project, built on Dec 19, 2023.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Email-Dev-2nd-Dec-2023-/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Email-Dev-2nd-Dec-2023-" target="_blank" class="link-text">GitHub -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Dec 19, 2023</li>
-                            <li>HTML Email Structure</li>
-                            <li>Responsive Design</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-
+        <h3 class="reveal" style="margin-bottom: 2rem; color: var(--primary); letter-spacing: 2px;">II. Development Evolution & Experiments</h3>
+        <div class="project-grid">
             <!-- Project Quiz -->
-            <div class="project-card-container reveal" data-tags="react javascript" data-url="https://tearn1.github.io/Quiz-Project-one/">
+            <div class="project-card-container reveal wind-affected" data-tags="react javascript" data-url="https://tearn1.github.io/Quiz-Project-one/">
                 <div class="project-card-inner">
                     <div class="project-card-front card">
                         <div>
@@ -1556,6 +1582,100 @@ button {
                             <li>Built Dec 19, 2023</li>
                             <li>React Implementation</li>
                             <li>Educational Tool</li>
+                        </ul>
+                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Second -->
+            <div class="project-card-container reveal wind-affected" data-tags="html css javascript" data-url="https://tearn1.github.io/Asemahle-Nkwali/">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Portfolio V2 (2024)</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">HTML</span>
+                                <span class="tech-mini">CSS</span>
+                                <span class="tech-mini">JavaScript</span>
+                            </div>
+                            <p>My second portfolio website, built on Jul 22, 2024.</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <a href="https://tearn1.github.io/Asemahle-Nkwali/" target="_blank" class="link-text">View Project -></a>
+                            <a href="https://github.com/TEARN1/Asemahle-Nkwali" target="_blank" class="link-text">GitHub -></a>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>Built Jul 22, 2024</li>
+                            <li>Enhanced CSS Animations</li>
+                            <li>Mobile-First Approach</li>
+                        </ul>
+                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project First (2023) -->
+            <div class="project-card-container reveal wind-affected" data-tags="html css javascript" data-url="https://tearn1.github.io/AsemahleNkwaliPort/">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Legacy Portfolio (2023)</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">HTML</span>
+                                <span class="tech-mini">CSS</span>
+                                <span class="tech-mini">JavaScript</span>
+                            </div>
+                            <p>My first portfolio website, built on Sep 5, 2023.</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <a href="https://tearn1.github.io/AsemahleNkwaliPort/" target="_blank" class="link-text">View Project -></a>
+                            <a href="https://github.com/TEARN1/AsemahleNkwaliPort/" target="_blank" class="link-text">GitHub -></a>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>Built Sep 5, 2023</li>
+                            <li>Vanilla HTML/CSS/JS implementation</li>
+                            <li>Responsive Layout</li>
+                        </ul>
+                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
+                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Dev Projects Grouped (Simplified) -->
+            <div class="project-card-container reveal wind-affected" data-tags="html css" data-url="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/">
+                <div class="project-card-inner">
+                    <div class="project-card-front card">
+                        <div>
+                            <h3>Email Development Suite</h3>
+                            <div class="card-tech">
+                                <span class="tech-mini">HTML5</span>
+                                <span class="tech-mini">CSS3</span>
+                            </div>
+                            <p>A collection of responsive HTML email templates and payslip systems.</p>
+                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                        </div>
+                        <div class="card-links" style="z-index: 10;">
+                            <a href="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/" target="_blank" class="link-text">View Suite -></a>
+                        </div>
+                    </div>
+                    <div class="project-card-back card">
+                        <h3>Technical Details</h3>
+                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                            <li>Responsive Table Layouts</li>
+                            <li>Cross-client Compatibility</li>
+                            <li>Coin Payslip Integration</li>
                         </ul>
                         <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
                         <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
@@ -1589,6 +1709,7 @@ button {
 
     <!-- Back to Top Button -->
     <button id="back-to-top" title="Back to Top">↑</button>
+    <button id="wind-trigger" title="Toggle Wind Effect">🌬️</button>
 
     <!-- Chatbot -->
     <button id="chatbot-btn" title="Ask AI Assistant">💬</button>
@@ -1627,120 +1748,11 @@ button {
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
 
-            // Outline follows with slight delay (animation handled by CSS transition, we just set pos)
-            // Using animate for smoother trailing effect
+            // Outline follows with slight delay
             cursorOutline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
             }, { duration: 500, fill: "forwards" });
-
-            // Coke Fizz Effect
-            if (currentBrand === 'coke' && Math.random() > 0.7) {
-                const fizz = document.createElement('div');
-                fizz.classList.add('fizz-particle');
-                fizz.style.left = `${posX + (Math.random() - 0.5) * 10}px`;
-                fizz.style.top = `${posY + (Math.random() - 0.5) * 10}px`;
-                fizz.style.width = `${2 + Math.random() * 4}px`;
-                fizz.style.height = fizz.style.width;
-                document.body.appendChild(fizz);
-                setTimeout(() => fizz.remove(), 800);
-                setTimeout(() => fizz.remove(), 1500);
-            }
-            
-            // MTN Signal Effect
-            if (currentBrand === 'mtn' && Math.random() > 0.85) {
-                const signal = document.createElement('div');
-                signal.classList.add('mtn-signal');
-                signal.style.left = `${posX}px`;
-                signal.style.top = `${posY}px`;
-                document.body.appendChild(signal);
-                setTimeout(() => signal.remove(), 1000);
-                setTimeout(() => signal.remove(), 2000);
-            }
-
-            // LV Gold Dust
-            if (currentBrand === 'lv' && Math.random() > 0.8) {
-                const p = document.createElement('div');
-                p.classList.add('lv-particle');
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1000);
-                setTimeout(() => p.remove(), 2000);
-            }
-
-            // Tesla Sparks
-            if (currentBrand === 'tesla' && Math.random() > 0.85) {
-                const p = document.createElement('div');
-                p.classList.add('tesla-spark');
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                p.style.setProperty('--r', `${Math.random() * 360}deg`);
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 300);
-                setTimeout(() => p.remove(), 800);
-            }
-
-            // Olympics Confetti
-            if (currentBrand === 'olympics' && Math.random() > 0.85) {
-                const p = document.createElement('div');
-                p.classList.add('olympic-confetti');
-                const colors = ['#0081C8', '#FCB131', '#000000', '#00A651', '#EE334E'];
-                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                p.style.setProperty('--tx', `${(Math.random() - 0.5) * 50}px`);
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1000);
-                setTimeout(() => p.remove(), 2000);
-            }
-
-            // Lambo Shards
-            if (currentBrand === 'lambo' && Math.random() > 0.8) {
-                const p = document.createElement('div');
-                p.classList.add('lambo-shard');
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                p.style.setProperty('--tx', `${(Math.random() - 0.5) * 60}px`);
-                p.style.setProperty('--ty', `${(Math.random() - 0.5) * 60}px`);
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 500);
-                setTimeout(() => p.remove(), 1200);
-            }
-
-            // Ferrari Embers
-            if (currentBrand === 'ferrari' && Math.random() > 0.75) {
-                const p = document.createElement('div');
-                p.classList.add('ferrari-ember');
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 800);
-                setTimeout(() => p.remove(), 1500);
-            }
-
-            // Porsche Glint
-            if (currentBrand === 'porsche' && Math.random() > 0.9) {
-                const p = document.createElement('div');
-                p.classList.add('porsche-glint');
-                p.style.left = `${posX}px`;
-                p.style.top = `${posY}px`;
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 400);
-                setTimeout(() => p.remove(), 1000);
-            }
-
-            // Nike Trail Effect
-            if (currentBrand === 'nike' && Math.random() > 0.92) {
-                const el = document.createElement('div');
-                el.classList.add('nike-text-particle');
-                el.innerText = "JUST DO IT";
-                el.style.left = `${posX}px`;
-                el.style.top = `${posY}px`;
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 1000);
-                setTimeout(() => el.remove(), 1800);
-            }
 
             // Card Spotlight Effect
             const cards = document.querySelectorAll('.card');
@@ -1868,64 +1880,20 @@ button {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const now = audioCtx.currentTime;
             
-            if (type === 'hover') {
-                // Brand-specific sounds
-                if (['ferrari', 'lambo', 'porsche'].includes(currentBrand)) {
-                    // Engine Rev (Sawtooth)
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(50, now);
-                    osc.frequency.linearRampToValueAtTime(150, now + 0.2);
-                    gain.gain.setValueAtTime(0.05, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(now + 0.3);
-                    return;
-                }
-                if (currentBrand === 'coke') {
-                    // Bubble Pop
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(800, now);
-                    osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
-                    gain.gain.setValueAtTime(0.05, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(now + 0.1);
-                    return;
-                }
-                if (currentBrand === 'nike') {
-                    // Swish (Triangle Sweep)
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(200, now);
-                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
-                    gain.gain.setValueAtTime(0.03, now);
-                    gain.gain.linearRampToValueAtTime(0, now + 0.1);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(now + 0.1);
-                    return;
-                }
+            // Adjust sounds based on current theme
+            const isLogistics = currentBrand === 'logistics';
+            const isTerminal = currentBrand === 'terminal';
 
-                // Default Hover
+            if (type === 'hover') {
                 const osc = audioCtx.createOscillator();
                 const gainNode = audioCtx.createGain();
                 osc.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
 
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, now);
-                osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
-                gainNode.gain.setValueAtTime(0.02, now); // Low volume
+                osc.type = isTerminal ? 'square' : 'sine';
+                osc.frequency.setValueAtTime(isLogistics ? 200 : 400, now);
+                osc.frequency.exponentialRampToValueAtTime(isLogistics ? 250 : 600, now + 0.1);
+                gainNode.gain.setValueAtTime(0.01, now);
                 gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
                 osc.start();
                 osc.stop(now + 0.1);
@@ -1936,8 +1904,8 @@ button {
                 osc.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
 
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(300, now);
+                osc.type = isTerminal ? 'sawtooth' : 'triangle';
+                osc.frequency.setValueAtTime(isLogistics ? 150 : 300, now);
                 osc.frequency.exponentialRampToValueAtTime(100, now + 0.15);
                 gainNode.gain.setValueAtTime(0.05, now);
                 gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
@@ -1957,12 +1925,28 @@ button {
             const bar = document.getElementById('progress-bar');
             
             // Simulate loading progress
-            bar.style.width = '100%';
+            if(bar) bar.style.width = '100%';
             
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }, 800);
+            // If already unlocked, hide preloader immediately
+            if (sessionStorage.getItem('portfolio_unlocked')) {
+                if(preloader) {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.visibility = 'hidden';
+                    }, 800);
+                }
+            } else {
+                // Keep preloader visible but allow interaction with the form below
+                // after a short delay to simulate "System Boot"
+                setTimeout(() => {
+                    if(preloader) {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => {
+                            preloader.style.visibility = 'hidden';
+                        }, 800);
+                    }
+                }, 2500); // Give 2.5s for the "SYSTEM BOOT" feel
+            }
         });
 
         // --- 3D/THREE.JS LOGIC ---
@@ -1983,14 +1967,12 @@ button {
         let mouseY = 0;
         let isDarkMode = true;
         let currentBrand = 'default';
-        let direction = 1; // 1 = Forward, -1 = Backward
+        let direction = 1; // Added missing global
+        let isGameMode = false; // Added missing global
+        let isAudioActive = false; // Added missing global
+        let isBlackHole = false; // Added missing global
+        let ship = null; // Added missing global
         let systemFont = null; // Global font reference to prevent crash
-        let isBlackHole = false;
-        let isAudioActive = false;
-        let audioAnalyser, audioDataArray;
-        let isGameMode = false;
-        let ship;
-        let gameKeys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
         let quizActive = false;
         let quizScore = 0;
         let currentQuizTerm = null;
@@ -2105,7 +2087,7 @@ button {
 
         // --- Floating Text Particles ---
         const textParticleWords = [
-            'Asemahle', 'Nkwali', 'Frontend', 'JavaScript', 'React', 'Three.js', 'CSS', 'UI', 'WebGL', 'Playful', 'Creative', '✨', '🚀', '🌈', 'Future', 'Code', 'Design'
+            'Supabase', 'Docker', 'React', 'JavaScript', 'VS Code', 'Claude', 'Gemini', 'ChatGPT', 'Copilot', 'v0', 'Lovable', 'Antigravity', 'Android Studio', 'IntelliJ IDEA'
         ];
         const textParticles = [];
         const loader = new FontLoader();
@@ -2144,18 +2126,6 @@ button {
         // --- OBJECTS (Floating Shapes for Playfulness) ---
         const shapesGroup = new THREE.Group();
         scene.add(shapesGroup);
-        
-        // --- SPACESHIP (Game Mode) ---
-        const shipGeo = new THREE.ConeGeometry(0.5, 2, 8);
-        shipGeo.rotateX(Math.PI / 2);
-        const shipMat = new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true });
-        ship = new THREE.Mesh(shipGeo, shipMat);
-        ship.visible = false;
-        scene.add(ship);
-        
-        // Game Controls
-        window.addEventListener('keydown', (e) => { if(gameKeys.hasOwnProperty(e.key)) gameKeys[e.key] = true; });
-        window.addEventListener('keyup', (e) => { if(gameKeys.hasOwnProperty(e.key)) gameKeys[e.key] = false; });
 
         // Shapes are now generated dynamically in rebuildShapes() called by applyTheme()
 
@@ -2173,71 +2143,19 @@ button {
                 transform: 'uppercase', style: 'normal', blur: '12px', spacing: '1px',
                 borderW: '1px', borderS: 'solid'
             },
-            coke: { 
-                p: '#F40009', s: '#ffffff', stars: [0xffffff, 0xF40009, 0xaaaaaa],
-                font: "'Lobster', cursive", radius: '30px', radiusSm: '20px',
-                transform: 'none', style: 'normal', blur: '20px', spacing: '0px',
-                borderW: '0px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #500000 0%, #1a0000 100%)',
-                bgLight: 'radial-gradient(circle at center, #ffffff 0%, #ffcccc 100%)'
-            },
-            mtn: { 
-                p: '#FFCC00', s: '#00678F', stars: [0xffffff, 0xFFCC00, 0x00678F],
-                font: "'Work Sans', sans-serif", radius: '24px', radiusSm: '12px',
-                transform: 'none', style: 'normal', blur: '10px', spacing: '0px',
-                borderW: '2px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #004d6b 0%, #000000 100%)',
-                bgLight: 'radial-gradient(circle at center, #ffffff 0%, #fff5cc 100%)'
-            },
-            nike: { 
-                p: '#ccff00', s: '#e3e3e3', stars: [0xffffff, 0xccff00, 0x888888],
-                font: "'Russo One', sans-serif", radius: '0px', radiusSm: '0px',
-                transform: 'uppercase', style: 'italic', blur: '0px', spacing: '2px',
-                borderW: '2px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #1a1a1a 0%, #000000 100%)',
-                bgLight: 'radial-gradient(circle at center, #f5f5f5 0%, #cccccc 100%)'
-            },
-            lv: { 
-                p: '#C0A062', s: '#583625', stars: [0xffffff, 0xC0A062, 0x583625],
-                font: "'Playfair Display', serif", radius: '2px', radiusSm: '2px',
-                transform: 'uppercase', style: 'normal', blur: '4px', spacing: '3px',
-                borderW: '1px', borderS: 'double'
-            },
-            tesla: { 
-                p: '#E82127', s: '#8e8e8e', stars: [0xffffff, 0xE82127, 0xcccccc],
-                font: "'Space Grotesk', sans-serif", radius: '4px', radiusSm: '2px',
-                transform: 'uppercase', style: 'normal', blur: '20px', spacing: '2px',
-                borderW: '1px', borderS: 'solid'
-            },
-            lambo: { 
-                p: '#DDB321', s: '#ffffff', stars: [0xffffff, 0xDDB321, 0x333333],
+            terminal: {
+                p: '#00FF41', s: '#003B00', stars: [0x00FF41, 0x008F11, 0x003B00],
                 font: "'Courier Prime', monospace", radius: '0px', radiusSm: '0px',
-                transform: 'uppercase', style: 'normal', blur: '0px', spacing: '0px',
-                borderW: '1px', borderS: 'dashed',
-                bgDark: 'radial-gradient(circle at center, #222222 0%, #000000 100%)',
-                bgLight: 'radial-gradient(circle at center, #ffffff 0%, #e6e6e6 100%)'
-            },
-            ferrari: { 
-                p: '#FF2800', s: '#FFF200', stars: [0xffffff, 0xFF2800, 0xFFF200],
-                font: "'Verdana', sans-serif", radius: '8px', radiusSm: '4px',
-                transform: 'uppercase', style: 'italic', blur: '5px', spacing: '1px',
-                borderW: '2px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #330000 0%, #000000 100%)',
-                bgLight: 'radial-gradient(circle at center, #fff0f0 0%, #ffcccc 100%)'
-            },
-            porsche: { 
-                p: '#B19258', s: '#960912', stars: [0xffffff, 0xB19258, 0x960912],
-                font: "'Helvetica Neue', sans-serif", radius: '6px', radiusSm: '3px',
-                transform: 'none', style: 'normal', blur: '15px', spacing: '0.5px',
+                transform: 'none', style: 'normal', blur: '2px', spacing: '0px',
                 borderW: '1px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #2c2c2c 0%, #000000 100%)',
-                bgLight: 'radial-gradient(circle at center, #f5f5f5 0%, #dcdcdc 100%)'
+                bgDark: 'radial-gradient(circle at center, #001100 0%, #000000 100%)'
             },
-            olympics: { 
-                p: '#0081C8', s: '#EE334E', stars: [0x0081C8, 0xFCB131, 0x000000, 0x00A651, 0xEE334E],
-                font: "'Space Grotesk', sans-serif", radius: '50px', radiusSm: '25px',
-                transform: 'uppercase', style: 'normal', blur: '10px', spacing: '1px',
-                borderW: '4px', borderS: 'solid'
+            logistics: {
+                p: '#0055ff', s: '#002266', stars: [0xffffff, 0x0055ff, 0x002266],
+                font: "'Work Sans', sans-serif", radius: '4px', radiusSm: '2px',
+                transform: 'uppercase', style: 'normal', blur: '15px', spacing: '1px',
+                borderW: '2px', borderS: 'solid',
+                bgDark: 'radial-gradient(circle at center, #001133 0%, #000000 100%)'
             },
             matrix: {
                 p: '#00FF41', s: '#008F11', stars: [0x00FF41, 0x008F11, 0x003B00],
@@ -2250,9 +2168,10 @@ button {
         function applyTheme() {
             const theme = themes[currentBrand];
             if (!theme) return;
-            // We target document.body.style to override the CSS class variables (e.g. [data-profile="apple"])
+            // We target document.body.style to override the CSS class variables (e.g. [data-profile="terminal"])
             const target = document.body.style; 
             document.body.setAttribute('data-brand', currentBrand);
+            document.body.setAttribute('data-profile', currentBrand === 'default' ? 'terminal' : currentBrand);
 
             // Toggle Matrix Canvas
             if (currentBrand === 'matrix') {
@@ -2337,76 +2256,14 @@ button {
                 shapesGroup.remove(obj); 
             }
 
-            // NIKE SPECIAL: Text & Sneakers
-            if (brand === 'nike' && systemFont) {
-                const nikeTerms = ["AF1", "AIR MAX", "JORDAN", "DUNK", "SB", "JUST DO IT", "NIKE", "AIR", "PEGASUS", "VAPORFLY", "SWOOSH"];
-                for(let i = 0; i < 35; i++) {
-                    const term = nikeTerms[Math.floor(Math.random() * nikeTerms.length)];
-                    const geo = new TextGeometry(term, {
-                        font: systemFont,
-                        size: (term === "JUST DO IT") ? 2.5 : (1 + Math.random() * 2),
-                        height: 0.1,
-                        curveSegments: 4
-                    });
-                    geo.center();
-                    
-                    const color = (Math.random() > 0.6) ? 0xccff00 : 0xffffff; // Volt or White
-                    const mat = new THREE.MeshBasicMaterial({ 
-                        color: color, 
-                        transparent: true, 
-                        opacity: 0.5,
-                        side: THREE.DoubleSide,
-                        wireframe: Math.random() > 0.8 
-                    });
+            let geometryType = (brand === 'matrix') ? 'box' : 'mixed';
 
-                    const mesh = new THREE.Mesh(geo, mat);
-                    mesh.position.set(
-                        (Math.random() - 0.5) * 120, 
-                        (Math.random() - 0.5) * 80, 
-                        (Math.random() - 0.5) * 60
-                    );
-                    mesh.rotation.set(Math.random()*0.5, Math.random()*0.5, 0);
-                    
-                    mesh.userData = { 
-                        rsX: (Math.random() - 0.5) * 0.01, 
-                        rsY: (Math.random() - 0.5) * 0.01, 
-                        y0: mesh.position.y, 
-                        speed: 0.001 + Math.random() * 0.002 
-                    };
-
-                    shapesGroup.add(mesh);
-                }
-                return; 
-            }
-
-            let geometryType;
-            switch(brand) {
-                case 'coke': geometryType = 'sphere'; break; // Bubbles
-                case 'nike': geometryType = 'cone'; break; // Speed/Arrows
-                case 'lv': geometryType = 'box'; break; // Trunks/Luggage
-                case 'olympics': geometryType = 'torus'; break; // Rings
-                case 'lambo': 
-                case 'ferrari': geometryType = 'tetra'; break; // Sharp/Aerodynamic
-                case 'tesla': geometryType = 'octa'; break; // Tech/Crystal
-                case 'porsche': geometryType = 'cylinder'; break; // Mechanical
-                case 'mtn': geometryType = 'icosa'; break; // Network Nodes
-                case 'matrix': geometryType = 'box'; break; // Digital Rain
-                default: geometryType = 'mixed';
-            }
-
-            const count = (brand === 'coke') ? 100 : 40; // More bubbles for Coke
+            const count = 40;
             for(let i = 0; i < count; i++) {
                 let geom;
                 switch(geometryType) {
-                    case 'sphere': geom = new THREE.SphereGeometry(0.6, 16, 16); break;
-                    case 'cone': geom = new THREE.ConeGeometry(0.4, 1, 4); break;
                     case 'box': geom = new THREE.BoxGeometry(0.8, 0.8, 0.8); break;
-                    case 'torus': geom = new THREE.TorusGeometry(0.6, 0.1, 16, 32); break;
-                    case 'tetra': geom = new THREE.TetrahedronGeometry(0.8); break;
-                    case 'octa': geom = new THREE.OctahedronGeometry(0.8); break;
-                    case 'cylinder': geom = new THREE.CylinderGeometry(0.3, 0.3, 1, 16); break;
-                    case 'icosa': geom = new THREE.IcosahedronGeometry(0.7, 0); break;
-                    default: 
+                    default:
                         const shapeGeoms = [
                             new THREE.IcosahedronGeometry(0.6, 0),
                             new THREE.BoxGeometry(0.8, 0.8, 0.8),
@@ -2449,13 +2306,6 @@ button {
             applyTheme();
         });
 
-        document.getElementById('reset-btn').addEventListener('click', () => {
-            currentBrand = 'default';
-            document.getElementById('brand-select').value = 'default';
-            isDarkMode = true;
-            document.getElementById('mode-toggle').innerText = '☀';
-            applyTheme();
-        });
 
         document.getElementById('screenshot-btn').addEventListener('click', () => {
             renderer.render(scene, camera);
@@ -2466,73 +2316,13 @@ button {
             link.click();
         });
 
-        // --- NEW CONTROLS (Color & Direction) ---
-        document.getElementById('color-btn').addEventListener('click', () => {
-            randomizeStarColors();
-            playSound('click');
-        });
 
-        document.getElementById('reverse-btn').addEventListener('click', () => {
-            direction *= -1;
+        function toggleExpand(id, btn) {
+            const content = document.getElementById(id);
+            const isShowing = content.classList.toggle('show');
+            btn.textContent = isShowing ? 'Show Fewer Roles' : 'Read More Roles';
             playSound('click');
-        });
-
-        function randomizeStarColors() {
-            const colorsAttr = starGeo.attributes.color;
-            const colorObj = new THREE.Color();
-            for(let i = 0; i < STAR_COUNT; i++) {
-                colorObj.setHSL(Math.random(), 0.8, 0.7);
-                colorsAttr.setXYZ(i, colorObj.r, colorObj.g, colorObj.b);
-            }
-            colorsAttr.needsUpdate = true;
         }
-
-        // --- BLACK HOLE & AUDIO CONTROLS ---
-        document.getElementById('blackhole-btn').addEventListener('click', () => {
-            isBlackHole = !isBlackHole;
-            const btn = document.getElementById('blackhole-btn');
-            btn.style.color = isBlackHole ? 'var(--primary)' : 'var(--text-muted)';
-            document.body.classList.toggle('singularity-active', isBlackHole);
-            
-            if(isBlackHole) {
-                speak("Warning. Event horizon breached.");
-                warpBtn.disabled = true;
-            } else {
-                speak("Gravity normalized.");
-                warpBtn.disabled = false;
-            }
-        });
-
-        document.getElementById('mic-btn').addEventListener('click', async () => {
-            if (!isAudioActive) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    if (audioCtx.state === 'suspended') await audioCtx.resume();
-                    const source = audioCtx.createMediaStreamSource(stream);
-                    audioAnalyser = audioCtx.createAnalyser();
-                    audioAnalyser.fftSize = 64;
-                    source.connect(audioAnalyser);
-                    audioDataArray = new Uint8Array(audioAnalyser.frequencyBinCount);
-                    isAudioActive = true;
-                    document.getElementById('mic-btn').style.color = "#ff4444";
-                    speak("Audio visualizer engaged.");
-                } catch (err) {
-                    console.error(err);
-                    alert("Microphone access denied.");
-                }
-            }
-        });
-
-        document.getElementById('game-btn').addEventListener('click', () => {
-            isGameMode = !isGameMode;
-            const btn = document.getElementById('game-btn');
-            btn.style.color = isGameMode ? 'var(--primary)' : 'var(--text-muted)';
-            ship.visible = isGameMode;
-            if(isGameMode) {
-                speak("Pilot mode engaged. Use arrow keys to fly.");
-                ship.position.copy(camera.position).add(new THREE.Vector3(0, -2, -5));
-            }
-        });
 
         // --- KONAMI CODE (Easter Egg) ---
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -2691,6 +2481,18 @@ button {
                 "ux": "User Experience (UX) refers to a person's emotions and attitudes about using a particular product, system or service.",
                 "bi": "Business Intelligence (BI) comprises the strategies and technologies used by enterprises for the data analysis of business information.",
                 "tms": "Transport Management System (TMS) is a subset of supply chain management concerning transportation operations.",
+                "supabase": "Supabase is an open-source Firebase alternative providing a backend as a service with PostgreSQL.",
+                "docker": "Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.",
+                "vs code": "Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications.",
+                "android studio": "Android Studio is the official Integrated Development Environment (IDE) for Android app development.",
+                "intellij idea": "IntelliJ IDEA is an integrated development environment written in Java for developing computer software.",
+                "copilot": "GitHub Copilot is a cloud-based artificial intelligence tool developed by GitHub and OpenAI to assist users by autocompleting code.",
+                "claude": "Claude is a next-generation AI assistant based on Anthropic's research into training helpful, honest, and harmless AI systems.",
+                "chatgpt": "ChatGPT is a sibling model to InstructGPT, which is trained to follow an instruction in a prompt and provide a detailed response.",
+                "gemini": "Gemini is a family of multimodal large language models developed by Google DeepMind.",
+                "lovable": "Lovable is an AI-powered full-stack web development tool that allows you to build and deploy applications quickly.",
+                "v0": "v0 is a generative UI system by Vercel that allows you to generate UI components using natural language.",
+                "antigravity": "Antigravity is a concept in physics (and sometimes a joke in Python) referring to the counteract of gravity.",
                 "ot": "Operations Technology (OT) is hardware and software that detects or causes a change through the direct monitoring and/or control of physical devices, processes and events in the enterprise.",
                 "qa": "Quality Assurance (QA) is a way of preventing mistakes and defects in manufactured products and avoiding problems when delivering products or services to customers.",
                 "json": "JSON (JavaScript Object Notation) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects.",
@@ -2730,7 +2532,7 @@ button {
                 // { id: 'greeting_xhosa', keywords: ['molo', 'unjani', 'kunjani', 'molweni', 'hallo'], response: "Molo! Ndingakunceda njani namhlanje? (Hello! How can I help you today?)" },
                 // { id: 'thanks_xhosa', keywords: ['enkosi', 'ndiyabulela', 'camagu'], response: "Wamkelekile! (You are welcome!)" },
                 { id: 'deep_thought', keywords: ['meaning', 'life', 'universe', 'deep'], response: "42. However, in the realms of logistics and code, true meaning is derived from connection, efficiency, and optimization." },
-                { id: 'meta_themes', keywords: ['how', 'many', 'themes', 'count'], response: `There are currently ${Object.keys(themes).length} distinct themes installed: Default, Coke, MTN, Nike, Louis Vuitton, Tesla, Lamborghini, Ferrari, Porsche, Olympics, and the hidden Matrix mode.` },
+                { id: 'meta_themes', keywords: ['how', 'many', 'themes', 'count'], response: `There are currently ${Object.keys(themes).length} distinct themes installed: Default, Terminal, Logistics Blue, and the hidden Matrix mode.` },
                 { id: 'meta_build', keywords: ['how', 'built', 'stack', 'technology'], response: "This portfolio is built with raw HTML5, CSS3, and Vanilla JavaScript (ES6+). The 3D visuals are powered by Three.js (WebGL)." },
                 { id: 'meta_color', keywords: ['color', 'palette', 'hex'], response: `We are currently in the '${currentBrand.toUpperCase()}' theme. Primary Hex: ${themes[currentBrand].p}, Secondary Hex: ${themes[currentBrand].s}.` },
                 { id: 'data_reverse', keywords: ['reverse', 'name'], response: "ilawkN elhamesA" },
@@ -2796,7 +2598,7 @@ button {
         }
 
         function nextQuestion() {
-            const terms = ['react', 'redux', 'three.js', 'wms', 'pd', 'sd', 'd3.js', 'frontend', 'backend', 'api'];
+            const terms = ['react', 'redux', 'three.js', 'wms', 'pd', 'sd', 'd3.js', 'frontend', 'backend', 'api', 'supabase', 'docker', 'copilot', 'claude', 'chatgpt', 'gemini', 'lovable', 'v0'];
             currentQuizTerm = terms[Math.floor(Math.random() * terms.length)];
             return `What is the term for: ${getDefinition(currentQuizTerm)}?`;
         }
@@ -2812,72 +2614,19 @@ button {
                 "d3.js": "Library for dynamic data visualizations.",
                 "frontend": "Building the user interface of a website.",
                 "backend": "Server-side logic and databases.",
-                "api": "Protocols for building and integrating software."
+                "api": "Protocols for building and integrating software.",
+                "supabase": "Open-source Firebase alternative.",
+                "docker": "Platform for OS-level virtualization to deliver software in containers.",
+                "copilot": "AI tool for autocompleting code.",
+                "claude": "AI assistant by Anthropic.",
+                "chatgpt": "Conversational AI model by OpenAI.",
+                "gemini": "Multimodal large language models by Google.",
+                "lovable": "AI-powered full-stack web development tool.",
+                "v0": "Generative UI system by Vercel."
             };
             return defs[term];
         }
 
-        // --- VOICE COMMAND SETUP ---
-        const voiceBtn = document.getElementById('voice-btn');
-        let recognition;
-
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
-            recognition.continuous = false;
-            recognition.lang = 'en-US';
-
-            recognition.onstart = () => {
-                voiceBtn.classList.add('listening');
-            };
-
-            recognition.onend = () => {
-                voiceBtn.classList.remove('listening');
-            };
-
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript.toLowerCase();
-                console.log('Voice Command:', transcript);
-                
-                // System Commands
-                if (transcript.includes('dark mode')) { if(!isDarkMode) document.getElementById('mode-toggle').click(); speak("Dark mode enabled."); }
-                else if (transcript.includes('light mode')) { if(isDarkMode) document.getElementById('mode-toggle').click(); speak("Light mode enabled."); }
-                else if (transcript.includes('warp speed')) { document.getElementById('warpBtn').click(); speak("Engaging warp drive."); }
-                else if (transcript.includes('contact')) { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); speak("Opening communication channels."); }
-                else if (transcript.includes('reset')) { document.getElementById('reset-btn').click(); speak("System reset."); }
-                else if (transcript.includes('black hole')) { document.getElementById('blackhole-btn').click(); }
-                else if (transcript.includes('pilot') || transcript.includes('game')) { document.getElementById('game-btn').click(); }
-                
-                // Brand Switching
-                const brands = ['coke', 'nike', 'mtn', 'tesla', 'ferrari', 'porsche', 'olympics', 'lambo', 'louis vuitton'];
-                brands.forEach(brand => {
-                    if (transcript.includes(brand)) {
-                        const select = document.getElementById('brand-select');
-                        const val = brand === 'louis vuitton' ? 'lv' : brand;
-                        select.value = val;
-                        currentBrand = val;
-                        applyTheme();
-                        speak(`Theme changed to ${brand}.`);
-                    }
-                });
-
-                // AI Knowledge Base Query (if no command matched)
-                const aiResponse = getAIResponse(transcript);
-                if (aiResponse) {
-                    speak(aiResponse);
-                } else if (!transcript.includes('switch') && !transcript.includes('mode') && !transcript.includes('warp')) {
-                    // Only say "didn't catch that" if it wasn't a command attempt
-                    speak("I didn't quite get that. You can ask about skills, projects, or experience.");
-                }
-            };
-
-            voiceBtn.addEventListener('click', () => {
-                recognition.start();
-            });
-        } else {
-            voiceBtn.style.display = 'none';
-            console.log("Speech recognition not supported");
-        }
 
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
@@ -2890,6 +2639,30 @@ button {
             window.speechSynthesis.speak(utterance);
         }
 
+        // --- ANALYTICS & SESSION TRACKING ---
+        const sessionData = {
+            startTime: Date.now(),
+            visitedProjects: new Set(),
+            entranceTime: new Date().toLocaleTimeString()
+        };
+
+        // Track project clicks
+        document.querySelectorAll('.project-card-container').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').innerText;
+                sessionData.visitedProjects.add(title);
+            });
+        });
+
+        function getSessionReport() {
+            const durationMinutes = Math.floor((Date.now() - sessionData.startTime) / 60000);
+            const durationSeconds = Math.floor(((Date.now() - sessionData.startTime) % 60000) / 1000);
+            return {
+                duration: `${durationMinutes}m ${durationSeconds}s`,
+                projects: Array.from(sessionData.visitedProjects).join(', ') || 'None viewed'
+            };
+        }
+
         // --- FORM HANDLING ---
         const contactForm = document.querySelector('.contact-form');
         const sendBtn = contactForm.querySelector('button');
@@ -2897,9 +2670,86 @@ button {
         // Initialize EmailJS
         (function(){
             // REPLACE WITH YOUR PUBLIC KEY from https://dashboard.emailjs.com/admin/account
-            emailjs.init("YOUR_PUBLIC_KEY");
+            emailjs.init("wZ2bF3cSKuEfDbcsu");
         })();
-        
+
+        // --- GATEKEEPER LOGIC ---
+        const unlockBtn = document.getElementById('unlock-btn');
+        const overlay = document.getElementById('gatekeeper-overlay');
+
+        // Check if already unlocked in this session
+        if (sessionStorage.getItem('portfolio_unlocked')) {
+            overlay.style.display = 'none';
+            document.body.classList.remove('locked');
+            // Hide preloader if already unlocked
+            const preloader = document.getElementById('preloader');
+            if(preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }
+        }
+
+        unlockBtn.addEventListener('click', () => {
+            const vName = document.getElementById('visitor_name').value;
+            const vEmail = document.getElementById('visitor_email').value;
+            const vPhone = document.getElementById('visitor_phone').value;
+
+            // Basic Validation
+            if (!vName || !vEmail || !vPhone) {
+                alert("Please provide all details to proceed.");
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(vEmail)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            unlockBtn.innerText = "Verifying Credentials...";
+            unlockBtn.disabled = true;
+
+            const visitorParams = {
+                from_name: vName,
+                from_email: vEmail,
+                reply_to: vEmail,
+                message: `PORTFOLIO ACCESS GRANTED\n\nVisitor: ${vName}\nEmail: ${vEmail}\nPhone: ${vPhone}\n\n--- AUTO-LOG ---\nArrival: ${sessionData.entranceTime}\nStatus: Access Form Successfully Submitted.`
+            };
+
+            emailjs.send('service_07w6w6d', 'template_dpzjmqc', visitorParams)
+                .then(() => {
+                    sessionStorage.setItem('portfolio_unlocked', 'true');
+                    unlockBtn.innerText = "Access Granted";
+                    unlockBtn.style.background = "#00ff00";
+                    unlockBtn.style.color = "#000";
+
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+
+                        // Hide Preloader
+                        const preloader = document.getElementById('preloader');
+                        if(preloader) {
+                            preloader.style.opacity = '0';
+                            setTimeout(() => {
+                                preloader.style.visibility = 'hidden';
+                            }, 500);
+                        }
+
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                            document.body.classList.remove('locked');
+                            playSound('click');
+                        }, 500);
+                    }, 800);
+                })
+                .catch((err) => {
+                    console.error("Gatekeeper Error:", err);
+                    alert("System verification failed. Please try again or contact me directly.");
+                    unlockBtn.innerText = "Request Access";
+                    unlockBtn.disabled = false;
+                });
+        });
+
         sendBtn.addEventListener('click', () => {
             const name = document.getElementById('from_name').value;
             const email = document.getElementById('from_email').value;
@@ -2914,14 +2764,16 @@ button {
             sendBtn.innerText = "Transmitting...";
             sendBtn.disabled = true;
             
+            const report = getSessionReport();
             const templateParams = {
                 from_name: name,
                 from_email: email,
-                message: message
+                reply_to: email,
+                message: `${message}\n\n--- RECRUITER INSIGHTS ---\n- Stay Duration: ${report.duration}\n- High-Interest Projects: ${report.projects}`
             };
 
-            // REPLACE 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with actual IDs from EmailJS dashboard
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            // REPLACE 'template_dpzjmqc' with actual ID from EmailJS dashboard
+            emailjs.send('service_07w6w6d', 'template_dpzjmqc', templateParams)
                 .then(function() {
                     sendBtn.innerText = "Transmission Sent";
                     sendBtn.style.background = "var(--primary)";
@@ -2947,6 +2799,35 @@ button {
 
         // --- BACK TO TOP LOGIC ---
         const backToTopBtn = document.getElementById('back-to-top');
+        const windTrigger = document.getElementById('wind-trigger');
+        let windActive = false;
+
+        windTrigger.addEventListener('click', () => {
+            windActive = !windActive;
+            windTrigger.classList.toggle('active', windActive);
+
+            const cards = document.querySelectorAll('.wind-affected');
+
+            cards.forEach((card, index) => {
+                if (windActive) {
+                    setTimeout(() => {
+                        card.classList.add('wind-active');
+                    }, index * 50);
+                } else {
+                    card.classList.remove('wind-active');
+                }
+            });
+
+            // Trigger warp speed in Three.js background
+            if (typeof targetSpeed !== 'undefined') {
+                targetSpeed = windActive ? 15.0 : 0.2;
+            }
+
+            if (windActive && typeof playSound === 'function') {
+                playSound('hover');
+            }
+        });
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 500) {
                 backToTopBtn.classList.add('visible');
@@ -3035,7 +2916,7 @@ button {
         playMusicBtn.addEventListener('click', () => {
             if(!isPlaying) {
                 bgMusic.volume = 0.3;
-                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+                bgMusic.play().catch(e => { /* Audio play failed */ });
                 playMusicBtn.innerText = "⏸";
                 musicStatus.innerText = "LIVE";
                 musicStatus.style.color = "#00ff00";
@@ -3233,33 +3114,8 @@ button {
                 drawMatrixRain();
             }
             
-            // Game Mode Logic
-            if (isGameMode) {
-                const moveSpeed = 0.5;
-                if(gameKeys.ArrowUp) ship.position.y += moveSpeed;
-                if(gameKeys.ArrowDown) ship.position.y -= moveSpeed;
-                if(gameKeys.ArrowLeft) ship.position.x -= moveSpeed;
-                if(gameKeys.ArrowRight) ship.position.x += moveSpeed;
-                
-                // Camera follows ship with lag
-                camera.position.x += (ship.position.x - camera.position.x) * 0.1;
-                camera.position.y += (ship.position.y - camera.position.y + 2) * 0.1;
-                
-                ship.rotation.z = (ship.position.x - camera.position.x) * -0.5; // Bank
-            }
-
             // 1. Smoothly interpolate speed
             speed += (targetSpeed - speed) * 0.05;
-
-            // Audio Reactivity
-            if (isAudioActive && audioAnalyser) {
-                audioAnalyser.getByteFrequencyData(audioDataArray);
-                const avg = audioDataArray.reduce((a,b)=>a+b) / audioDataArray.length;
-                // Pulse planet based on volume
-                const scale = 1 + (avg / 100); 
-                planet.scale.set(scale, scale, scale);
-                if (!isBlackHole && targetSpeed === STAR_SPEED_BASE) speed = STAR_SPEED_BASE + (avg / 40);
-            }
 
             // Dynamic FOV Warp Effect
             const targetFOV = (targetSpeed > 1) ? 100 : 60;
@@ -3276,7 +3132,7 @@ button {
             
             for(let i = 0; i < STAR_COUNT; i++) {
                 if (currentBrand === 'matrix') {
-                    // ... existing matrix logic ...
+                    // Matrix downward movement
                     positions[i * 3 + 1] -= speed * 2; 
                     
                     // Reset if below bottom
@@ -3285,51 +3141,19 @@ button {
                         positions[i * 3] = (Math.random() - 0.5) * 400;
                         positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
                     }
-                } else if (isBlackHole) {
-                    // BLACK HOLE LOGIC
-                    const x = positions[i*3];
-                    const y = positions[i*3+1];
-                    const z = positions[i*3+2];
-                    
-                    // Pull towards center (0,0,0)
-                    positions[i*3] *= 0.97; 
-                    positions[i*3+1] *= 0.97; 
-                    positions[i*3+2] *= 0.97;
-
-                    // Add Swirl
-                    const angle = 0.05;
-                    const cos = Math.cos(angle);
-                    const sin = Math.sin(angle);
-                    positions[i*3] = x * cos - y * sin;
-                    positions[i*3+1] = x * sin + y * cos;
-
-                    // Reset if too close to singularity
-                    if(Math.abs(x) < 2 && Math.abs(y) < 2 && Math.abs(z) < 2) {
-                        positions[i * 3] = (Math.random() - 0.5) * 400;
-                        positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
-                        positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
-                    }
                 } else {
                     // Standard Warp: Move Z towards camera
-                    positions[i * 3 + 2] += speed * direction;
+                    positions[i * 3 + 2] += speed;
                     
                     // Apply Steering (Navigate)
                     positions[i * 3] += strafeX;
                     positions[i * 3 + 1] += strafeY;
     
                     // Reset if behind camera
-                    if (direction === 1) {
-                        if(positions[i * 3 + 2] > 200) {
-                            positions[i * 3 + 2] = -400; // Send far back (Infinite Loop)
-                            positions[i * 3] = (Math.random() - 0.5) * 400;
-                            positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
-                        }
-                    } else {
-                        if(positions[i * 3 + 2] < -400) {
-                            positions[i * 3 + 2] = 200; // Send to front
-                            positions[i * 3] = (Math.random() - 0.5) * 400;
-                            positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
-                        }
+                    if(positions[i * 3 + 2] > 200) {
+                        positions[i * 3 + 2] = -400; // Send far back (Infinite Loop)
+                        positions[i * 3] = (Math.random() - 0.5) * 400;
+                        positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
                     }
 
                     // Wrap X (Infinite field sideways)
@@ -3357,41 +3181,9 @@ button {
             // Individual shape float/tumble
             const time = Date.now();
             shapesGroup.children.forEach(mesh => {
-                if (currentBrand === 'coke') {
-                    // Bubbles rise continuously
-                    mesh.position.y += 0.1 + Math.random() * 0.05;
-                    // Gentle wobble & Pulse
-                    mesh.position.x += Math.sin(time * 0.002 + mesh.userData.y0) * 0.02;
-                    mesh.scale.setScalar(1 + Math.sin(time * 0.005 + mesh.userData.y0) * 0.1);
-                    
-                    // Reset to bottom if they go too high
-                    if (mesh.position.y > 50) {
-                        mesh.position.y = -50;
-                        mesh.position.x = (Math.random() - 0.5) * 70;
-                    }
-                } else if (currentBrand === 'mtn') {
-                    // Pulse effect (Signal Strength)
-                    const scale = 1 + Math.sin(time * 0.005 + mesh.userData.y0) * 0.4;
-                    mesh.scale.setScalar(scale);
-                    mesh.rotation.y += 0.02;
-                } else if (currentBrand === 'lv') {
-                    // Slow, elegant rotation
-                    mesh.rotation.x += 0.005;
-                    mesh.rotation.y += 0.005;
-                } else if (currentBrand === 'tesla') {
-                    // Jittery tech movement
-                    mesh.position.x += (Math.random() - 0.5) * 0.1;
-                    mesh.position.y += (Math.random() - 0.5) * 0.1;
-                    mesh.rotation.z += 0.1;
-                } else if (currentBrand === 'olympics') {
-                    // Interlocking rings movement
-                    mesh.rotation.x += 0.02;
-                    mesh.rotation.y += 0.02;
-                } else {
-                    mesh.rotation.x += mesh.userData.rsX;
-                    mesh.rotation.y += mesh.userData.rsY;
-                    mesh.position.y = mesh.userData.y0 + Math.sin(time * mesh.userData.speed) * 2;
-                }
+                mesh.rotation.x += mesh.userData.rsX;
+                mesh.rotation.y += mesh.userData.rsY;
+                mesh.position.y = mesh.userData.y0 + Math.sin(time * mesh.userData.speed) * 2;
             });
 
             // --- Animate Floating Text Particles ---
@@ -3442,7 +3234,7 @@ button {
 
         animate();
 
-        console.log("%c SYSTEM READY. %c \nHint: The Konami Code unlocks the Matrix.", "color: #00f2ff; font-weight: bold; font-size: 14px;", "color: #a0a0a0;");
+        // SYSTEM READY. Hint: The Konami Code unlocks the Matrix.
 
         // --- DAY/NIGHT CYCLE ---
         const hour = new Date().getHours();

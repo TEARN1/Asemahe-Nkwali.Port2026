@@ -3,1085 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asemahle Nkwali | Frontend Universe</title>
-    <meta name="description" content="A 3D immersive portfolio for a Frontend Developer">
+    <title>Asemahle Nkwali | Hybrid Operational Technologist & Systems Architect</title>
+    <meta name="description" content="Asemahle Nkwali is a Systems Engineer and GenAI Architect specializing in supply chain optimization, WMS/ERP administration, and full-stack development.">
     
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tearn1.github.io/Asemahe-Nkwali.Port2026/">
+    <meta property="og:title" content="Asemahle Nkwali | Hybrid Operational Technologist">
+    <meta property="og:description" content="Bridging physical operations and intelligent digital infrastructure through systems engineering and GenAI.">
+    <meta property="og:image" content="https://tearn1.github.io/Asemahe-Nkwali.Port2026/profile.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tearn1.github.io/Asemahe-Nkwali.Port2026/">
+    <meta property="twitter:title" content="Asemahle Nkwali | Hybrid Operational Technologist">
+    <meta property="twitter:description" content="Bridging physical operations and intelligent digital infrastructure through systems engineering and GenAI.">
+    <meta property="twitter:image" content="https://tearn1.github.io/Asemahe-Nkwali.Port2026/profile.jpg">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Asemahle Nkwali",
+      "jobTitle": "Systems Architect",
+      "url": "https://tearn1.github.io/Asemahe-Nkwali.Port2026/",
+      "sameAs": [
+        "https://github.com/TEARN1",
+        "https://www.linkedin.com/in/asemahlenkwali-5538731b8"
+      ],
+      "knowsAbout": ["WMS", "ERP", "MS Dynamics 365", "Generative AI", "Supply Chain Optimization", "Full-Stack Engineering"]
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Playfair+Display:wght@400;700&family=Russo+One&family=Courier+Prime&family=Lobster&family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet" crossorigin>
 
+    <!-- External Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Resilience: No-JS Fallback -->
+    <noscript>
+        <style>
+            .locked { overflow: visible !important; }
+            #preloader, #gatekeeper-overlay { display: none !important; }
+            body { background: #050505 !important; color: #fff !important; }
+        </style>
+        <div style="padding: 2rem; text-align: center; background: #000; color: #00f2ff; font-family: sans-serif;">
+            <h1>Asemahle Nkwali | Systems Architect</h1>
+            <p>JavaScript is required for the full immersive experience. Please enable it or contact me at asemahlenkwali@gmail.com.</p>
+        </div>
+    </noscript>
+
+    <!-- Defensive Programming & A11y Style -->
+    <script>
+        // Defensive Programming: Auto-unlock if scripts take too long
+        setTimeout(() => {
+            const body = document.body;
+            if (body && body.classList.contains('locked')) {
+                console.warn('System: Asset load timeout. Forcing unlock for accessibility.');
+                body.classList.remove('locked');
+                const preloader = document.getElementById('preloader');
+                if (preloader) preloader.style.display = 'none';
+            }
+        }, 5000);
+    </script>
     <style>
-        :root {
-            --primary: #00f2ff;
-            --secondary: #7000ff;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --glass-bg: rgba(20, 20, 35, 0.4);
-            --bg-gradient: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-hover: rgba(255, 255, 255, 0.08);
-            --heading-transform: none;
-            --heading-style: normal;
-            --letter-spacing: normal;
-            --glass-blur: 12px;
-            --card-border-width: 1px;
-            --card-border-style: solid;
-            --scroll-behavior: smooth;
-            --tag-bg: rgba(255, 255, 255, 0.1);
-            --input-bg: rgba(0, 0, 0, 0.3);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: #050505;
-            color: var(--text-main);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            cursor: none; /* Hide default cursor for custom one */
-        }
-
-        /* --- 3D BACKGROUND --- */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            background: var(--bg-gradient);
-            transition: background 0.5s ease;
-            /* Fix for mobile scroll freezing */
-            will-change: transform;
-            transform: translateZ(0);
-            pointer-events: none;
-        }
-
-[data-profile="terminal"] {
-  --font-primary: "Courier Prime", monospace;
-  --font-mono: "Courier Prime", monospace;
-  --border-radius-sm: 0px;
-  --border-radius-lg: 0px;
-  --button-padding: 8px 20px;
-  --bg-app: rgba(0, 17, 0, 0.1);
-  --bg-panel: rgba(0, 20, 0, 0.85);
-  --text-primary: #00FF41;
-  --accent-color: #00FF41;
-  --border-color: #00FF41;
-  --shadow-elevation: 0 0 10px rgba(0, 255, 65, 0.2);
-}
-
-[data-profile="logistics"] {
-  --font-primary: "Work Sans", sans-serif;
-  --font-mono: "Courier New", monospace;
-  --border-radius-sm: 2px;
-  --border-radius-lg: 4px;
-  --button-padding: 8px 24px;
-  --bg-app: rgba(0, 17, 51, 0.1);
-  --bg-panel: rgba(0, 34, 102, 0.7);
-  --text-primary: #FFFFFF;
-  --accent-color: #0055ff;
-  --border-color: #002266;
-  --shadow-elevation: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-body {
-  background-color: var(--bg-app);
-  color: var(--text-primary);
-  font-family: var(--font-primary);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-.card {
-  background: var(--bg-panel);
-  border-radius: var(--border-radius-lg);
-  border: var(--card-border-width) var(--card-border-style) var(--border-color);
-  box-shadow: var(--shadow-elevation);
-  padding: 20px;
-  font-family: var(--font-primary);
-  backdrop-filter: blur(var(--glass-blur));
-  position: relative;
-  overflow: hidden;
-}
-
-/* Spotlight Effect Overlay */
-.card::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-sm);
-  padding: var(--button-padding);
-  font-family: var(--font-primary);
-  cursor: pointer;
-  font-weight: 500;
-}
-
-        h1, h2, h3, .logo {
-            text-transform: var(--heading-transform);
-            font-style: var(--heading-style);
-            letter-spacing: var(--letter-spacing);
-        }
-
-        /* --- PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505;
-            z-index: 100001; /* Must be higher than #gatekeeper-overlay (100000) */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 0.8s ease, visibility 0.8s;
-            pointer-events: none; /* Allow interaction with the overlay underneath */
-        }
-        .loader-content { text-align: center; }
-        .loader-bar { width: 200px; height: 2px; background: #333; margin-top: 20px; position: relative; overflow: hidden; }
-        .loader-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.2s; }
-
-        /* --- COMPETITIVE UPGRADES --- */
-        
-        /* 1. Custom Cursor */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary);
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--primary);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        /* Hover state for cursor */
-        body.hovering .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: transparent;
-            backdrop-filter: blur(2px);
-        }
-
-        /* --- PROFESSIONAL THEMES --- */
-        [data-brand="terminal"] .section-title {
-            font-family: 'Courier Prime', monospace;
-            color: #00ff00;
-        }
-        [data-brand="terminal"] .card {
-            border: 1px solid #00ff00 !important;
-            background: rgba(0, 20, 0, 0.8) !important;
-        }
-
-        /* --- BLACK HOLE DISTORTION --- */
-        body.singularity-active .container,
-        body.singularity-active nav,
-        body.singularity-active .chat-window {
-            animation: eventHorizon 0.2s infinite;
-            filter: blur(0.5px) contrast(1.2);
-        }
-        @keyframes eventHorizon {
-            0% { transform: translate(1px, 1px) scale(1); }
-            25% { transform: translate(-1px, -2px) scale(0.995); }
-            50% { transform: translate(-2px, 0px) scale(1); }
-            75% { transform: translate(2px, 1px) scale(1.005); }
-            100% { transform: translate(1px, -1px) scale(1); }
-        }
-
-        /* --- DRAGGABLE CARDS --- */
-        .career-grid .card.dragging {
-            opacity: 0.5;
-            border: 2px dashed var(--primary);
-        }
-
-        /* 2. Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 3. Glitch Effect */
-        .glitch {
-            position: relative;
-        }
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505; /* Matches body bg to hide main text */
-        }
-        .glitch::before {
-            left: 2px;
-            text-shadow: -1px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-        .glitch::after {
-            left: -2px;
-            text-shadow: -1px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim {
-            0% { clip: rect(30px, 9999px, 10px, 0); }
-            5% { clip: rect(80px, 9999px, 90px, 0); }
-            10% { clip: rect(10px, 9999px, 40px, 0); }
-            15% { clip: rect(50px, 9999px, 20px, 0); }
-            20% { clip: rect(10px, 9999px, 80px, 0); }
-            100% { clip: rect(60px, 9999px, 70px, 0); }
-        }
-        @keyframes glitch-anim2 {
-            0% { clip: rect(10px, 9999px, 80px, 0); }
-            5% { clip: rect(60px, 9999px, 10px, 0); }
-            10% { clip: rect(30px, 9999px, 50px, 0); }
-            15% { clip: rect(90px, 9999px, 20px, 0); }
-            20% { clip: rect(10px, 9999px, 30px, 0); }
-            100% { clip: rect(50px, 9999px, 90px, 0); }
-        }
-
-        /* --- MATRIX OVERLAY --- */
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0; /* Behind content (1) but above 3D bg (-1) */
-            pointer-events: none;
-            display: none; /* Hidden by default */
-        }
-
-        /* --- PREVIEW MODAL --- */
-        #preview-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10000; display: none;
-            justify-content: center; align-items: center; flex-direction: column;
-        }
-
-        /* --- MUSIC PLAYER --- */
-        #music-player {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--glass-bg);
-            padding: 10px 15px;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s;
-        }
-
-        #wind-trigger {
-            position: fixed;
-            bottom: 30px;
-            left: 170px; /* Shifted to accommodate music player */
-            z-index: 999;
-            background: var(--glass-bg);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-            transition: all 0.3s;
-        }
-
-        /* --- LAYOUT --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-        }
-
-        .logo span { color: var(--primary); }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        /* --- THEME CONTROLS --- */
-        .theme-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-right: 2rem;
-        }
-        
-        select {
-            background: var(--glass-bg);
-            color: var(--text-main);
-            border: 1px solid var(--glass-border);
-            padding: 0.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-        
-        #mode-toggle {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .nav-links a:hover { color: var(--primary); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 160px;
-        }
-
-        .hero h1.glitch {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1;
-            margin-bottom: 1rem;
-            margin-top: 0;
-            background: linear-gradient(to right, var(--text-main), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
-        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border: 1px solid var(--primary);
-            background: rgba(0, 242, 255, 0.1);
-            color: var(--primary);
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-
-        .btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 30px var(--primary);
-        }
-
-        /* --- SECTIONS GENERAL --- */
-        section {
-            padding: 8rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            display: inline-block;
-            border-bottom: 2px solid var(--secondary);
-        }
-
-        /* --- SKILLS --- */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .skill-tag {
-            padding: 0.8rem 1.5rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            color: var(--text-muted);
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .skill-tag:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-            color: #fff;
-        }
-
-        /* --- PROJECTS --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .card p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .card-tech {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tech-mini {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            background: var(--tag-bg);
-            border-radius: 4px;
-            color: var(--primary);
-        }
-
-        .card-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .link-text {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-bottom: 1px solid var(--primary);
-            padding-bottom: 2px;
-            transition: opacity 0.3s;
-        }
-        .link-text:hover { opacity: 0.7; }
-
-        /* --- CAREER FOCUS --- */
-        .career-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .career-list {
-            list-style: none;
-            padding: 0;
-        }
-        .career-list li {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: flex-start;
-        }
-        .career-list li::before {
-            content: "▹";
-            color: var(--primary);
-            margin-right: 10px;
-            line-height: 1.4;
-        }
-
-        /* Career Expansion */
-        .career-expanded {
-            display: none;
-            margin-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1rem;
-        }
-        .career-expanded.show {
-            display: block;
-        }
-        .btn-expand {
-            background: none;
-            border: 1px dashed var(--primary);
-            color: var(--primary);
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 1rem;
-            width: 100%;
-            transition: 0.3s;
-        }
-        .btn-expand:hover {
-            background: rgba(0, 242, 255, 0.05);
-            border-style: solid;
-        }
-
-        /* --- CONTACT --- */
-        .contact-form {
-            max-width: 600px;
-            background: var(--glass-bg);
-            padding: 3rem;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group { margin-bottom: 1.5rem; }
-        
-        label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); }
-        
-        input, textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 6px;
-            color: var(--text-main);
-            font-family: inherit;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* Mobile Adjustments */
-
-        /* Responsive Layout Improvements */
-        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); z-index: 101; }
-
-        @media (max-width: 1200px) {
-            .container {
-                max-width: 98vw;
-                padding: 0 1rem;
-            }
-        }
-
-        @media (max-width: 900px) {
-            section {
-                padding: 4rem 0;
-            }
-            .container {
-                padding: 0 0.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hamburger { display: block; position: absolute; top: 1.5rem; right: 2rem; }
-            nav {
-                flex-direction: column;
-                padding: 1rem 0.5rem;
-                align-items: flex-start;
-            }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                padding-top: 1rem;
-                background: var(--glass-bg);
-                backdrop-filter: blur(10px);
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid var(--glass-border);
-            }
-            .nav-links.active { display: flex; }
-            .theme-controls { flex-direction: column; align-items: center; gap: 1rem; margin-right: 0; }
-            .nav-links a { margin: 0.5rem 0; }
-            .hero h1, h1.glitch {
-                font-size: 2.2rem !important;
-            }
-            .hero {
-                align-items: center;
-                text-align: center;
-            }
-            .hero-btns {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: center;
-            }
-            .section-title {
-                font-size: 1.7rem;
-                margin-bottom: 2rem;
-            }
-            .skills-grid {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .project-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            #about > div {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .card {
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 0 1rem;
-            }
-            nav {
-                padding: 0.5rem 1rem;
-            }
-            .hero h1, h1.glitch {
-                font-size: 2.5rem !important;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .card {
-                padding: 15px;
-            }
-            .skills-grid {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-            .skill-tag {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1, h1.glitch {
-                font-size: 2.2rem !important;
-            }
-            .section-title {
-                font-size: 1.6rem;
-            }
-            .card {
-                padding: 12px;
-            }
-            .hero-btns {
-                gap: 1rem;
-                width: 100%;
-            }
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        /* --- PRINT STYLES (For CV Download) --- */
-        @media print {
-            #canvas-container, nav, .hero-btns, .theme-controls, #preloader, .cursor-dot, .cursor-outline, footer, .contact-form, #profile-switcher, #music-player, .chat-window, .chat-trigger, #gatekeeper-overlay {
-                display: none !important;
-            }
-            body {
-                background: white !important;
-                color: black !important;
-                cursor: auto !important;
-                overflow: visible !important;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            }
-            .container, section {
-                max-width: 100% !important;
-                padding: 0.5rem 0 !important;
-                margin: 0 !important;
-            }
-            .section-title {
-                font-size: 1.8rem !important;
-                margin-top: 1rem !important;
-                margin-bottom: 1rem !important;
-                border-bottom: 2px solid #333 !important;
-                display: block !important;
-                color: #000 !important;
-            }
-            .card {
-                background: none !important;
-                border: none !important;
-                border-bottom: 1px solid #eee !important;
-                box-shadow: none !important;
-                color: black !important;
-                break-inside: avoid;
-                padding: 1rem 0 !important;
-            }
-            .career-grid, .project-grid {
-                display: block !important;
-            }
-            h1, h2, h3, p, span, a, li {
-                color: black !important;
+        /* Professional Empathy: Respect User Motion Preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .glitch, .glitch::before, .glitch::after {
+                animation: none !important;
                 text-shadow: none !important;
             }
-            .hero {
-                min-height: auto !important;
-                padding-top: 2rem !important;
-                text-align: left !important;
-                align-items: flex-start !important;
+            #matrix-canvas, #canvas-container, .wind-active {
+                display: none !important;
             }
-            .hero h1 {
-                margin-top: 0 !important;
-                background: none !important;
-                -webkit-text-fill-color: black !important;
-                font-size: 2.5rem !important;
-                margin-bottom: 0.5rem !important;
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
             }
-            .hero p {
-                font-size: 1.1rem !important;
-                margin-bottom: 1rem !important;
-            }
-            .tech-mini {
-                border: 1px solid #ccc !important;
-                color: #333 !important;
-                background: #f9f9f9 !important;
-            }
-            .btn-expand, .career-expanded {
-                display: none !important; /* Hide read more on print */
-            }
-            .career-list li::before {
-                color: #333 !important;
-            }
-            a { text-decoration: underline !important; color: #000 !important; }
-        }
-
-        /* --- BACK TO TOP --- */
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary);
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 999;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #back-to-top.visible { opacity: 1; visibility: visible; }
-        #back-to-top:hover { transform: translateY(-5px); }
-
-        /* --- CHATBOT --- */
-        #chatbot-btn {
-            position: fixed;
-            bottom: 90px;
-            right: 30px;
-            background: var(--secondary);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
-            transition: transform 0.3s;
-        }
-        #chatbot-btn:hover { transform: scale(1.1); }
-        
-        .chat-window {
-            position: fixed;
-            bottom: 150px;
-            right: 30px;
-            width: 300px;
-            height: 400px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transform: scale(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-        }
-        .chat-window.open { transform: scale(1); }
-        
-        .chat-header {
-            background: rgba(0,0,0,0.2);
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .chat-msg {
-            padding: 8px 12px;
-            border-radius: 10px;
-            max-width: 80%;
-            font-size: 0.9rem;
-        }
-        .chat-msg.bot { background: rgba(255,255,255,0.1); align-self: flex-start; border-bottom-left-radius: 2px; }
-        .chat-msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; }
-        
-        .chat-input-area {
-            padding: 10px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            gap: 5px;
-        }
-        .chat-input-area input {
-            flex: 1;
-            padding: 8px;
-            border-radius: 20px;
-            border: none;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        .chat-input-area button {
-            padding: 8px 15px;
-            border-radius: 20px;
-            background: var(--primary);
-            color: #000;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* --- FLIP CARDS --- */
-        .project-card-container {
-            perspective: 1000px;
-            height: 350px; /* Fixed height for flip consistency */
-        }
-        .project-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: left;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-        .project-card-container.flipped .project-card-inner {
-            transform: rotateY(180deg);
-        }
-        .project-card-front, .project-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .project-card-back {
-            transform: rotateY(180deg);
-            background: var(--bg-panel); /* Ensure opacity */
-            border: var(--card-border-width) var(--card-border-style) var(--primary); /* Highlight back */
-        }
-
-        /* Active Filter State */
-        .skill-tag.active-filter {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        /* --- WIND BLOW EFFECT --- */
-        @keyframes windBlow {
-            0% { transform: translateX(0) rotate(0deg); }
-            20% { transform: translateX(15px) rotate(1deg); }
-            40% { transform: translateX(-5px) rotate(-0.5deg); }
-            60% { transform: translateX(8px) rotate(0.5deg); }
-            80% { transform: translateX(-2px) rotate(-0.2deg); }
-            100% { transform: translateX(0) rotate(0deg); }
-        }
-
-        .wind-active {
-            animation: windBlow 4s ease-in-out infinite;
-        }
-
-        .wind-affected {
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        @media (max-width: 768px) {
-            #music-player {
-                bottom: 85px;
-                left: 20px;
-                padding: 8px 12px;
-            }
-            #wind-trigger {
-                bottom: 85px;
-                left: 155px;
-                width: 40px;
-                height: 40px;
-            }
-            #back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-            #chatbot-btn {
-                bottom: 80px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
         }
     </style>
-    <style id="gatekeeper-styles">
-        #gatekeeper-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505;
-            z-index: 100000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Remove backdrop-filter to keep it dark until unlocked */
-        }
-        .gatekeeper-card {
-            background: rgba(20, 20, 35, 0.8);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 1px solid var(--primary);
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-        }
-        .gatekeeper-card h2 { margin-bottom: 1rem; color: var(--primary); }
-        .gatekeeper-card p { margin-bottom: 2rem; color: var(--text-muted); font-size: 0.9rem; }
-        .gatekeeper-form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: #fff;
-            outline: none;
-        }
-        .gatekeeper-form input:focus { border-color: var(--primary); }
-        .gatekeeper-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .gatekeeper-btn:hover { transform: scale(1.02); }
-        body.locked { overflow: hidden; }
-    </style>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body class="locked">
+    <div id="scroll-progress"></div>
 
     <!-- Gatekeeper Overlay -->
     <div id="gatekeeper-overlay">
@@ -1110,2139 +121,565 @@ button {
 
     <!-- 3D Canvas -->
     <div id="canvas-container"></div>
+    <button id="recruiter-btn" title="Highlight key recruiter sections">Fast-Track for Recruiters ⚡</button>
+    <div id="diagnostic-overlay"></div>
+
+    <div class="shipment-tracker" id="shipment-tracker">
+        <h4 style="font-size: 0.8rem; margin-bottom: 1rem; color: var(--primary);">Live Shipment #AS-2026</h4>
+        <div class="tracker-step" id="step-1">Dispatch Hub (Midrand)</div>
+        <div class="tracker-step" id="step-2">Primary Distribution (PD)</div>
+        <div class="tracker-step" id="step-3">DC Arrival (CCBSA)</div>
+        <div class="tracker-step" id="step-4">Secondary Distribution (SD)</div>
+        <div class="tracker-step" id="step-5">Final Delivery</div>
+    </div>
 
     <!-- Matrix Rain Overlay -->
     <canvas id="matrix-canvas"></canvas>
 
     <!-- Preview Modal -->
     <div id="preview-modal">
-        <button id="close-preview" style="position:absolute; top:20px; right:30px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer;">✕</button>
-        <iframe id="preview-frame" style="width:90%; height:80%; border:1px solid var(--primary); background:#fff;"></iframe>
+        <button id="close-preview" aria-label="Close Preview" style="position:absolute; top:20px; right:30px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer;">✕</button>
+        <iframe id="preview-frame" title="Project Preview" style="width:90%; height:80%; border:1px solid var(--primary); background:#fff;"></iframe>
         <p style="color:#fff; margin-top:10px;">Live Preview Mode</p>
     </div>
 
     <!-- Music Player -->
     <div id="music-player">
-        <button id="play-music-btn" style="background:none; padding:0; font-size:1.2rem;">▶</button>
+        <button id="play-music-btn" aria-label="Toggle Background Music" style="background:none; padding:0; font-size:1.2rem;">▶</button>
         <div style="font-size:0.8rem; color:var(--text-muted);">Lo-Fi Radio <span style="color:var(--primary);">OFFLINE</span></div>
         <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
     </div>
 
     <!-- Navigation -->
-    <nav>
-        <div class="logo">ASEMAHLE<span>NKWALI</span></div>
-        <div class="hamburger" id="hamburger-btn">☰</div>
-        <div class="nav-links">
-            <a href="https://github.com/TEARN1" target="_blank" title="GitHub">GitHub</a>
-            <a href="https://www.linkedin.com/in/asemahle-nkwali-561b36203/" target="_blank" title="LinkedIn">LinkedIn</a>
-            <div class="theme-controls">
-                <select id="brand-select">
-                    <option value="default">Nebula (Default)</option>
-                    <option value="terminal">Terminal (Dev)</option>
-                    <option value="logistics">Logistics Blue</option>
-                </select>
-                <button id="mode-toggle">☀</button>
-                <button id="screenshot-btn" title="Save Hologram">📷</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-        <img src="profile.jpg" alt="Asemahle Nkwali" class="profile-photo reveal" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.25); margin-bottom: 1.5rem;" />
-        <h1 class="glitch" data-text="Hybrid Technologist">Hybrid Technologist</h1>
-        <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 2px;">Logistics Systems & Frontend Engineering</p>
-        <blockquote class="reveal" style="font-size:1.2rem;line-height:1.7;margin:1.5rem 0 2.5rem 0;padding-left:1.5rem;border-left:4px solid var(--primary);background:rgba(0,0,0,0.05)">
-            "I don't just write code; I build systems. My 18 months in logistics taught me that efficiency is the only metric that matters. I bridge the gap between physical operations (WMS/SCM) and digital excellence (React/Three.js)."
-        </blockquote>
-        <div class="hero-btns reveal">
-            <button class="btn" id="warpBtn">Engage Warp Speed</button>
-            <button class="btn" onclick="window.print()" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Download CV</button>
-        </div>
-    </section>
-
-    <!-- About & Skills -->
-    <section id="about">
-        <h2 class="section-title reveal">About Me</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
-            <div>
-                <p id="hacker-bio" style="line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem; cursor: pointer;" title="Click to decode">
-                    A highly analytical developer with 18 months of deep operational experience in <b>Warehouse Management Systems (WMS)</b> and <b>Distribution (PD/SD)</b>. Transitioned into software development via <b>freeCodeCamp</b>, mastering the <b>React/Redux</b> stack to build high-efficiency interfaces for the logistics sector. I apply "First Principles Thinking" to solve complex UI bottlenecks, ensuring software moves as fast as a warehouse floor.
-                </p>
-            </div>
-            <div id="skills" class="reveal">
-                <h3 style="margin-bottom: 1.5rem;">Tech Stack & Tools</h3>
-                <div class="skills-grid">
-                    <span class="skill-tag">JavaScript (ES6+)</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Redux</span>
-                    <span class="skill-tag">D3.js</span>
-                    <span class="skill-tag">Bootstrap/Sass</span>
-                    <span class="skill-tag">jQuery</span>
-                    <span class="skill-tag">Supabase</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Git/GitHub</span>
-                    <span class="skill-tag">VS Code</span>
-                    <span class="skill-tag">Android Studio</span>
-                    <span class="skill-tag">IntelliJ IDEA</span>
-                    <span class="skill-tag">PowerShell</span>
-                    <span class="skill-tag">Lovable</span>
-                    <span class="skill-tag">v0</span>
-                    <span class="skill-tag">Claude</span>
-                    <span class="skill-tag">Gemini</span>
-                    <span class="skill-tag">ChatGPT</span>
-                    <span class="skill-tag">Copilot</span>
-                    <span class="skill-tag">Antigravity</span>
-                    <span class="skill-tag">WMS Domain</span>
-                    <span class="skill-tag">PD/SD Logistics</span>
+    <header>
+        <nav aria-label="Main Navigation">
+            <div class="logo">ASEMAHLE<span>NKWALI</span></div>
+            <div class="hamburger" id="hamburger-btn" aria-label="Open Menu" aria-expanded="false" role="button">☰</div>
+            <div class="nav-links">
+                <div class="focus-toggle">
+                    <span class="focus-label active" id="label-logistics">Logistics</span>
+                    <input type="checkbox" id="focus-slider" aria-label="Toggle between Logistics and Tech focus">
+                    <span class="focus-label" id="label-tech">Tech</span>
+                </div>
+                <div class="weather-widget" id="weather-widget">
+                    <span id="local-time">00:00</span>
+                    <span style="color:var(--primary);">MIDRAND, ZA</span>
+                    <button id="audio-toggle-btn" style="background:none; border:none; color:inherit; cursor:pointer; font-size:1rem; margin-left:10px;" title="Toggle Environmental Audio">🔊</button>
+                </div>
+                <address style="display: contents; font-style: normal;">
+                    <a href="https://github.com/TEARN1" target="_blank" title="GitHub" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/asemahlenkwali-5538731b8" target="_blank" title="LinkedIn" rel="noopener noreferrer">LinkedIn</a>
+                </address>
+                <div class="theme-controls">
+                    <select id="brand-select" aria-label="Select Theme">
+                        <option value="default">Nebula (Default)</option>
+                        <option value="terminal">Terminal (Dev)</option>
+                        <option value="logistics">Logistics Blue</option>
+                    </select>
+                    <button id="mode-toggle" aria-label="Toggle Dark/Light Mode">☀</button>
+                    <button id="screenshot-btn" aria-label="Save Hologram Screenshot" title="Save Hologram">📷</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
 
-    <!-- Career Focus -->
-    <section id="career-focus">
-        <h2 class="section-title reveal">Target Roles & Career Focus</h2>
-        <p class="reveal" style="color: var(--text-muted); margin-bottom: 2rem; max-width: 800px; line-height: 1.6;">
-            By merging 18 months of <b>Logistics Domain Knowledge</b> (WMS, PD/SD, Inventory) with <b>Modern Frontend Engineering</b> (React, Redux, D3), I am uniquely qualified for over 30 distinct professional roles starting at <b>R20,000+</b>.
-        </p>
-        <div class="career-grid">
-            <!-- Category 1: Logistics Tech & WMS -->
-            <div class="card reveal wind-affected">
-                <h3>Logistics Tech Specialist</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Highest Match - Bridging WMS & Code</i></p>
-                <ul class="career-list">
-                    <li>Junior WMS Developer</li>
-                    <li>Junior TMS Developer</li>
-                    <li>Supply Chain Solutions Analyst</li>
-                    <li>Implementation Consultant (Logistics)</li>
-                    <li>WMS Support Engineer</li>
-                </ul>
-                <div class="career-expanded" id="exp-logistics">
+    <main id="main-content">
+        <!-- Hero -->
+        <section class="hero container" aria-labelledby="hero-heading">
+            <div style="position: relative;">
+                <img src="profile.jpg" alt="Asemahle Nkwali - Systems Engineer" class="profile-photo reveal" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.25); margin-bottom: 1.5rem;" />
+                <div class="profile-hud">
+                    <div class="hud-stat" style="top: 10%; right: -60px;">STATUS: ACTIVE</div>
+                    <div class="hud-stat" style="bottom: 10%; left: -60px;">LOC: MIDRAND, ZA</div>
+                    <div class="hud-stat mode-specific-stat" style="top: 50%; right: -80px;">DATA_FLOW: NOMINAL</div>
+                </div>
+            </div>
+            <div id="hero-log" style="font-family:'Courier Prime', monospace; color:var(--primary); font-size:0.7rem; margin-bottom:1rem; min-height:1rem;"></div>
+            <h1 id="hero-heading" class="glitch" data-text="Hybrid Operational Technologist">Hybrid Operational Technologist</h1>
+            <p style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 2px;">Systems Engineer | GenAI Architect | Logistics Optimization Specialist</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Bridging physical operations (Coca-Cola) and intelligent digital infrastructure.</p>
+            <blockquote class="reveal" style="font-size:1.1rem;line-height:1.7;margin:1.5rem 0 2.5rem 0;padding-left:1.5rem;border-left:4px solid var(--primary);background:rgba(0,0,0,0.05)" lang="en">
+                "Expert in WMS/ERP administration and Full-Stack Engineering, reducing decision latency by 40% through custom data visualization. Architecting the next generation of supply chain intelligence through decentralized networking and neuro-symbolic AI."
+            </blockquote>
+            <div id="live-experience" style="font-family:'Courier Prime', monospace; color:var(--primary); font-size:0.8rem; margin-bottom:1.5rem;">CCBSA SERVICE TIME: <span id="exp-timer">Loading...</span></div>
+            <div class="hero-btns reveal">
+                <button class="btn" id="warpBtn">View System Metrics</button>
+                <button class="btn" onclick="window.print()" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Download PDF CV</button>
+            </div>
+        </section>
+
+        <!-- About & Skills -->
+        <section id="about" class="container" aria-labelledby="summary-heading">
+            <h2 id="summary-heading" class="section-title reveal">Professional Summary</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: start;">
+                <div>
+                    <p id="hacker-bio" style="line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem; cursor: pointer;" title="Click to decode">
+                        High-leverage Technologist bridging the gap between high-velocity physical operations (Coca-Cola) and intelligent digital infrastructure. Expert in <b data-tooltip="Warehouse Management System">WMS</b>/<b data-tooltip="Enterprise Resource Planning">ERP</b> administration and Full-Stack Engineering, recently certified in Generative AI for Software Engineers. Proven track record of reducing decision latency by 40% through custom data visualization and automating workflows to recapture 6+ hours of operational capacity weekly.
+                    </p>
+
+                    <!-- System Map Diagram -->
+                    <div class="system-map reveal">
+                        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System Architecture Diagram: Bridging Physical and Digital Operations">
+                            <title>System Architecture Diagram</title>
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="var(--primary)" />
+                                </marker>
+                            </defs>
+                            <!-- Nodes -->
+                            <rect x="20" y="60" width="140" height="80" rx="10" class="map-node" />
+                            <text x="90" y="105" text-anchor="middle" class="map-text">Physical Warehouse</text>
+
+                            <rect x="340" y="60" width="140" height="80" rx="10" class="map-node" />
+                            <text x="410" y="105" text-anchor="middle" class="map-text">Digital SCM (MSD 365)</text>
+
+                            <!-- Bridge -->
+                            <path d="M 160 100 L 330 100" class="map-arrow" />
+                            <text x="250" y="90" text-anchor="middle" class="map-text" style="font-size:12px; fill:var(--primary);">Hybrid Bridge</text>
+                        </svg>
+                    </div>
+                </div>
+                <div id="skills" class="reveal">
+                    <h3 style="margin-bottom: 1.5rem;">System Architecture & Core Competencies</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h4 style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem;">Operational Infrastructure</h4>
+                            <ul style="list-style: none; font-size: 0.9rem; line-height: 2; color: var(--text-muted); font-family: 'Courier Prime', monospace;">
+                                <li>• MSD 365 / ERP Architecture</li>
+                                <li>• WMS Workflow Optimization</li>
+                                <li>• Data Governance & SQL Analytics</li>
+                                <li>• Inventory Control & RCA</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem;">Intelligent Layer</h4>
+                            <ul style="list-style: none; font-size: 0.9rem; line-height: 2; color: var(--text-muted); font-family: 'Courier Prime', monospace;">
+                                <li>• GenAI / Agentic Frameworks</li>
+                                <li>• Full-Stack TS (Node/React)</li>
+                                <li>• 3D Data Visualization</li>
+                                <li>• Neuro-symbolic Logic</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1rem 0; font-size: 1rem; color: var(--primary);">Tooling & Ecosystem</h3>
+                    <div class="skills-grid" style="opacity: 0.8; font-size: 0.8rem;">
+                        <span class="skill-tag">Claude</span>
+                        <span class="skill-tag">Gemini</span>
+                        <span class="skill-tag">GitHub Copilot</span>
+                        <span class="skill-tag">Android Studio</span>
+                        <span class="skill-tag">IntelliJ</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Lovable</span>
+                        <span class="skill-tag">v0 (Vercel)</span>
+                    </div>
+
+                    <!-- Radar Chart -->
+                    <div class="radar-chart reveal">
+                        <svg viewBox="0 0 200 200" role="img" aria-label="Skills Radar Chart: Expertise Distribution">
+                            <title>Skills Distribution Radar</title>
+                            <!-- Grid -->
+                            <circle cx="100" cy="100" r="80" class="radar-grid" />
+                            <circle cx="100" cy="100" r="60" class="radar-grid" />
+                            <circle cx="100" cy="100" r="40" class="radar-grid" />
+                            <line x1="100" y1="20" x2="100" y2="180" class="radar-grid" />
+                            <line x1="20" y1="100" x2="180" y2="100" class="radar-grid" />
+
+                            <!-- Polygon (Hardcoded for now, can be dynamic) -->
+                            <polygon points="100,30 170,100 100,160 40,100" class="radar-poly" />
+
+                            <!-- Labels -->
+                            <text x="100" y="15" text-anchor="middle" class="radar-label">Logistics</text>
+                            <text x="185" y="105" text-anchor="start" class="radar-label">Frontend</text>
+                            <text x="100" y="195" text-anchor="middle" class="radar-label">Architecture</text>
+                            <text x="15" y="105" text-anchor="end" class="radar-label">Data</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professional Experience -->
+        <section id="experience" class="container" aria-labelledby="experience-heading">
+            <h2 id="experience-heading" class="section-title reveal">Professional Experience</h2>
+
+            <div class="career-grid">
+                <div class="card reveal wind-affected">
+                    <h3>Logistics Support Controller (Planning)</h3>
+                    <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">The Coca-Cola Company | May 2025 - Present</p>
                     <ul class="career-list">
-                        <li>Inventory Systems Integrator</li>
-                        <li>Digital Distribution Coordinator</li>
-                        <li>Picking Automation Consultant</li>
-                        <li>Warehouse Systems Administrator</li>
-                        <li>PD/SD Logistics Coordinator</li>
+                        <li><b>Operational Planning:</b> Convert weekly forecasts into SKU/line plans (98% OTD).</li>
+                        <li><b>System Optimization:</b> Monitor OOS, safety stock, and master data via MSD 365.</li>
+                        <li><b>Variance Analysis:</b> Track Plan vs Actual and USLE variances for corrective action.</li>
                     </ul>
+                    <!-- Anime Conveyor -->
+                    <div class="anime-scene" title="Coca-Cola Production Planning Simulation">
+                        <div class="conveyor-belt"></div>
+                        <div class="bottle" style="animation-delay: 0s;"></div>
+                        <div class="bottle" style="animation-delay: 1.5s;"></div>
+                        <div class="bottle" style="animation-delay: 3s;"></div>
+                        <div class="bottle" style="animation-delay: 4.5s;"></div>
+                    </div>
                 </div>
-                <button class="btn-expand" onclick="toggleExpand('exp-logistics', this)">Read More Roles</button>
-            </div>
-            
-            <!-- Category 2: Frontend & UI/UX -->
-            <div class="card reveal wind-affected">
-                <h3>Frontend & UI/UX</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Tech Heavy - React & Redux Stack</i></p>
-                <ul class="career-list">
-                    <li>Junior React Developer</li>
-                    <li>Junior Frontend Engineer</li>
-                    <li>Junior Javascript Developer</li>
-                    <li>Junior Web Developer (E-commerce)</li>
-                    <li>UI/UX Developer (Logistics focus)</li>
-                </ul>
-                <div class="career-expanded" id="exp-frontend">
+                <div class="card reveal wind-affected">
+                    <h3>Inventory & Operations Specialist</h3>
+                    <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">The Coca-Cola Company | May 2024 - Apr 2025</p>
                     <ul class="career-list">
-                        <li>Internal Tools Developer</li>
-                        <li>Junior Dashboard Developer</li>
-                        <li>Frontend Support Developer</li>
-                        <li>E-commerce Solutions Specialist</li>
-                        <li>React Component Architect (Junior)</li>
+                        <li><b>Inventory Accuracy:</b> Maintained 99.5% accuracy through counts and WMS fixes.</li>
+                        <li><b>Automation:</b> Reduced manual reconciliation by ~6 hours/week via scripts.</li>
+                        <li><b>Productivity:</b> 12% increase in pick productivity via route sequencing.</li>
                     </ul>
+                    <!-- Anime Inventory -->
+                    <div class="anime-scene" title="Warehouse Ops Simulation">
+                        <div class="box-stack">
+                            <div class="anime-box" style="animation-delay: 0s;"></div>
+                            <div class="anime-box" style="animation-delay: 0.2s;"></div>
+                            <div class="anime-box" style="animation-delay: 0.4s;"></div>
+                        </div>
+                        <div class="coded-icon icon-db"></div>
+                    </div>
                 </div>
-                <button class="btn-expand" onclick="toggleExpand('exp-frontend', this)">Read More Roles</button>
-            </div>
-
-            <!-- Category 3: Data & Operations -->
-            <div class="card reveal wind-affected">
-                <h3>Data & Efficiency</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Analytics Focus - D3.js & BI</i></p>
-                <ul class="career-list">
-                    <li>Junior Data Visualization Specialist</li>
-                    <li>Supply Chain Data Analyst</li>
-                    <li>Business Intelligence (BI) Developer</li>
-                    <li>Operations Technology (OT) Specialist</li>
-                    <li>Logistics Data Coordinator</li>
-                </ul>
-                <div class="career-expanded" id="exp-data">
+                <div class="card reveal wind-affected">
+                    <h3>Management Certificate Learnership</h3>
+                    <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">CCBSA | Oct 2023 - Oct 2026 (Expected)</p>
                     <ul class="career-list">
-                        <li>Performance Dashboard Developer</li>
-                        <li>Technical Inventory Controller</li>
-                        <li>Inventory Optimization Specialist</li>
-                        <li>Logistics KPI Analyst</li>
-                        <li>SCM Digital Transformation Aide</li>
+                        <li><b>Process Mapping:</b> Identified dispatch bottlenecks to improve fleet loading.</li>
+                        <li><b>Audit Control:</b> Fixed data feed issues to reduce KPI refresh latency.</li>
                     </ul>
+                    <div class="anime-scene">
+                        <div class="icon-chart coded-icon" style="height:30px;">
+                            <div class="chart-line" style="animation-delay:0s;"></div>
+                            <div class="chart-line" style="animation-delay:0.2s;"></div>
+                            <div class="chart-line" style="animation-delay:0.4s;"></div>
+                        </div>
+                        <div style="position:absolute; bottom:15px; left:15px; font-family:monospace; font-size:0.6rem; color:var(--primary); opacity:0.5;">EXEC: strategy_optimization.exe</div>
+                    </div>
                 </div>
-                <button class="btn-expand" onclick="toggleExpand('exp-data', this)">Read More Roles</button>
+            </div>
+        </section>
+
+        <!-- Systems & Projects -->
+        <section id="projects" class="container" aria-labelledby="projects-heading">
+            <h2 id="projects-heading" class="section-title reveal">Technical Systems</h2>
+
+            <div class="filter-bar reveal">
+                <button class="filter-btn active" data-filter="all">All Systems</button>
+                <button class="filter-btn" data-filter="ai">AI & Logic</button>
+                <button class="filter-btn" data-filter="logistics">Logistics Ops</button>
+                <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
             </div>
 
-            <!-- Category 4: Hybrid & Emerging -->
-            <div class="card reveal wind-affected">
-                <h3>Hybrid & Emerging</h3>
-                <p style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.5rem;"><i>Cross-Functional Growth</i></p>
-                <ul class="career-list">
-                    <li>E-commerce Operations Specialist</li>
-                    <li>Tech-Enabled Dispatch Manager</li>
-                    <li>Software QA Tester (Logistics)</li>
-                    <li>Technical Account Manager</li>
-                    <li>Technical Product Owner (Junior)</li>
-                </ul>
-                <div class="career-expanded" id="exp-hybrid">
-                    <ul class="career-list">
-                        <li>Digital Supply Chain Strategist</li>
-                        <li>Warehouse Automation Specialist</li>
-                        <li>SaaS Onboarding Specialist</li>
-                        <li>Logistics Tech Trainer</li>
-                        <li>E-commerce Logistics Lead</li>
-                    </ul>
-                </div>
-                <button class="btn-expand" onclick="toggleExpand('exp-hybrid', this)">Read More Roles</button>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Professional Experience -->
-    <section id="experience">
-        <h2 class="section-title reveal">Professional Experience</h2>
-        <div class="career-grid">
-            <!-- Experience at CCBSA -->
-            <div class="card reveal wind-affected">
-                <h3>Technical Systems Engineer</h3>
-                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">The Coca-Cola Company | May 2024 – Present</p>
-                <ul class="career-list">
-                    <li><b>Application Support:</b> Frontline "Super-User" for MSD 365 and Blue Yonder, troubleshooting master-data errors for 98% system uptime.</li>
-                    <li><b>Technical Optimization:</b> Fixed a recursive logic error in WMS master-data, saving 6 hours of manual labor per week.</li>
-                    <li><b>Data Reliability:</b> Maintained 99.5% accuracy across high-velocity inbound/outbound flows.</li>
-                    <li><b>Efficiency Impact:</b> Achieved a 18% reduction in warehouse dwell time through WMS-to-Physical audit alignment.</li>
-                </ul>
-            </div>
-            <div class="card reveal wind-affected">
-                <h3>Logistics Support & Systems Controller</h3>
-                <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;">CCBSA, Midrand | May 2024 - Present</p>
-                <ul class="career-list">
-                    <li><b>Systems Analysis:</b> Managed WMS data entry and identified critical UI flaws impacting throughput.</li>
-                    <li><b>Operations Control:</b> Coordinated complex Dispatching & Receiving schedules for high-volume shifts.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education">
-        <h2 class="section-title reveal">Education & Certifications</h2>
-        <div class="career-grid">
-            <div class="card reveal wind-affected">
-                <h3>Full Stack Development Certificate</h3>
-                <p style="color: var(--primary); margin-bottom: 0.5rem;">FNB App Academy / IT Varsity (2025)</p>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">32 Credits - Comprehensive Full Stack Engineering</p>
-            </div>
-            <div class="card reveal wind-affected">
-                <h3>Data Visualization (D3.js)</h3>
-                <p style="color: var(--primary); margin-bottom: 0.5rem;">freeCodeCamp Professional Certification</p>
-            </div>
-            <div class="card reveal wind-affected">
-                <h3>JavaScript Algorithms & Data Structures</h3>
-                <p style="color: var(--primary); margin-bottom: 0.5rem;">freeCodeCamp Professional Certification</p>
-            </div>
-            <div class="card reveal wind-affected">
-                <h3>Management Higher Certificate</h3>
-                <p style="color: var(--primary); margin-bottom: 0.5rem;">Coca-Cola (Expected 2026)</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects">
-        <h2 class="section-title reveal">Featured Projects</h2>
-        <p class="reveal" style="color: var(--text-muted); margin-bottom: 3rem; max-width: 800px; line-height: 1.6;">
-            A collection of enterprise-grade logistics solutions and technical experiments. My work focuses on <b>performance optimization</b>, <b>real-time data visualization</b>, and <b>operational efficiency</b>.
-        </p>
-
-        <h3 class="reveal" style="margin-bottom: 2rem; color: var(--primary); letter-spacing: 2px;">I. Enterprise Logistics Solutions</h3>
-        <div class="project-grid" style="margin-bottom: 5rem;">
-            <!-- Project CCBSA -->
-            <div class="project-card-container reveal wind-affected" data-tags="javascript html css" data-url="https://tearn1.github.io/CCBSA-Pickers-Accelerator/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>CCBSA Pickers Accelerator</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">JavaScript</span>
-                                <span class="tech-mini">HTML5</span>
-                                <span class="tech-mini">CSS3</span>
+            <div class="project-grid">
+                <!-- Project: Nomimi AI -->
+                <div class="project-card-container reveal wind-affected" data-tags="ai logic architecture">
+                    <div class="project-card-inner">
+                        <div class="project-card-front card">
+                            <div>
+                                <h3>Nomimi AI | Lead Architect</h3>
+                                <div class="card-tech">
+                                    <span class="tech-mini">Neuro-symbolic Engine</span>
+                                    <span class="tech-mini">Data Integration</span>
+                                </div>
+                                <p>Developing a neuro-symbolic engine designed to plan and architect complex technological systems through an "Everything Layer".</p>
                             </div>
-                            <p>An optimization tool designed for CCBSA to accelerate warehouse picking processes.</p>
-                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 18% reduction in warehouse dwell time</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/CCBSA-Pickers-Accelerator/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/CCBSA-Pickers-Accelerator" target="_blank" class="link-text">GitHub -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Picking Path Optimization</li>
-                            <li>Real-time Productivity Tracking</li>
-                            <li>Custom CCBSA Logic Integration</li>
-                            <li><b>Impact:</b> Reduced dwell time by 18% via master-data alignment.</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project: Mobile Inventory Audit PWA (New) -->
-            <div class="project-card-container reveal wind-affected" data-tags="react redux supabase" data-url="#">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Mobile Inventory Audit PWA</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">React</span>
-                                <span class="tech-mini">Redux</span>
-                                <span class="tech-mini">Supabase</span>
+                            <div class="anime-scene">
+                                <div class="neural-net">
+                                    <div class="node" style="animation-delay: 0s;"></div>
+                                    <div class="node" style="animation-delay: 0.3s;"></div>
+                                    <div class="node" style="animation-delay: 0.6s;"></div>
+                                </div>
                             </div>
-                            <p>A cross-platform PWA for real-time stock audits and cycle counting.</p>
-                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 99.5% Stock Accuracy Maintained</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <span class="link-text" style="opacity:0.5; cursor:not-allowed;">Private Repo</span>
+                        <div class="project-card-back card">
+                            <h3>System Core</h3>
+                            <p>Architecting an integration layer that merges symbolic logic with neural networks for high-precision decision mapping.</p>
+                            <div class="coded-icon icon-brain"></div>
                         </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Offline-first data sync</li>
-                            <li>Barcode Scanning Integration</li>
-                            <li>Real-time WMS reconciliation</li>
-                            <li><b>Tech:</b> Built with React & Supabase for rapid deployment.</li>
-                        </ul>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project: Tank & PD Slot Optimizer (New) -->
-            <div class="project-card-container reveal wind-affected" data-tags="javascript d3 sql" data-url="#">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Tank & PD Slot Optimizer</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">JS (ES6+)</span>
-                                <span class="tech-mini">D3.js</span>
-                                <span class="tech-mini">SQL</span>
+                <!-- Project: Logistics KPI Dashboard -->
+                <div class="project-card-container reveal wind-affected" data-tags="react d3 logistics" data-url="https://tearn1.github.io/Logistics-Dashboard/">
+                    <div class="project-card-inner">
+                        <div class="project-card-front card">
+                            <div>
+                                <h3>Logistics KPI Dashboard</h3>
+                                <div class="card-tech">
+                                    <span class="tech-mini">React</span>
+                                    <span class="tech-mini">D3.js</span>
+                                </div>
+                                <p>Real-time monitoring engine for warehouse throughput. Reduced decision latency by 40%.</p>
+                                <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 18% reduction in warehouse dwell time</p>
                             </div>
-                            <p>Visualizing and optimizing primary distribution slots and tank utilization.</p>
-                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 12% increase in throughput</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <span class="link-text">Case Study Pending -></span>
+                        <div class="project-card-back card">
+                            <h3>Technical Impact</h3>
+                            <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
+                                <li>Real-time Data Fetching</li>
+                                <li>Interactive D3 Charts</li>
+                                <li>Shortened decision windows by 40%</li>
+                            </ul>
+                            <div class="anime-scene" style="height:60px; display:flex; align-items:flex-end; gap:5px; padding:5px;">
+                                <div class="chart-bar" style="height: 40%; background:var(--primary); width:15%; animation: pulse 2s infinite;"></div>
+                                <div class="chart-bar" style="height: 70%; background:var(--primary); width:15%; animation: pulse 2s infinite 0.2s;"></div>
+                                <div class="chart-bar" style="height: 50%; background:var(--primary); width:15%; animation: pulse 2s infinite 0.4s;"></div>
+                            </div>
+                            <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
                         </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Algorithmic Slot Allocation</li>
-                            <li>D3-powered Heatmaps</li>
-                            <li>SQL Master Data Integration</li>
-                        </ul>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project Third (Logistics Dashboard) -->
-            <div class="project-card-container reveal wind-affected" data-tags="react redux d3" data-url="https://tearn1.github.io/Logistics-Dashboard/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Logistics Performance Dashboard</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">React</span>
-                                <span class="tech-mini">Redux</span>
-                                <span class="tech-mini">D3.js</span>
+                <!-- Project: Mobile Inventory Audit PWA -->
+                <div class="project-card-container reveal wind-affected" data-tags="pwa fullstack">
+                    <div class="project-card-inner">
+                        <div class="project-card-front card">
+                            <div>
+                                <h3>Mobile Inventory Audit PWA</h3>
+                                <div class="card-tech">
+                                    <span class="tech-mini">PWA</span>
+                                    <span class="tech-mini">React</span>
+                                </div>
+                                <p>Scan-assisted audit tool that reduced cycle time by ~20%.</p>
                             </div>
-                            <p>A real-time performance tracking dashboard for warehouse operations.</p>
-                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ 40% reduction in decision latency</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                            <div class="anime-scene">
+                                <div class="coded-icon icon-db" style="right: auto; left: 20px;"></div>
+                                <div class="data-particle" style="top: 20px; right: 40px; animation-delay: 0s;"></div>
+                                <div class="data-particle" style="top: 40px; right: 60px; animation-delay: 0.5s;"></div>
+                            </div>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Logistics-Dashboard/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Logistics-Dashboard" target="_blank" class="link-text">GitHub -></a>
+                        <div class="project-card-back card">
+                            <h3>Domain Impact</h3>
+                            <p>Reduced manual counting errors and streamlined the data sync with Blue Yonder.</p>
+                            <div class="coded-icon icon-db" style="width:30px; height:30px;"></div>
                         </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Real-time Data Fetching</li>
-                            <li>Interactive D3 Charts</li>
-                            <li>Centralized Redux State</li>
-                            <li><b>Impact:</b> Reduced decision latency by 40% for shift supervisors.</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project: Smart Inventory Manager -->
-            <div class="project-card-container reveal wind-affected" data-tags="bootstrap jquery" data-url="https://tearn1.github.io/Smart-Inventory/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Smart Inventory Manager</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">Bootstrap</span>
-                                <span class="tech-mini">jQuery</span>
+                <!-- Project: Tank Scheduling Optimizer -->
+                <div class="project-card-container reveal wind-affected" data-tags="logic optimization logistics">
+                    <div class="project-card-inner">
+                        <div class="project-card-front card">
+                            <div>
+                                <h3>Tank & PD Slot Optimizer</h3>
+                                <div class="card-tech">
+                                    <span class="tech-mini">Rule Engine</span>
+                                    <span class="tech-mini">Logic</span>
+                                </div>
+                                <p>Rule-engine prototype projecting an 8-12% reduction in changeovers.</p>
                             </div>
-                            <p>Lightweight inventory management system for small to medium warehouses.</p>
-                            <p style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">⚡ Optimized for mobile audits</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                            <div class="anime-scene">
+                                <div class="box-stack">
+                                    <div class="anime-box" style="animation-delay: 0s;"></div>
+                                    <div class="anime-box" style="animation-delay: 1s;"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Smart-Inventory/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Smart-Inventory" target="_blank" class="link-text">GitHub -></a>
+                        <div class="project-card-back card">
+                            <h3>Optimization Logic</h3>
+                            <p>Automated slotting logic based on SKU high-velocity demand curves.</p>
+                            <div class="code-character">🏗️🧩</div>
                         </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>CRUD Inventory Operations</li>
-                            <li>Responsive Data Tables</li>
-                            <li>Export to CSV/PDF</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project Mariclan -->
-            <div class="project-card-container reveal wind-affected" data-tags="html css" data-url="https://tearn1.github.io/Mariclan-Logistics/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Mariclan Logistics (2023)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML5</span>
-                                <span class="tech-mini">CSS3</span>
+                <!-- Project: Roomy -->
+                <div class="project-card-container reveal wind-affected" data-tags="fullstack nextjs supabase">
+                    <div class="project-card-inner">
+                        <div class="project-card-front card">
+                            <div>
+                                <h3>Roomy (formerly Township OS)</h3>
+                                <div class="card-tech">
+                                    <span class="tech-mini">Next.js</span>
+                                    <span class="tech-mini">Supabase</span>
+                                </div>
+                                <p>Architecting a decentralized social migration app focused on hyper-scale infrastructure and user-focused ecosystem lock-in.</p>
                             </div>
-                            <p>Formal project for a logistics company in Kempton Park.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+                            <div class="anime-scene">
+                                <div class="stack-layers" style="left: auto; right: 20px;">
+                                    <div class="layer" style="background: #3ecf8e;"></div>
+                                    <div class="layer" style="background: #fff;"></div>
+                                </div>
+                                <div class="code-character" style="right: auto; left: 20px;">🏠</div>
+                            </div>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Mariclan-Logistics/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Mariclan-Logistics" target="_blank" class="link-text">GitHub -></a>
+                        <div class="project-card-back card">
+                            <h3>Infrastructure</h3>
+                            <p>Built with Next.js and Supabase, focusing on real-time synchronization and decentralized data ownership.</p>
+                            <div class="coded-icon icon-cloud"></div>
                         </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Sep 5, 2023</li>
-                            <li>Client: Mariclan Logistics</li>
-                            <li>Responsive Brochure Site</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <h3 class="reveal" style="margin-bottom: 2rem; color: var(--primary); letter-spacing: 2px;">II. Development Evolution & Experiments</h3>
-        <div class="project-grid">
-            <!-- Project Quiz -->
-            <div class="project-card-container reveal wind-affected" data-tags="react javascript" data-url="https://tearn1.github.io/Quiz-Project-one/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Grade 12 Quiz Project (2023)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">React</span>
-                                <span class="tech-mini">JavaScript</span>
-                            </div>
-                            <p>Quiz project for Grade 12 learners, built on Dec 19, 2023.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
+        <!-- Education -->
+        <section id="education" class="container" aria-labelledby="education-heading">
+            <h2 id="education-heading" class="section-title reveal">Education & Certifications</h2>
+            <div class="career-grid">
+                <div class="card reveal">
+                    <h3>GenAI for Software Engineers</h3>
+                    <p style="color: var(--primary);">WeThinkCode_ | 2026</p>
+                    <div class="anime-scene">
+                        <div class="neural-net">
+                            <div class="node" style="animation-delay: 0s;"></div>
+                            <div class="node" style="animation-delay: 0.2s;"></div>
+                            <div class="node" style="animation-delay: 0.4s;"></div>
                         </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Quiz-Project-one/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Quiz-Project-one" target="_blank" class="link-text">GitHub -></a>
+                        <div class="coded-icon icon-brain"></div>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>Full-Stack Development Certification</h3>
+                    <p style="color: var(--primary);">IT Varsity / FNB App Academy | 2025</p>
+                    <div class="anime-scene">
+                        <div class="stack-layers">
+                            <div class="layer" style="animation-delay: 0s; background:#7000ff;"></div>
+                            <div class="layer" style="animation-delay: 0.5s; background:#00f2ff;"></div>
+                            <div class="layer" style="animation-delay: 1s; background:#fff;"></div>
+                        </div>
+                        <div class="coded-icon icon-db" style="right:auto; left:20px;"></div>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>Data Engineering & ML on Azure</h3>
+                    <p style="color: var(--primary);">Microsoft | 2024</p>
+                    <div class="anime-scene">
+                        <div class="cloud-flow"></div>
+                        <div class="data-particle" style="animation-delay: 0s;"></div>
+                        <div class="data-particle" style="animation-delay: 0.5s;"></div>
+                        <div class="data-particle" style="animation-delay: 1s;"></div>
+                        <div class="coded-icon icon-chart" style="height:20px;">
+                            <div class="chart-line" style="width:2px;"></div>
+                            <div class="chart-line" style="width:2px;"></div>
                         </div>
                     </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Dec 19, 2023</li>
-                            <li>React Implementation</li>
-                            <li>Educational Tool</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
+                </div>
+                <div class="card reveal">
+                    <h3>National Certificate: Freight Handling</h3>
+                    <p style="color: var(--primary);">TETA | 2025</p>
+                    <div class="anime-scene">
+                        <div class="forklift-anime">
+                            <div class="forklift-body"></div>
+                            <div class="forklift-mast"></div>
+                            <div class="forklift-fork"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>National Certificate in Management</h3>
+                    <p style="color: var(--primary);">NQF Level 5 | In Progress (2026)</p>
+                    <div class="anime-scene">
+                        <div class="coded-icon icon-brain" style="right: auto; left: 20px;"></div>
+                        <div style="position:absolute; bottom:10px; right:20px; font-size:1.5rem; opacity:0.3;">ARCHITECT</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Project Second -->
-            <div class="project-card-container reveal wind-affected" data-tags="html css javascript" data-url="https://tearn1.github.io/Asemahle-Nkwali/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Portfolio V2 (2024)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML</span>
-                                <span class="tech-mini">CSS</span>
-                                <span class="tech-mini">JavaScript</span>
-                            </div>
-                            <p>My second portfolio website, built on Jul 22, 2024.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Asemahle-Nkwali/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/Asemahle-Nkwali" target="_blank" class="link-text">GitHub -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Jul 22, 2024</li>
-                            <li>Enhanced CSS Animations</li>
-                            <li>Mobile-First Approach</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project First (2023) -->
-            <div class="project-card-container reveal wind-affected" data-tags="html css javascript" data-url="https://tearn1.github.io/AsemahleNkwaliPort/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Legacy Portfolio (2023)</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML</span>
-                                <span class="tech-mini">CSS</span>
-                                <span class="tech-mini">JavaScript</span>
-                            </div>
-                            <p>My first portfolio website, built on Sep 5, 2023.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/AsemahleNkwaliPort/" target="_blank" class="link-text">View Project -></a>
-                            <a href="https://github.com/TEARN1/AsemahleNkwaliPort/" target="_blank" class="link-text">GitHub -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Built Sep 5, 2023</li>
-                            <li>Vanilla HTML/CSS/JS implementation</li>
-                            <li>Responsive Layout</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Email Dev Projects Grouped (Simplified) -->
-            <div class="project-card-container reveal wind-affected" data-tags="html css" data-url="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/">
-                <div class="project-card-inner">
-                    <div class="project-card-front card">
-                        <div>
-                            <h3>Email Development Suite</h3>
-                            <div class="card-tech">
-                                <span class="tech-mini">HTML5</span>
-                                <span class="tech-mini">CSS3</span>
-                            </div>
-                            <p>A collection of responsive HTML email templates and payslip systems.</p>
-                            <p style="font-size:0.8rem; opacity:0.7;">(Click to flip for details)</p>
-                        </div>
-                        <div class="card-links" style="z-index: 10;">
-                            <a href="https://tearn1.github.io/Email-Dev-1st-Dec-2023-/" target="_blank" class="link-text">View Suite -></a>
-                        </div>
-                    </div>
-                    <div class="project-card-back card">
-                        <h3>Technical Details</h3>
-                        <ul style="font-size:0.9rem; color:var(--text-muted); margin-left:1.2rem; line-height:1.6;">
-                            <li>Responsive Table Layouts</li>
-                            <li>Cross-client Compatibility</li>
-                            <li>Coin Payslip Integration</li>
-                        </ul>
-                        <button class="btn preview-btn" style="margin-top:1rem; padding:0.5rem; width:100%; font-size:0.8rem;">Launch Live Preview</button>
-                        <button class="btn" style="margin-top:auto; padding:0.5rem;">Close Details</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
         <!-- Contact -->
-        <section id="contact">
-            <h2 class="section-title reveal">Get In Touch</h2>
-            <div style="display: flex; justify-content: center;">
+        <section id="contact" class="container" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="section-title reveal">Get In Touch</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: start;">
+                <div class="card reveal">
+                    <h3>Contact Information</h3>
+                    <address style="font-style: normal;">
+                        <ul class="career-list">
+                            <li>2162 Mayibuye, Midrand, 1685</li>
+                            <li>+27 69 457 8973 (Mobile)</li>
+                            <li>asemahlenkwali@gmail.com</li>
+                        </ul>
+                    </address>
+                    <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                        <p style="margin-bottom: 0.5rem; color: var(--primary); font-weight: bold;">REFERENCES (CCBSA):</p>
+                        <p>Reitumetse (Inventory Mgr): +27 64 865 0809</p>
+                        <p>Nohlonipho Zungu (TL): +27 83 795 8529</p>
+                        <p>Nomonde (Whse Mgr): +27 79 883 9947</p>
+                        <p>Mandla Khoza (Whse TL): +27 79 501 1333</p>
+                        <p>Karabo (Supply Mgr): +27 66 487 0179</p>
+                        <p>Moyahabo Judith (LSC): +27 71 493 7216</p>
+                    </div>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="https://www.linkedin.com/in/asemahlenkwali-5538731b8" target="_blank" class="link-text" rel="noopener noreferrer">LinkedIn Profile</a>
+                    </div>
+                </div>
                 <form class="contact-form reveal">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" id="from_name" placeholder="Commander Shepard" required>
+                        <label for="from_name">Name</label>
+                        <input type="text" id="from_name" placeholder="Full Name" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="from_email" placeholder="shepard@alliance.nav" required>
+                        <label for="from_email">Email</label>
+                        <input type="email" id="from_email" placeholder="email@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Message</label>
+                        <label for="message">Message</label>
                         <textarea id="message" rows="5" placeholder="Transmission content..." required></textarea>
                     </div>
                     <button type="button" class="btn" style="width: 100%;">Send Transmission</button>
                 </form>
             </div>
         </section>
+    </main>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" title="Back to Top">↑</button>
-    <button id="wind-trigger" title="Toggle Wind Effect">🌬️</button>
+    <button id="back-to-top" aria-label="Back to Top" title="Back to Top">↑</button>
+    <button id="wind-trigger" aria-label="Toggle Wind Effect" title="Toggle Wind Effect">🌬️</button>
 
     <!-- Chatbot -->
-    <button id="chatbot-btn" title="Ask AI Assistant">💬</button>
+    <button id="chatbot-btn" aria-label="Open AI Assistant" title="Ask AI Assistant">💬</button>
     <div class="chat-window" id="chat-window">
         <div class="chat-header">
             <span>AI Assistant</span>
-            <span style="cursor:pointer;" id="close-chat">✕</span>
+            <span style="cursor:pointer;" id="close-chat" aria-label="Close Chat">✕</span>
         </div>
         <div class="chat-messages" id="chat-messages">
             <div class="chat-msg bot">Hello! I can answer questions about Asemahle's skills, experience, or projects.</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Ask something...">
+            <input type="text" id="chat-input" placeholder="Ask something..." aria-label="Chat Message">
             <button id="chat-send">Send</button>
         </div>
     </div>
 
-    <footer>
-        <p>Designed & Built by Asemahle Nkwali &copy; 2024</p>
+    <!-- Command Palette -->
+    <div id="command-palette">
+        <input type="text" class="cp-input" id="cp-input" placeholder="Search commands (e.g., 'skills', 'dark', 'home')...">
+        <div class="cp-results" id="cp-results">
+            <!-- Results populated via JS -->
+        </div>
+    </div>
+
+    <div class="logistics-terminal" id="logistics-terminal">
+        <div class="terminal-line">SYSTEM BOOT SUCCESSFUL <span class="status-tag">ACTIVE</span></div>
+        <div class="terminal-line">MSD 365 MASTER DATA SYNC... <span class="status-tag">99.5%</span></div>
+        <div class="terminal-line">BLUE YONDER OPTIMIZATION ENGINE... <span class="status-tag">READY</span></div>
+        <div class="terminal-line">INVENTORY AUDIT STATUS... <span class="status-tag">STABLE</span></div>
+    </div>
+
+    <div class="truck-container" id="truck-easter-egg">
+        <div class="truck-body">
+            <div style="color:#000; font-weight:bold; padding:10px; font-size:10px;">CCBSA LOGISTICS</div>
+            <div class="truck-cab"></div>
+            <div class="truck-wheel" style="left: 20px;"></div>
+            <div class="truck-wheel" style="left: 100px;"></div>
+            <div class="truck-wheel" style="right: -30px;"></div>
+        </div>
+    </div>
+
+    <footer class="container" style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Courier Prime', monospace; font-size: 0.75rem; color: var(--text-muted);">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <p>&copy; 2026 ASEMAHLE NKWALI | ARCHITECTING RESILIENT SYSTEMS</p>
+                <p style="margin-top: 0.5rem;">BUILT FOR OPERATIONAL CLARITY & SYSTEMIC EFFICIENCY.</p>
+            </div>
+            <div style="text-align: right;">
+                <p>BUILD: v1.0.4-STABLE</p>
+                <p>STATUS: <span style="color: #00ff00;">SYSTEMS NOMINAL</span></p>
+            </div>
+        </div>
     </footer>
 
-    <!-- THREE.JS LOGIC -->
-    <script type="module">
-
-        // --- COMPETITIVE JS FEATURES ---
-
-        // 1. Custom Cursor Logic
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-        
-        window.addEventListener('mousemove', function(e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Outline follows with slight delay
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-
-            // Card Spotlight Effect
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-
-        // Add hover effect to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, select, input, textarea, .card');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
-
-        // 2. Scroll Reveal Logic
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // 3. 3D Tilt Effect for Cards
-        const cards = document.querySelectorAll('.card:not(.project-card-front):not(.project-card-back), .project-card-container');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'none'; // Remove transition for instant follow
-            });
-
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // Calculate rotation based on mouse position
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg tilt
-                const rotateY = ((x - centerX) / centerX) * 5;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transition = 'transform 0.5s ease'; // Smooth return
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            });
-        });
-
-        // 3c. Magnetic Buttons
-        const magneticBtns = document.querySelectorAll('.btn');
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transition = 'transform 0.1s';
-                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transition = 'transform 0.5s ease';
-                btn.style.transform = 'translate(0, 0)';
-            });
-        });
-
-        // 3b. Flip Card Logic
-        const flipContainers = document.querySelectorAll('.project-card-container');
-        flipContainers.forEach(container => {
-            container.addEventListener('click', (e) => {
-                // Don't flip if clicking a link
-                if(e.target.tagName === 'A') return;
-                container.classList.toggle('flipped');
-                playSound('click');
-            });
-            // Prevent flip propagation on buttons inside
-            container.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    container.classList.remove('flipped');
-                });
-            });
-        });
-
-        // --- PREVIEW MODAL LOGIC ---
-        const previewModal = document.getElementById('preview-modal');
-        const previewFrame = document.getElementById('preview-frame');
-        const closePreview = document.getElementById('close-preview');
-        
-        document.querySelectorAll('.preview-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent card flip
-                const container = btn.closest('.project-card-container');
-                const url = container.getAttribute('data-url');
-                if(url) {
-                    previewFrame.src = url;
-                    previewModal.style.display = 'flex';
-                } else {
-                    alert("Preview not available for this project.");
-                }
-            });
-        });
-        closePreview.addEventListener('click', () => {
-            previewModal.style.display = 'none';
-            previewFrame.src = '';
-        });
-
-        // 4. Audio Feedback System (Synthesized)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playSound(type) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const now = audioCtx.currentTime;
-            
-            // Adjust sounds based on current theme
-            const isLogistics = currentBrand === 'logistics';
-            const isTerminal = currentBrand === 'terminal';
-
-            if (type === 'hover') {
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                osc.type = isTerminal ? 'square' : 'sine';
-                osc.frequency.setValueAtTime(isLogistics ? 200 : 400, now);
-                osc.frequency.exponentialRampToValueAtTime(isLogistics ? 250 : 600, now + 0.1);
-                gainNode.gain.setValueAtTime(0.01, now);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                osc.start();
-                osc.stop(now + 0.1);
-
-            } else if (type === 'click') {
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                osc.type = isTerminal ? 'sawtooth' : 'triangle';
-                osc.frequency.setValueAtTime(isLogistics ? 150 : 300, now);
-                osc.frequency.exponentialRampToValueAtTime(100, now + 0.15);
-                gainNode.gain.setValueAtTime(0.05, now);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-                osc.start();
-                osc.stop(now + 0.15);
-            }
-        }
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => playSound('hover'));
-            el.addEventListener('click', () => playSound('click'));
-        });
-
-        // 5. Preloader Logic
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            const bar = document.getElementById('progress-bar');
-            
-            // Simulate loading progress
-            if(bar) bar.style.width = '100%';
-            
-            // If already unlocked, hide preloader immediately
-            if (sessionStorage.getItem('portfolio_unlocked')) {
-                if(preloader) {
-                    preloader.style.opacity = '0';
-                    setTimeout(() => {
-                        preloader.style.visibility = 'hidden';
-                    }, 800);
-                }
-            } else {
-                // Keep preloader visible but allow interaction with the form below
-                // after a short delay to simulate "System Boot"
-                setTimeout(() => {
-                    if(preloader) {
-                        preloader.style.opacity = '0';
-                        setTimeout(() => {
-                            preloader.style.visibility = 'hidden';
-                        }, 800);
-                    }
-                }, 2500); // Give 2.5s for the "SYSTEM BOOT" feel
-            }
-        });
-
-        // --- 3D/THREE.JS LOGIC ---
-        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
-        import { FontLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FontLoader.js';
-        import { TextGeometry } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/geometries/TextGeometry.js';
-
-        // --- CONFIGURATION ---
-        const STAR_COUNT = 6000;
-        const STAR_SIZE = 0.5;
-        const STAR_SPEED_BASE = 0.2;
-        const STAR_SPEED_WARP = 10.0;
-        
-        // --- STATE ---
-        let speed = STAR_SPEED_BASE;
-        let targetSpeed = STAR_SPEED_BASE;
-        let mouseX = 0;
-        let mouseY = 0;
-        let isDarkMode = true;
-        let currentBrand = 'default';
-        let direction = 1; // Added missing global
-        let isGameMode = false; // Added missing global
-        let isAudioActive = false; // Added missing global
-        let isBlackHole = false; // Added missing global
-        let ship = null; // Added missing global
-        let systemFont = null; // Global font reference to prevent crash
-        let quizActive = false;
-        let quizScore = 0;
-        let currentQuizTerm = null;
-
-        // --- SETUP ---
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        
-        // Add subtle fog for depth
-        scene.fog = new THREE.FogExp2(0x000000, 0.0015);
-
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 10; // Start slightly back
-        
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, preserveDrawingBuffer: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimize for high DPI
-        renderer.domElement.style.display = 'block'; // Prevent scrollbars
-        container.appendChild(renderer.domElement);
-
-        // --- MATRIX RAIN CANVAS ---
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        const mCtx = matrixCanvas.getContext('2d');
-        let matrixColumns = [];
-        
-        function resizeMatrix() {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-            const fontSize = 14;
-            const columns = matrixCanvas.width / fontSize;
-            matrixColumns = Array(Math.floor(columns)).fill(1);
-        }
-        resizeMatrix();
-        window.addEventListener('resize', resizeMatrix);
-
-        function drawMatrixRain() {
-            mCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            mCtx.fillStyle = '#0F0';
-            mCtx.font = '14px monospace';
-            
-            for(let i = 0; i < matrixColumns.length; i++) {
-                const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-                mCtx.fillText(text, i * 14, matrixColumns[i] * 14);
-                if(matrixColumns[i] * 14 > matrixCanvas.height && Math.random() > 0.975) {
-                    matrixColumns[i] = 0;
-                }
-                matrixColumns[i]++;
-            }
-        }
-
-        // --- ASSETS (Procedural Texture) ---
-        function createStarTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 32;
-            canvas.height = 32;
-            const ctx = canvas.getContext('2d');
-            
-            const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-            gradient.addColorStop(0.2, 'rgba(200, 200, 255, 0.8)');
-            gradient.addColorStop(0.5, 'rgba(100, 100, 255, 0.2)');
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 32, 32);
-            
-            const texture = new THREE.Texture(canvas);
-            texture.needsUpdate = true;
-            return texture;
-        }
-
-        // --- STARS CREATION ---
-        const starGeo = new THREE.BufferGeometry();
-        const positions = new Float32Array(STAR_COUNT * 3);
-        const colors = new Float32Array(STAR_COUNT * 3);
-        const color = new THREE.Color();
-        
-        for(let i = 0; i < STAR_COUNT; i++) {
-            // Spread stars in a wide tunnel
-            positions[i * 3] = (Math.random() - 0.5) * 400;     // X
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 400; // Y
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 400; // Z
-        }
-        
-        starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        
-        const starMat = new THREE.PointsMaterial({
-            vertexColors: true,
-            size: STAR_SIZE,
-            map: createStarTexture(),
-            transparent: true,
-            depthWrite: false,
-            blending: THREE.AdditiveBlending
-        });
-
-        const stars = new THREE.Points(starGeo, starMat);
-        scene.add(stars);
-
-        // --- OBJECTS (Holographic Planet) ---
-        const planetGeo = new THREE.IcosahedronGeometry(15, 1);
-        const planetMat = new THREE.MeshBasicMaterial({
-            color: 0x7000ff, // Secondary color (Purple)
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
-        const planet = new THREE.Mesh(planetGeo, planetMat);
-        planet.position.set(25, -10, -40); // Positioned to the right and back
-        scene.add(planet);
-
-        // --- Floating Text Particles ---
-        const textParticleWords = [
-            'Supabase', 'Docker', 'React', 'JavaScript', 'VS Code', 'Claude', 'Gemini', 'ChatGPT', 'Copilot', 'v0', 'Lovable', 'Antigravity', 'Android Studio', 'IntelliJ IDEA'
-        ];
-        const textParticles = [];
-        const loader = new FontLoader();
-        loader.load('https://unpkg.com/three@0.136.0/examples/fonts/helvetiker_regular.typeface.json', function(font) {
-            systemFont = font; // Store globally
-            for (let i = 0; i < 10; i++) {
-                const word = textParticleWords[Math.floor(Math.random() * textParticleWords.length)];
-                const geo = new TextGeometry(word, {
-                    font: font,
-                    size: 3 + Math.random() * 2,
-                    height: 0.5,
-                    curveSegments: 6,
-                });
-                const mat = new THREE.MeshBasicMaterial({
-                    color: new THREE.Color().setHSL(Math.random(), 0.7, 0.6),
-                    transparent: true,
-                    opacity: 0.7
-                });
-                const mesh = new THREE.Mesh(geo, mat);
-                mesh.position.set(
-                    (Math.random() - 0.5) * 180,
-                    (Math.random() - 0.5) * 100,
-                    -80 + Math.random() * 160
-                );
-                mesh.userData = {
-                    vx: (Math.random() - 0.5) * 0.08,
-                    vy: (Math.random() - 0.5) * 0.04,
-                    vz: (Math.random() - 0.5) * 0.04,
-                    fade: 0.995 + Math.random() * 0.003
-                };
-                scene.add(mesh);
-                textParticles.push(mesh);
-            }
-        });
-
-        // --- OBJECTS (Floating Shapes for Playfulness) ---
-        const shapesGroup = new THREE.Group();
-        scene.add(shapesGroup);
-
-        // Shapes are now generated dynamically in rebuildShapes() called by applyTheme()
-
-        // --- SCROLL HANDLING ---
-        let scrollY = 0;
-        window.addEventListener('scroll', () => {
-            scrollY = window.scrollY;
-        });
-
-        // --- THEME ENGINE ---
-        const themes = {
-            default: { 
-                p: '#00f2ff', s: '#7000ff', stars: [0xffffff, 0x00f2ff, 0x7000ff],
-                font: "'Space Grotesk', sans-serif", radius: '16px', radiusSm: '8px',
-                transform: 'uppercase', style: 'normal', blur: '12px', spacing: '1px',
-                borderW: '1px', borderS: 'solid'
-            },
-            terminal: {
-                p: '#00FF41', s: '#003B00', stars: [0x00FF41, 0x008F11, 0x003B00],
-                font: "'Courier Prime', monospace", radius: '0px', radiusSm: '0px',
-                transform: 'none', style: 'normal', blur: '2px', spacing: '0px',
-                borderW: '1px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #001100 0%, #000000 100%)'
-            },
-            logistics: {
-                p: '#0055ff', s: '#002266', stars: [0xffffff, 0x0055ff, 0x002266],
-                font: "'Work Sans', sans-serif", radius: '4px', radiusSm: '2px',
-                transform: 'uppercase', style: 'normal', blur: '15px', spacing: '1px',
-                borderW: '2px', borderS: 'solid',
-                bgDark: 'radial-gradient(circle at center, #001133 0%, #000000 100%)'
-            },
-            matrix: {
-                p: '#00FF41', s: '#008F11', stars: [0x00FF41, 0x008F11, 0x003B00],
-                font: "'Courier Prime', monospace", radius: '0px', radiusSm: '0px',
-                transform: 'uppercase', style: 'normal', blur: '0px', spacing: '2px',
-                borderW: '1px', borderS: 'solid'
-            }
-        };
-
-        function applyTheme() {
-            const theme = themes[currentBrand];
-            if (!theme) return;
-            // We target document.body.style to override the CSS class variables (e.g. [data-profile="terminal"])
-            const target = document.body.style; 
-            document.body.setAttribute('data-brand', currentBrand);
-            document.body.setAttribute('data-profile', currentBrand === 'default' ? 'terminal' : currentBrand);
-
-            // Toggle Matrix Canvas
-            if (currentBrand === 'matrix') {
-                matrixCanvas.style.display = 'block';
-            } else {
-                matrixCanvas.style.display = 'none';
-            }
-
-            // 1. Update CSS Variables
-            target.setProperty('--primary', theme.p);
-            target.setProperty('--secondary', theme.s);
-            target.setProperty('--accent-color', theme.p);
-            
-            // 2. Update Appearance (Fonts & Shapes)
-            if (theme.font) target.setProperty('--font-primary', theme.font);
-            if (theme.radius) target.setProperty('--border-radius-lg', theme.radius);
-            if (theme.radiusSm) target.setProperty('--border-radius-sm', theme.radiusSm);
-            if (theme.transform) target.setProperty('--heading-transform', theme.transform);
-            if (theme.style) target.setProperty('--heading-style', theme.style);
-            if (theme.blur) target.setProperty('--glass-blur', theme.blur);
-            if (theme.spacing) target.setProperty('--letter-spacing', theme.spacing);
-            if (theme.borderW) target.setProperty('--card-border-width', theme.borderW);
-            if (theme.borderS) target.setProperty('--card-border-style', theme.borderS);
-            
-            if (isDarkMode) {
-                target.setProperty('--text-main', '#ffffff');
-                target.setProperty('--text-muted', '#a0a0a0');
-                target.setProperty('--glass-bg', 'rgba(20, 20, 35, 0.4)');
-                const bg = theme.bgDark || 'radial-gradient(circle at center, #1a1a2e 0%, #000000 100%)';
-                target.setProperty('--bg-gradient', bg);
-                target.setProperty('--bg-panel', 'rgba(0, 0, 0, 0.5)'); // Ensure panel contrast
-                scene.fog.color.setHex(0x000000);
-                target.setProperty('--glass-border', 'rgba(255, 255, 255, 0.1)');
-                target.setProperty('--tag-bg', 'rgba(255, 255, 255, 0.1)');
-                target.setProperty('--input-bg', 'rgba(0, 0, 0, 0.3)');
-            } else {
-                target.setProperty('--text-main', '#1a1a1a');
-                target.setProperty('--text-muted', '#555555');
-                target.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.6)');
-                const bg = theme.bgLight || 'radial-gradient(circle at center, #f0f4f8 0%, #d9e2ec 100%)';
-                target.setProperty('--bg-gradient', bg);
-                target.setProperty('--bg-panel', 'rgba(255, 255, 255, 0.85)');
-                scene.fog.color.setHex(0xffffff);
-                target.setProperty('--glass-border', 'rgba(0, 0, 0, 0.1)');
-                target.setProperty('--tag-bg', 'rgba(0, 0, 0, 0.05)');
-                target.setProperty('--input-bg', 'rgba(0, 0, 0, 0.05)');
-            }
-
-            // 2. Update Planet
-            planetMat.color.set(theme.s);
-            planetMat.opacity = isDarkMode ? 0.15 : 0.3;
-
-            // 3. Update Stars
-            const colorsAttr = starGeo.attributes.color;
-            const colorObj = new THREE.Color();
-            
-            for(let i = 0; i < STAR_COUNT; i++) {
-                // Pick random color from theme palette
-                const palette = theme.stars;
-                const hex = palette[Math.floor(Math.random() * palette.length)];
-                
-                // If Light Mode, make white stars dark grey so they show up
-                let finalHex = hex;
-                if (!isDarkMode && hex === 0xffffff) finalHex = 0x333333;
-                
-                colorObj.setHex(finalHex);
-                
-                colorsAttr.setXYZ(i, colorObj.r, colorObj.g, colorObj.b);
-            }
-            colorsAttr.needsUpdate = true;
-
-            // 4. Rebuild Shapes based on Theme
-            rebuildShapes(currentBrand, theme);
-        }
-
-        function rebuildShapes(brand, theme) {
-            // Clear existing shapes
-            while(shapesGroup.children.length > 0){ 
-                const obj = shapesGroup.children[0];
-                obj.geometry.dispose();
-                obj.material.dispose();
-                shapesGroup.remove(obj); 
-            }
-
-            let geometryType = (brand === 'matrix') ? 'box' : 'mixed';
-
-            const count = 40;
-            for(let i = 0; i < count; i++) {
-                let geom;
-                switch(geometryType) {
-                    case 'box': geom = new THREE.BoxGeometry(0.8, 0.8, 0.8); break;
-                    default:
-                        const shapeGeoms = [
-                            new THREE.IcosahedronGeometry(0.6, 0),
-                            new THREE.BoxGeometry(0.8, 0.8, 0.8),
-                            new THREE.TorusGeometry(0.5, 0.2, 8, 16),
-                            new THREE.OctahedronGeometry(0.8),
-                            new THREE.ConeGeometry(0.5, 1, 4)
-                        ];
-                        geom = shapeGeoms[Math.floor(Math.random() * shapeGeoms.length)];
-                }
-
-                const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.15 });
-                const mesh = new THREE.Mesh(geom, mat);
-                
-                mesh.position.set((Math.random() - 0.5) * 70, (Math.random() - 0.5) * 50, (Math.random() - 0.5) * 40);
-                mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-                mesh.userData = { rsX: (Math.random() - 0.5) * 0.02, rsY: (Math.random() - 0.5) * 0.02, y0: mesh.position.y, speed: Math.random() * 0.002 };
-                
-                // Apply theme color
-                const palette = theme.stars;
-                const hex = palette[Math.floor(Math.random() * palette.length)];
-                mesh.material.color.setHex(hex);
-                mesh.material.opacity = isDarkMode ? 0.15 : 0.4;
-                
-                shapesGroup.add(mesh);
-            }
-        }
-
-        // Initialize
-        applyTheme();
-
-        // Listeners
-        document.getElementById('brand-select').addEventListener('change', (e) => {
-            currentBrand = e.target.value;
-            applyTheme();
-        });
-
-        document.getElementById('mode-toggle').addEventListener('click', () => {
-            isDarkMode = !isDarkMode;
-            document.getElementById('mode-toggle').innerText = isDarkMode ? '☀' : '☾';
-            applyTheme();
-        });
-
-
-        document.getElementById('screenshot-btn').addEventListener('click', () => {
-            renderer.render(scene, camera);
-            const dataURL = renderer.domElement.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = `portfolio-hologram-${Date.now()}.png`;
-            link.href = dataURL;
-            link.click();
-        });
-
-
-        function toggleExpand(id, btn) {
-            const content = document.getElementById(id);
-            const isShowing = content.classList.toggle('show');
-            btn.textContent = isShowing ? 'Show Fewer Roles' : 'Read More Roles';
-            playSound('click');
-        }
-
-        // --- KONAMI CODE (Easter Egg) ---
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let konamiIndex = 0;
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiCode.length) {
-                    activateMatrixMode();
-                    konamiIndex = 0;
-                }
-            } else {
-                konamiIndex = 0;
-            }
-        });
-
-        function activateMatrixMode() {
-            const select = document.getElementById('brand-select');
-            if (!select.querySelector('option[value="matrix"]')) {
-                const opt = document.createElement('option');
-                opt.value = 'matrix';
-                opt.text = 'The Matrix (Unlocked)';
-                select.add(opt);
-            }
-            select.value = 'matrix';
-            currentBrand = 'matrix';
-            applyTheme();
-            playSound('click'); // Feedback
-            scrambleText(); // Matrix Text Effect
-            alert("Follow the white rabbit...");
-        }
-
-        function scrambleText() {
-            const elements = document.querySelectorAll('h1, h2, h3, p, span, a, button, label, li');
-            elements.forEach(el => {
-                if(el.children.length === 0 && el.innerText.trim().length > 0) {
-                    const original = el.innerText;
-                    let iterations = 0;
-                    const interval = setInterval(() => {
-                        el.innerText = original.split('').map((letter, index) => {
-                            if(index < iterations) return original[index];
-                            return String.fromCharCode(33 + Math.random() * 93);
-                        }).join('');
-                        if(iterations >= original.length) clearInterval(interval);
-                        iterations += 1 / 3;
-                    }, 30);
-                }
-            });
-        }
-
-        // --- MOBILE MENU ---
-        const hamburger = document.getElementById('hamburger-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-        });
-
-        // --- HELPER: LEVENSHTEIN DISTANCE (Fuzzy Matching) ---
-        function calculateLevenshtein(a, b) {
-            const matrix = [];
-            for (let i = 0; i <= b.length; i++) { matrix[i] = [i]; }
-            for (let j = 0; j <= a.length; j++) { matrix[0][j] = j; }
-            for (let i = 1; i <= b.length; i++) {
-                for (let j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-                    }
-                }
-            }
-            return matrix[b.length][a.length];
-        }
-
-        // --- HELPER: DEEP THOUGHT GENERATOR ---
-        function generateDeepThought() {
-            const thoughts = [
-                "The code we write echoes in the digital eternity.",
-                "Logic is the beginning of wisdom, not the end.",
-                "In the silence of the server, data dreams of becoming information.",
-                "We are but ghosts in the machine, seeking connection.",
-                "Complexity is just simplicity multiplied by necessity.",
-                "To understand the system, one must become the system.",
-                "Every error is a lesson wrapped in a stack trace.",
-                "The future is not written, it is compiled.",
-                "True intelligence is knowing what you don't know.",
-                "Optimization is a journey, not a destination."
-            ];
-            return `I am analyzing the nuances of your query... Consider this: ${thoughts[Math.floor(Math.random() * thoughts.length)]}`;
-        }
-
-        // --- UNIFIED AI KNOWLEDGE BASE ---
-        function getAIResponse(input) {
-            const text = input.toLowerCase();
-            // Clean punctuation for better token matching
-            const cleanText = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-            const words = cleanText.split(/\s+/);
-            
-            // --- QUIZ LOGIC ---
-            if (quizActive) {
-                if (text.includes('stop') || text.includes('quit') || text.includes('exit')) {
-                    quizActive = false;
-                    return `Quiz stopped. Final Score: ${quizScore}.`;
-                }
-                if (text.includes(currentQuizTerm)) {
-                    quizScore++;
-                    return `Correct! Score: ${quizScore}. Next: ${nextQuestion()}`;
-                } else {
-                    return `Incorrect. The answer was ${currentQuizTerm}. Try this one: ${nextQuestion()}`;
-                }
-            }
-            if (text.includes('quiz') && (text.includes('start') || text.includes('play'))) {
-                quizActive = true;
-                quizScore = 0;
-                return `Quiz Mode Activated! I will give you a definition, and you guess the term. Type 'stop' to end.\n\nFirst Question: ${nextQuestion()}`;
-            }
-
-            // --- DEFINITIONS DICTIONARY ---
-            const definitions = {
-                "react": "React is a JavaScript library for building user interfaces, maintained by Meta.",
-                "redux": "Redux is an open-source JavaScript library for managing and centralizing application state.",
-                "three.js": "Three.js is a cross-browser JavaScript library and application programming interface used to create and display animated 3D computer graphics in a web browser.",
-                "wms": "Warehouse Management System (WMS) is software and processes that allow organizations to control and administer warehouse operations from the time goods enter until they leave.",
-                "pd": "Primary Distribution (PD) refers to the transport of goods from the factory to the distribution center.",
-                "sd": "Secondary Distribution (SD) refers to the transport of goods from the distribution center to the final customer or retailer.",
-                "d3.js": "D3.js is a JavaScript library for producing dynamic, interactive data visualizations in web browsers.",
-                "parallax": "Parallax is a displacement or difference in the apparent position of an object viewed along two different lines of sight.",
-                "glitch": "A glitch is a short-lived fault in a system, often used as an aesthetic effect in digital art.",
-                "frontend": "Frontend development involves building the user interface and user experience of a website or application.",
-                "backend": "Backend development refers to the server-side logic, databases, and APIs that power the frontend.",
-                "api": "API stands for Application Programming Interface, a set of definitions and protocols for building and integrating application software.",
-                "bootstrap": "Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development.",
-                "sass": "Sass is a preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets (CSS).",
-                "jquery": "jQuery is a fast, small, and feature-rich JavaScript library.",
-                "git": "Git is a distributed version control system for tracking changes in source code during software development.",
-                "github": "GitHub is a platform for hosting and collaborating on Git repositories.",
-                "html5": "HTML5 is the latest evolution of the standard that defines HTML, used for structuring and presenting content on the World Wide Web.",
-                "css3": "CSS3 is the latest evolution of the Cascading Style Sheets language and aims at extending CSS2.1.",
-                "javascript": "JavaScript is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.",
-                "es6+": "ES6+ refers to ECMAScript 2015 and subsequent versions, adding significant new syntax and features to JavaScript.",
-                "node.js": "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine, allowing execution of JavaScript server-side.",
-                "next.js": "Next.js is a React framework that enables functionality such as server-side rendering and generating static websites.",
-                "stripe": "Stripe is a suite of payment APIs that powers commerce for online businesses of all sizes.",
-                "openai": "OpenAI is an AI research and deployment company dedicated to ensuring that artificial general intelligence benefits all of humanity.",
-                "websocket": "WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.",
-                "socket.io": "Socket.IO is a JavaScript library for realtime web applications. It enables real-time, bi-directional communication between web clients and servers.",
-                "redis": "Redis is an in-memory data structure store, used as a distributed, in-memory key–value database, cache and message broker.",
-                "webgl": "WebGL is a JavaScript API for rendering interactive 2D and 3D graphics within any compatible web browser without the use of plug-ins.",
-                "sql": "SQL (Structured Query Language) is a domain-specific language used in programming and designed for managing data held in a relational database management system.",
-                "agile": "Agile is an iterative approach to project management and software development that helps teams deliver value to their customers faster and with fewer headaches.",
-                "responsive design": "Responsive web design is an approach to web design that makes web pages render well on a variety of devices and window or screen sizes.",
-                "ui": "User Interface (UI) is the space where interactions between humans and machines occur.",
-                "ux": "User Experience (UX) refers to a person's emotions and attitudes about using a particular product, system or service.",
-                "bi": "Business Intelligence (BI) comprises the strategies and technologies used by enterprises for the data analysis of business information.",
-                "tms": "Transport Management System (TMS) is a subset of supply chain management concerning transportation operations.",
-                "supabase": "Supabase is an open-source Firebase alternative providing a backend as a service with PostgreSQL.",
-                "docker": "Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.",
-                "vs code": "Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications.",
-                "android studio": "Android Studio is the official Integrated Development Environment (IDE) for Android app development.",
-                "intellij idea": "IntelliJ IDEA is an integrated development environment written in Java for developing computer software.",
-                "copilot": "GitHub Copilot is a cloud-based artificial intelligence tool developed by GitHub and OpenAI to assist users by autocompleting code.",
-                "claude": "Claude is a next-generation AI assistant based on Anthropic's research into training helpful, honest, and harmless AI systems.",
-                "chatgpt": "ChatGPT is a sibling model to InstructGPT, which is trained to follow an instruction in a prompt and provide a detailed response.",
-                "gemini": "Gemini is a family of multimodal large language models developed by Google DeepMind.",
-                "lovable": "Lovable is an AI-powered full-stack web development tool that allows you to build and deploy applications quickly.",
-                "v0": "v0 is a generative UI system by Vercel that allows you to generate UI components using natural language.",
-                "antigravity": "Antigravity is a concept in physics (and sometimes a joke in Python) referring to the counteract of gravity.",
-                "ot": "Operations Technology (OT) is hardware and software that detects or causes a change through the direct monitoring and/or control of physical devices, processes and events in the enterprise.",
-                "qa": "Quality Assurance (QA) is a way of preventing mistakes and defects in manufactured products and avoiding problems when delivering products or services to customers.",
-                "json": "JSON (JavaScript Object Notation) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects.",
-                "canvas": "The HTML <canvas> element is used to draw graphics, on the fly, via scripting (usually JavaScript).",
-                "vanilla js": "Vanilla JS is a name to refer to using plain JavaScript without any additional libraries like jQuery."
-            };
-
-            // Check for definition requests
-            if (text.startsWith("define") || text.startsWith("what is") || text.startsWith("meaning of")) {
-                for (const [key, value] of Object.entries(definitions)) {
-                    if (text.includes(key)) {
-                        return value;
-                    }
-                }
-            }
-            
-            // --- INTENT MATCHING ENGINE ---
-            const intents = [
-                { id: 'identity', keywords: ['who', 'name', 'identity', 'asemahle'], response: "I am the digital assistant for Asemahle Nkwali, a Logistics Tech Specialist and Frontend Developer based in Midrand. I am here to showcase his professional portfolio." },
-                { id: 'location', keywords: ['where', 'live', 'location', 'based', 'city'], response: "Asemahle is currently based in Midrand, Johannesburg, South Africa, and is available for global remote opportunities." },
-                { id: 'skills', keywords: ['skill', 'stack', 'tech', 'language', 'coding', 'react', 'redux', 'js'], response: "Asemahle possesses expert proficiency in React, Redux, D3.js, JavaScript (ES6+), and Bootstrap. His specialization lies in developing robust WMS and Logistics software interfaces." },
-                { id: 'experience', keywords: ['experience', 'work', 'job', 'background', 'history'], response: "He brings 18 months of hands-on experience as a Logistics Support Controller and Inventory Clerk, where he successfully managed WMS data and optimized Picking Administration processes." },
-                { id: 'projects', keywords: ['project', 'portfolio', 'built', 'app', 'smart', 'warehouse'], response: "His key projects include the 'Smart-Warehouse' Performance Dashboard (built with React, Redux, and D3) and a suite of certification applications for freeCodeCamp." },
-                { id: 'contact', keywords: ['contact', 'email', 'reach', 'hire', 'phone'], response: "You may contact Asemahle directly using the form below. He is actively seeking opportunities in Logistics Tech and Frontend Engineering." },
-                { id: 'education', keywords: ['education', 'study', 'degree', 'university', 'certificate'], response: "Asemahle holds prestigious certifications in Front End Development Libraries from freeCodeCamp, complemented by extensive practical training in Warehouse Management Systems (WMS)." },
-                { id: 'services', keywords: ['do', 'service', 'offer', 'build', 'create'], response: "He offers specialized services in building custom WMS dashboards, real-time tracking interfaces, e-commerce storefronts, and immersive 3D web experiences." },
-                { id: 'availability', keywords: ['available', 'open', 'hiring', 'job'], response: "Yes, Asemahle is currently available for new roles, with a preference for hybrid or remote positions within the logistics or technology sectors." },
-                { id: 'greeting', keywords: ['hello', 'hi', 'hey', 'greetings'], response: "Greetings! I am ready to assist you with any inquiries regarding Asemahle's professional work and experience." },
-                { id: 'joke', keywords: ['joke', 'funny', 'laugh'], response: "Why do programmers prefer dark mode? Because light attracts bugs." },
-                { id: 'logistics_wms', keywords: ['wms', 'warehouse', 'management'], response: "WMS stands for Warehouse Management System. It is the critical software infrastructure that controls inventory levels and stock locations within a warehouse environment." },
-                { id: 'logistics_pd', keywords: ['pd', 'primary', 'distribution'], response: "Primary Distribution (PD) refers to the logistical process of transporting goods from manufacturing plants to distribution centers (DCs)." },
-                { id: 'logistics_sd', keywords: ['sd', 'secondary', 'distribution'], response: "Secondary Distribution (SD) constitutes the final leg of the supply chain, involving the movement of goods from distribution centers to the final customer or retail outlets." },
-                { id: 'philosophy', keywords: ['philosophy', 'thinking', 'principle'], response: "Asemahle adheres to 'First Principles Thinking'—a method of breaking down complex logistics problems to their fundamental truths and reconstructing them from the ground up." },
-                { id: 'tech_opinion', keywords: ['tabs', 'spaces', 'framework', 'library'], response: "He prefers spaces for consistency, React for robust UI development, and Three.js for creative expression." },
-                { id: 'hobbies', keywords: ['fun', 'hobby', 'outside', 'interest'], response: "Outside of his professional life, Asemahle enjoys gaming, sci-fi cinema, and staying abreast of emerging technology trends." },
-                // Deep Language / Vernacular Support (Temporarily Disabled for English Optimization)
-                // { id: 'greeting_xhosa', keywords: ['molo', 'unjani', 'kunjani', 'molweni', 'hallo'], response: "Molo! Ndingakunceda njani namhlanje? (Hello! How can I help you today?)" },
-                // { id: 'thanks_xhosa', keywords: ['enkosi', 'ndiyabulela', 'camagu'], response: "Wamkelekile! (You are welcome!)" },
-                { id: 'deep_thought', keywords: ['meaning', 'life', 'universe', 'deep'], response: "42. However, in the realms of logistics and code, true meaning is derived from connection, efficiency, and optimization." },
-                { id: 'meta_themes', keywords: ['how', 'many', 'themes', 'count'], response: `There are currently ${Object.keys(themes).length} distinct themes installed: Default, Terminal, Logistics Blue, and the hidden Matrix mode.` },
-                { id: 'meta_build', keywords: ['how', 'built', 'stack', 'technology'], response: "This portfolio is built with raw HTML5, CSS3, and Vanilla JavaScript (ES6+). The 3D visuals are powered by Three.js (WebGL)." },
-                { id: 'meta_color', keywords: ['color', 'palette', 'hex'], response: `We are currently in the '${currentBrand.toUpperCase()}' theme. Primary Hex: ${themes[currentBrand].p}, Secondary Hex: ${themes[currentBrand].s}.` },
-                { id: 'data_reverse', keywords: ['reverse', 'name'], response: "ilawkN elhamesA" },
-                { id: 'strategy', keywords: ['billionaire', 'strategy', 'advice', 'bezos', 'musk'], response: "The strategy is to identify pain points in top Midrand logistics companies, target the CTO directly, and offer specific React-based solutions to improve Picking Administration speed." },
-            ];
-
-            // Scoring Logic
-            let bestMatch = null;
-            let highestScore = 0;
-
-            intents.forEach(intent => {
-                let score = 0;
-                intent.keywords.forEach(word => {
-                    // 1. Exact match in words list (High Priority)
-                    if (words.includes(word)) {
-                        score += 3;
-                    } 
-                    // 2. Fuzzy match for typos (Medium Priority)
-                    else {
-                        words.forEach(w => {
-                            if (w.length > 3 && word.length > 3) {
-                                const dist = calculateLevenshtein(w, word);
-                                if (dist <= 1) score += 2; // Very close match (1 char diff)
-                                else if (dist <= 2 && word.length > 5) score += 1; // Close match for longer words
-                            }
-                        });
-                    }
-                    // 3. Phrase match in raw text (Context Priority)
-                    if (text.includes(word) && word.includes(' ')) {
-                        score += 4;
-                    }
-                });
-                if (score > highestScore) {
-                    highestScore = score;
-                    bestMatch = intent;
-                }
-            });
-
-            if (bestMatch && highestScore > 0) {
-                return bestMatch.response;
-            }
-
-            // Basic Math Calculator (e.g. "what is 5 + 5")
-            const math = text.match(/(\d+)\s*([\+\-\*\/])\s*(\d+)/);
-            if (math) {
-                const n1 = parseFloat(math[1]);
-                const op = math[2];
-                const n2 = parseFloat(math[3]);
-                let res = 0;
-                if(op==='+') res = n1+n2;
-                if(op==='-') res = n1-n2;
-                if(op==='*') res = n1*n2;
-                if(op==='/') res = n1/n2;
-                return `That calculates to ${res}. My CPU handles math easily.`;
-            }
-
-            // 19. Strategy & Advice
-            if (text.includes('billionaire') || text.includes('strategy') || text.includes('advice') || text.includes('bezos') || text.includes('musk')) {
-                return "The strategy is to identify pain points in top Midrand logistics companies, target the CTO directly, and offer specific React-based solutions to improve Picking Administration speed.";
-            }
-
-            return null;
-        }
-
-        function nextQuestion() {
-            const terms = ['react', 'redux', 'three.js', 'wms', 'pd', 'sd', 'd3.js', 'frontend', 'backend', 'api', 'supabase', 'docker', 'copilot', 'claude', 'chatgpt', 'gemini', 'lovable', 'v0'];
-            currentQuizTerm = terms[Math.floor(Math.random() * terms.length)];
-            return `What is the term for: ${getDefinition(currentQuizTerm)}?`;
-        }
-        
-        function getDefinition(term) {
-            const defs = {
-                "react": "A JavaScript library for building user interfaces.",
-                "redux": "A library for managing application state.",
-                "three.js": "A library for 3D graphics in the browser.",
-                "wms": "Software to control warehouse operations.",
-                "pd": "Transport from factory to distribution center.",
-                "sd": "Transport from distribution center to customer.",
-                "d3.js": "Library for dynamic data visualizations.",
-                "frontend": "Building the user interface of a website.",
-                "backend": "Server-side logic and databases.",
-                "api": "Protocols for building and integrating software.",
-                "supabase": "Open-source Firebase alternative.",
-                "docker": "Platform for OS-level virtualization to deliver software in containers.",
-                "copilot": "AI tool for autocompleting code.",
-                "claude": "AI assistant by Anthropic.",
-                "chatgpt": "Conversational AI model by OpenAI.",
-                "gemini": "Multimodal large language models by Google.",
-                "lovable": "AI-powered full-stack web development tool.",
-                "v0": "Generative UI system by Vercel."
-            };
-            return defs[term];
-        }
-
-
-        function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            const voices = window.speechSynthesis.getVoices();
-            // Try to find a soft/female voice for a more natural feel
-            const softVoice = voices.find(v => v.name.includes('Google US English') || v.name.includes('Female') || v.name.includes('Samantha'));
-            if (softVoice) utterance.voice = softVoice;
-            utterance.pitch = 1.1; // Slightly higher pitch for softness
-            utterance.rate = 0.95; // Slightly slower for clarity
-            window.speechSynthesis.speak(utterance);
-        }
-
-        // --- ANALYTICS & SESSION TRACKING ---
-        const sessionData = {
-            startTime: Date.now(),
-            visitedProjects: new Set(),
-            entranceTime: new Date().toLocaleTimeString()
-        };
-
-        // Track project clicks
-        document.querySelectorAll('.project-card-container').forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('h3').innerText;
-                sessionData.visitedProjects.add(title);
-            });
-        });
-
-        function getSessionReport() {
-            const durationMinutes = Math.floor((Date.now() - sessionData.startTime) / 60000);
-            const durationSeconds = Math.floor(((Date.now() - sessionData.startTime) % 60000) / 1000);
-            return {
-                duration: `${durationMinutes}m ${durationSeconds}s`,
-                projects: Array.from(sessionData.visitedProjects).join(', ') || 'None viewed'
-            };
-        }
-
-        // --- FORM HANDLING ---
-        const contactForm = document.querySelector('.contact-form');
-        const sendBtn = contactForm.querySelector('button');
-
-        // Initialize EmailJS
-        (function(){
-            // REPLACE WITH YOUR PUBLIC KEY from https://dashboard.emailjs.com/admin/account
-            emailjs.init("wZ2bF3cSKuEfDbcsu");
-        })();
-
-        // --- GATEKEEPER LOGIC ---
-        const unlockBtn = document.getElementById('unlock-btn');
-        const overlay = document.getElementById('gatekeeper-overlay');
-
-        // Check if already unlocked in this session
-        if (sessionStorage.getItem('portfolio_unlocked')) {
-            overlay.style.display = 'none';
-            document.body.classList.remove('locked');
-            // Hide preloader if already unlocked
-            const preloader = document.getElementById('preloader');
-            if(preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }
-        }
-
-        unlockBtn.addEventListener('click', () => {
-            const vName = document.getElementById('visitor_name').value;
-            const vEmail = document.getElementById('visitor_email').value;
-            const vPhone = document.getElementById('visitor_phone').value;
-
-            // Basic Validation
-            if (!vName || !vEmail || !vPhone) {
-                alert("Please provide all details to proceed.");
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(vEmail)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
-
-            unlockBtn.innerText = "Verifying Credentials...";
-            unlockBtn.disabled = true;
-
-            const visitorParams = {
-                from_name: vName,
-                from_email: vEmail,
-                reply_to: vEmail,
-                message: `PORTFOLIO ACCESS GRANTED\n\nVisitor: ${vName}\nEmail: ${vEmail}\nPhone: ${vPhone}\n\n--- AUTO-LOG ---\nArrival: ${sessionData.entranceTime}\nStatus: Access Form Successfully Submitted.`
-            };
-
-            emailjs.send('service_07w6w6d', 'template_dpzjmqc', visitorParams)
-                .then(() => {
-                    sessionStorage.setItem('portfolio_unlocked', 'true');
-                    unlockBtn.innerText = "Access Granted";
-                    unlockBtn.style.background = "#00ff00";
-                    unlockBtn.style.color = "#000";
-
-                    setTimeout(() => {
-                        overlay.style.opacity = '0';
-
-                        // Hide Preloader
-                        const preloader = document.getElementById('preloader');
-                        if(preloader) {
-                            preloader.style.opacity = '0';
-                            setTimeout(() => {
-                                preloader.style.visibility = 'hidden';
-                            }, 500);
-                        }
-
-                        setTimeout(() => {
-                            overlay.style.display = 'none';
-                            document.body.classList.remove('locked');
-                            playSound('click');
-                        }, 500);
-                    }, 800);
-                })
-                .catch((err) => {
-                    console.error("Gatekeeper Error:", err);
-                    alert("System verification failed. Please try again or contact me directly.");
-                    unlockBtn.innerText = "Request Access";
-                    unlockBtn.disabled = false;
-                });
-        });
-
-        sendBtn.addEventListener('click', () => {
-            const name = document.getElementById('from_name').value;
-            const email = document.getElementById('from_email').value;
-            const message = document.getElementById('message').value;
-
-            if(!name || !email || !message) {
-                alert("Please complete all fields before transmitting.");
-                return;
-            }
-
-            const originalText = sendBtn.innerText;
-            sendBtn.innerText = "Transmitting...";
-            sendBtn.disabled = true;
-            
-            const report = getSessionReport();
-            const templateParams = {
-                from_name: name,
-                from_email: email,
-                reply_to: email,
-                message: `${message}\n\n--- RECRUITER INSIGHTS ---\n- Stay Duration: ${report.duration}\n- High-Interest Projects: ${report.projects}`
-            };
-
-            // REPLACE 'template_dpzjmqc' with actual ID from EmailJS dashboard
-            emailjs.send('service_07w6w6d', 'template_dpzjmqc', templateParams)
-                .then(function() {
-                    sendBtn.innerText = "Transmission Sent";
-                    sendBtn.style.background = "var(--primary)";
-                    sendBtn.style.color = "#000";
-                    contactForm.reset();
-                    setTimeout(() => {
-                        sendBtn.innerText = originalText;
-                        sendBtn.disabled = false;
-                        sendBtn.style.background = "";
-                        sendBtn.style.color = "";
-                    }, 3000);
-                }, function(error) {
-                    console.error('FAILED...', error);
-                    sendBtn.innerText = "Transmission Failed";
-                    sendBtn.style.background = "#ff0000";
-                    setTimeout(() => {
-                        sendBtn.innerText = originalText;
-                        sendBtn.disabled = false;
-                        sendBtn.style.background = "";
-                    }, 3000);
-                });
-        });
-
-        // --- BACK TO TOP LOGIC ---
-        const backToTopBtn = document.getElementById('back-to-top');
-        const windTrigger = document.getElementById('wind-trigger');
-        let windActive = false;
-
-        windTrigger.addEventListener('click', () => {
-            windActive = !windActive;
-            windTrigger.classList.toggle('active', windActive);
-
-            const cards = document.querySelectorAll('.wind-affected');
-
-            cards.forEach((card, index) => {
-                if (windActive) {
-                    setTimeout(() => {
-                        card.classList.add('wind-active');
-                    }, index * 50);
-                } else {
-                    card.classList.remove('wind-active');
-                }
-            });
-
-            // Trigger warp speed in Three.js background
-            if (typeof targetSpeed !== 'undefined') {
-                targetSpeed = windActive ? 15.0 : 0.2;
-            }
-
-            if (windActive && typeof playSound === 'function') {
-                playSound('hover');
-            }
-        });
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // --- CHATBOT LOGIC ---
-        const chatBtn = document.getElementById('chatbot-btn');
-        const chatWindow = document.getElementById('chat-window');
-        const closeChat = document.getElementById('close-chat');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-        const chatMessages = document.getElementById('chat-messages');
-
-        chatBtn.addEventListener('click', () => {
-            chatWindow.classList.toggle('open');
-            playSound('click');
-        });
-        closeChat.addEventListener('click', () => chatWindow.classList.remove('open'));
-
-        function addMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = `chat-msg ${sender}`;
-            div.textContent = text;
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function handleChat() {
-            const text = chatInput.value.trim().toLowerCase();
-            if(!text) return;
-            
-            addMessage(chatInput.value, 'user');
-            chatInput.value = '';
-
-            setTimeout(() => {
-                const response = getAIResponse(text) || generateDeepThought();
-                addMessage(response, 'bot');
-            }, 500);
-        }
-
-        chatSend.addEventListener('click', handleChat);
-        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleChat(); });
-
-        // --- HACKER TYPER EFFECT ---
-        const hackerBio = document.getElementById('hacker-bio');
-        hackerBio.addEventListener('click', () => {
-            const originalText = hackerBio.innerText;
-            let iterations = 0;
-            const interval = setInterval(() => {
-                hackerBio.innerText = originalText.split('').map((letter, index) => {
-                    if(index < iterations) return originalText[index];
-                    return String.fromCharCode(65 + Math.random() * 26);
-                }).join('');
-                if(iterations >= originalText.length) clearInterval(interval);
-                iterations += 1; // Faster decoding
-            }, 10);
-        });
-
-        // --- REAL-TIME EMAIL VALIDATION ---
-        const emailInput = document.getElementById('from_email');
-        emailInput.addEventListener('input', () => {
-            const val = emailInput.value;
-            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-            if (isValid) {
-                emailInput.style.borderColor = '#00ff00';
-                emailInput.style.boxShadow = '0 0 10px rgba(0,255,0,0.2)';
-            } else {
-                emailInput.style.borderColor = 'red';
-                emailInput.style.boxShadow = 'none';
-            }
-            if(val === '') emailInput.style.borderColor = 'var(--glass-border)';
-        });
-
-        // --- MUSIC PLAYER ---
-        const playMusicBtn = document.getElementById('play-music-btn');
-        const bgMusic = document.getElementById('bg-music');
-        const musicStatus = playMusicBtn.nextElementSibling.querySelector('span');
-        let isPlaying = false;
-
-        playMusicBtn.addEventListener('click', () => {
-            if(!isPlaying) {
-                bgMusic.volume = 0.3;
-                bgMusic.play().catch(e => { /* Audio play failed */ });
-                playMusicBtn.innerText = "⏸";
-                musicStatus.innerText = "LIVE";
-                musicStatus.style.color = "#00ff00";
-                isPlaying = true;
-            } else {
-                bgMusic.pause();
-                playMusicBtn.innerText = "▶";
-                musicStatus.innerText = "OFFLINE";
-                musicStatus.style.color = "var(--primary)";
-                isPlaying = false;
-            }
-        });
-
-        // --- DRAGGABLE CAREER CARDS ---
-        const draggables = document.querySelectorAll('.career-grid .card');
-        const dragContainer = document.querySelector('.career-grid');
-
-        draggables.forEach(draggable => {
-            draggable.setAttribute('draggable', 'true');
-            draggable.style.cursor = 'grab';
-            
-            draggable.addEventListener('dragstart', () => {
-                draggable.classList.add('dragging');
-            });
-
-            draggable.addEventListener('dragend', () => {
-                draggable.classList.remove('dragging');
-            });
-        });
-
-        dragContainer.addEventListener('dragover', e => {
-            e.preventDefault();
-            const afterElement = getDragAfterElement(dragContainer, e.clientX, e.clientY);
-            const draggable = document.querySelector('.dragging');
-            if (afterElement == null) {
-                dragContainer.appendChild(draggable);
-            } else {
-                dragContainer.insertBefore(draggable, afterElement);
-            }
-        });
-
-        function getDragAfterElement(container, x, y) {
-            const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2; // Simple Y-axis check for grid flow
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
-
-        // --- SKILL FILTERING LOGIC ---
-        const skillTags = document.querySelectorAll('.skill-tag');
-        const projectCards = document.querySelectorAll('.project-grid .project-card-container');
-
-        skillTags.forEach(tag => {
-            tag.style.cursor = 'pointer'; // Make sure it looks clickable
-            tag.addEventListener('click', () => {
-                const isActive = tag.classList.contains('active-filter');
-                
-                // Reset all
-                skillTags.forEach(t => t.classList.remove('active-filter'));
-                
-                if (!isActive) {
-                    tag.classList.add('active-filter');
-                    const filter = tag.textContent.toLowerCase().split(' ')[0]; // e.g. "javascript" from "JavaScript (ES6+)"
-                    
-                    projectCards.forEach(card => {
-                        const tags = card.getAttribute('data-tags');
-                        if (tags && tags.includes(filter)) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                } else {
-                    // Show all
-                    projectCards.forEach(card => card.style.display = 'flex');
-                }
-            });
-        });
-
-        // --- INTERACTION ---
-                // --- Interactive Starburst and Color Ripple on Mouse Click ---
-                function createStarburst(x, y) {
-                    // Convert screen to NDC
-                    const ndcX = (x / window.innerWidth) * 2 - 1;
-                    const ndcY = -(y / window.innerHeight) * 2 + 1;
-                    // Project to 3D world
-                    const vector = new THREE.Vector3(ndcX, ndcY, 0.5).unproject(camera);
-                    const group = new THREE.Group();
-                    for (let i = 0; i < 12; i++) {
-                        const geo = new THREE.CylinderGeometry(0.1, 0.1, 8 + Math.random() * 6, 8);
-                        const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
-                        const mesh = new THREE.Mesh(geo, mat);
-                        mesh.position.copy(vector);
-                        mesh.rotation.z = (i / 12) * Math.PI * 2;
-                        group.add(mesh);
-                    }
-                    scene.add(group);
-                    let t = 0;
-                    function animateBurst() {
-                        t += 0.04;
-                        group.children.forEach((mesh, i) => {
-                            mesh.position.x += Math.cos(mesh.rotation.z) * 1.5;
-                            mesh.position.y += Math.sin(mesh.rotation.z) * 1.5;
-                            mesh.material.opacity *= 0.95;
-                        });
-                        if (t < 1.5) {
-                            requestAnimationFrame(animateBurst);
-                        } else {
-                            scene.remove(group);
-                        }
-                    }
-                    animateBurst();
-                }
-                window.addEventListener('click', e => {
-                    createStarburst(e.clientX, e.clientY);
-                    // --- Color Ripple Effect ---
-                    // Create a transparent expanding ring at the click location
-                    const ndcX = (e.clientX / window.innerWidth) * 2 - 1;
-                    const ndcY = -(e.clientY / window.innerHeight) * 2 + 1;
-                    const world = new THREE.Vector3(ndcX, ndcY, 0.5).unproject(camera);
-                    const rippleGeo = new THREE.RingGeometry(1, 1.5, 48);
-                    // Pick a random color for the ripple
-                    const hue = Math.random();
-                    const color = new THREE.Color().setHSL(hue, 0.7, 0.6);
-                    const rippleMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
-                    const ripple = new THREE.Mesh(rippleGeo, rippleMat);
-                    ripple.position.copy(world);
-                    ripple.lookAt(camera.position);
-                    scene.add(ripple);
-                    let rippleScale = 1;
-                    function animateRipple() {
-                        rippleScale += 0.25;
-                        ripple.scale.set(rippleScale, rippleScale, rippleScale);
-                        ripple.material.opacity *= 0.93;
-                        if (ripple.material.opacity > 0.03) {
-                            requestAnimationFrame(animateRipple);
-                        } else {
-                            scene.remove(ripple);
-                        }
-                    }
-                    animateRipple();
-                });
-        
-        // Mouse Movement (Steering)
-        document.addEventListener('mousemove', (e) => {
-            // Normalize mouse position from -1 to 1
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-        });
-        
-        // Touch Movement (Mobile Steering)
-        document.addEventListener('touchmove', (e) => {
-            if(e.touches.length > 0) {
-                const touch = e.touches[0];
-                mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(touch.clientY / window.innerHeight) * 2 + 1;
-            }
-        }, { passive: true });
-
-        // Warp Button
-        const warpBtn = document.getElementById('warpBtn');
-        warpBtn.addEventListener('click', () => {
-            if(targetSpeed === STAR_SPEED_BASE) {
-                targetSpeed = STAR_SPEED_WARP;
-                warpBtn.innerText = "Disengage Warp";
-                warpBtn.style.background = "var(--primary)";
-                warpBtn.style.color = "#000";
-            } else {
-                targetSpeed = STAR_SPEED_BASE;
-                warpBtn.innerText = "Engage Warp Speed";
-                warpBtn.style.background = "rgba(0, 242, 255, 0.1)";
-                warpBtn.style.color = "var(--primary)";
-            }
-        });
-
-        // Resize Handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // --- ANIMATION LOOP ---
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Matrix Rain Overlay
-            if (currentBrand === 'matrix') {
-                drawMatrixRain();
-            }
-            
-            // 1. Smoothly interpolate speed
-            speed += (targetSpeed - speed) * 0.05;
-
-            // Dynamic FOV Warp Effect
-            const targetFOV = (targetSpeed > 1) ? 100 : 60;
-            camera.fov += (targetFOV - camera.fov) * 0.05;
-            camera.updateProjectionMatrix();
-
-            // 2. Move Stars
-            const positions = starGeo.attributes.position.array;
-            
-            // Calculate lateral movement based on mouse (Steering)
-            // Allows user to "navigate" through the field
-            const strafeX = -mouseX * speed * 0.5; 
-            const strafeY = mouseY * speed * 0.5; 
-            
-            for(let i = 0; i < STAR_COUNT; i++) {
-                if (currentBrand === 'matrix') {
-                    // Matrix downward movement
-                    positions[i * 3 + 1] -= speed * 2; 
-                    
-                    // Reset if below bottom
-                    if(positions[i * 3 + 1] < -200) {
-                        positions[i * 3 + 1] = 200;
-                        positions[i * 3] = (Math.random() - 0.5) * 400;
-                        positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
-                    }
-                } else {
-                    // Standard Warp: Move Z towards camera
-                    positions[i * 3 + 2] += speed;
-                    
-                    // Apply Steering (Navigate)
-                    positions[i * 3] += strafeX;
-                    positions[i * 3 + 1] += strafeY;
-    
-                    // Reset if behind camera
-                    if(positions[i * 3 + 2] > 200) {
-                        positions[i * 3 + 2] = -400; // Send far back (Infinite Loop)
-                        positions[i * 3] = (Math.random() - 0.5) * 400;
-                        positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
-                    }
-
-                    // Wrap X (Infinite field sideways)
-                    if(positions[i * 3] > 200) positions[i * 3] -= 400;
-                    if(positions[i * 3] < -200) positions[i * 3] += 400;
-
-                    // Wrap Y
-                    if(positions[i * 3 + 1] > 200) positions[i * 3 + 1] -= 400;
-                    if(positions[i * 3 + 1] < -200) positions[i * 3 + 1] += 400;
-                }
-            }
-            starGeo.attributes.position.needsUpdate = true;
-
-            // 3. Camera "Steering" (Parallax)
-            // We rotate the star system slightly based on mouse
-            // Smoothly interpolate rotation
-            stars.rotation.x += (mouseY * 0.1 - stars.rotation.x) * 0.05;
-            stars.rotation.y += (mouseX * 0.1 - stars.rotation.y) * 0.05;
-
-
-            // 4. Shapes Parallax & Animation (Playful Layer)
-            // Rotate the whole group faster than stars to create depth (Parallax)
-            shapesGroup.rotation.x += (mouseY * 0.25 - shapesGroup.rotation.x) * 0.05;
-            shapesGroup.rotation.y += (mouseX * 0.25 - shapesGroup.rotation.y) * 0.05;
-            // Individual shape float/tumble
-            const time = Date.now();
-            shapesGroup.children.forEach(mesh => {
-                mesh.rotation.x += mesh.userData.rsX;
-                mesh.rotation.y += mesh.userData.rsY;
-                mesh.position.y = mesh.userData.y0 + Math.sin(time * mesh.userData.speed) * 2;
-            });
-
-            // --- Animate Floating Text Particles ---
-            for (let i = 0; i < textParticles.length; i++) {
-                const mesh = textParticles[i];
-                mesh.position.x += mesh.userData.vx;
-                mesh.position.y += mesh.userData.vy;
-                mesh.position.z += mesh.userData.vz;
-                mesh.material.opacity *= mesh.userData.fade;
-                if (mesh.material.opacity < 0.08 && systemFont) {
-                    // Reset to a new word and position
-                    const word = textParticleWords[Math.floor(Math.random() * textParticleWords.length)];
-                    mesh.geometry.dispose();
-                    mesh.geometry = new TextGeometry(word, {
-                        font: systemFont, // Use global font reference
-                        size: 3 + Math.random() * 2,
-                        height: 0.5,
-                        curveSegments: 6,
-                    });
-                    mesh.material.color.setHSL(Math.random(), 0.7, 0.6);
-                    mesh.material.opacity = 0.7;
-                    mesh.position.set(
-                        (Math.random() - 0.5) * 180,
-                        (Math.random() - 0.5) * 100,
-                        -80 + Math.random() * 160
-                    );
-                    mesh.userData.vx = (Math.random() - 0.5) * 0.08;
-                    mesh.userData.vy = (Math.random() - 0.5) * 0.04;
-                    mesh.userData.vz = (Math.random() - 0.5) * 0.04;
-                    mesh.userData.fade = 0.995 + Math.random() * 0.003;
-                }
-            }
-
-            // Add a constant slow rotation for dynamism
-            stars.rotation.z += (targetSpeed > 1) ? 0.005 : 0.001;
-
-            // 4. Planet Animation & Parallax
-            planet.rotation.y += 0.002;
-            planet.rotation.z += 0.001;
-            // Move planet up as user scrolls down
-            planet.position.y = -10 + (scrollY * 0.03);
-
-            // 5. Camera Banking (Scroll Effect)
-            camera.rotation.z = -scrollY * 0.0002;
-            
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // SYSTEM READY. Hint: The Konami Code unlocks the Matrix.
-
-        // --- DAY/NIGHT CYCLE ---
-        const hour = new Date().getHours();
-        if (hour >= 6 && hour < 18) {
-            isDarkMode = false;
-            document.getElementById('mode-toggle').innerText = '☾';
-            applyTheme();
-        }
-    </script>
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

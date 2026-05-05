@@ -31,6 +31,7 @@ let isDarkMode = true;
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
+    emailjs.init("wZ2bF3cSKuEfDbcsu"); // Initialize with your key
     initTheme();
     initCursor();
     initScrollReveal();
@@ -768,14 +769,33 @@ function initForms() {
     btn.addEventListener('click', () => {
         const name = document.getElementById('from_name').value;
         const email = document.getElementById('from_email').value;
-        if(!name || !email) return alert("Please fill in required fields.");
-        btn.innerText = "Transmitting..."; btn.disabled = true;
-        // Mock email send for demonstration
-        setTimeout(() => {
-            btn.innerText = "Transmission Sent";
-            form.reset();
-            setTimeout(() => { btn.innerText = "Send Transmission"; btn.disabled = false; }, 2000);
-        }, 1500);
+        const message = document.getElementById('message').value;
+
+        if(!name || !email || !message) return alert("Please fill in required fields.");
+
+        btn.innerText = "Transmitting...";
+        btn.disabled = true;
+
+        const duration = Math.floor((Date.now() - sessionData.startTime) / 1000);
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            reply_to: email,
+            message: `${message}\n\n--- RECRUITER INSIGHTS ---\n- Session Duration: ${duration}s\n- Click Path: ${sessionData.clicks.map(c => c.text).join(' -> ')}`
+        };
+
+        emailjs.send('service_07w6w6d', 'template_dpzjmqc', templateParams)
+            .then(() => {
+                btn.innerText = "Transmission Sent";
+                form.reset();
+                setTimeout(() => { btn.innerText = "Send Transmission"; btn.disabled = false; }, 3000);
+            })
+            .catch((err) => {
+                console.error("EmailJS Error:", err);
+                btn.innerText = "Transmission Failed";
+                btn.style.background = "#ff0000";
+                setTimeout(() => { btn.innerText = "Send Transmission"; btn.disabled = false; btn.style.background = ""; }, 3000);
+            });
     });
 }
 

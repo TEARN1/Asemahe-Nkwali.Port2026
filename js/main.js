@@ -52,7 +52,97 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollProgress();
     initExpTimer();
     initProjectFilters();
+    initAnalytics();
 });
+
+// --- ADVANCED ANALYTICS ENGINE ---
+// NOTE: To enable persistent database logging, initialize Supabase below.
+// Tables required:
+// 1. analytics_sessions (id, started_at, ended_at, duration, user_agent, clicks_count)
+// 2. analytics_events (session_id, event_type, target_text, timestamp)
+
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = (typeof createClient !== 'undefined') ? createClient(supabaseUrl, supabaseKey) : null;
+
+const sessionData = {
+    id: crypto.randomUUID(),
+    startTime: Date.now(),
+    clicks: [],
+    path: [window.location.pathname],
+    isSent: false
+};
+
+function initAnalytics() {
+    // 1. Track Clicks
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('button, a, .card, .skill-tag');
+        if (target) {
+            const event = {
+                type: 'click',
+                text: target.innerText?.trim() || target.getAttribute('aria-label') || target.id,
+                time: new Date().toISOString()
+            };
+            sessionData.clicks.push(event);
+            if (supabase) supabase.from('analytics_events').insert([{ session_id: sessionData.id, ...event }]);
+        }
+    });
+
+    // 2. Track Mode Switches
+    const slider = document.getElementById('focus-slider');
+    if (slider) {
+        slider.addEventListener('change', () => {
+            const mode = slider.checked ? 'TECH' : 'LOGISTICS';
+            sessionData.clicks.push({ type: 'mode_switch', text: mode, time: new Date().toISOString() });
+        });
+    }
+
+    // 3. Auto-Log Session Start
+    if (supabase) {
+        supabase.from('analytics_sessions').insert([{
+            id: sessionData.id,
+            started_at: new Date(sessionData.startTime).toISOString(),
+            user_agent: navigator.userAgent
+        }]);
+    }
+
+    // 4. Send Report on Exit (Reliable visibility change)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden' && !sessionData.isSent) {
+            sendFinalReport();
+        }
+    });
+}
+
+function sendFinalReport() {
+    sessionData.isSent = true;
+    const duration = Math.floor((Date.now() - sessionData.startTime) / 1000);
+    const clickSummary = sessionData.clicks.map(c => `[${c.type}] ${c.text}`).join(' -> ');
+
+    const reportParams = {
+        session_id: sessionData.id,
+        duration: `${duration} seconds`,
+        interactions: sessionData.clicks.length,
+        click_path: clickSummary || 'No interactions',
+        user_agent: navigator.userAgent,
+        to_email: 'asemahlenkwali@gmail.com' // Send to you
+    };
+
+    // 1. Update Supabase
+    if (supabase) {
+        supabase.from('analytics_sessions').update({
+            ended_at: new Date().toISOString(),
+            duration: duration,
+            clicks_count: sessionData.clicks.length
+        }).eq('id', sessionData.id);
+    }
+
+    // 2. Send Email Insight via EmailJS
+    // Note: This relies on an EmailJS template 'session_report' existing
+    emailjs.send('service_07w6w6d', 'template_session_report', reportParams)
+        .then(() => console.log('Analytics: Insight transmitted successfully.'))
+        .catch(err => console.warn('Analytics: Transmission deferred.'));
+}
 
 // --- PROJECT FILTERS ---
 function initProjectFilters() {
